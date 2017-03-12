@@ -1,0 +1,7 @@
+{
+    "extends": "xo",
+  "rules": {
+    "indent": "off",
+    "linebreak-style": "off"
+  }
+}
