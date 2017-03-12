@@ -4,14 +4,13 @@ var image = require('./models/image.js');
 var result = require('./models/result.js');
 var quest = require('./models/quest.js');
 
-
 quest.sync({force: true})
     .then(function () {
         console.log('Create Quests');
         quest.create({
-            name: "Вечерняя прогулка",
+            name: 'Вечерняя прогулка',
             authorId: 0,
-            description: "Квест о вечерней прогулке в центре города"
+            description: 'Квест о вечерней прогулке в центре города'
         }).catch(function (err) {
                 console.log(err);
             }
@@ -21,7 +20,6 @@ quest.sync({force: true})
         console.log('dont create Quests');
         console.log(err);
     });
-
 
 result.sync({force: true})
     .then(function () {
@@ -47,7 +45,7 @@ image.sync({force: true})
     .then(function () {
         console.log('Create Images');
         image.create({
-            path: "http://res.cloudinary.com/photoquestteam2/image/upload/v1489312400/sjwmqil61rxdyqx4skhf.png",
+            path: 'http://res.cloudinary.com/photoquestteam2/image/upload/v1489312400/sjwmqil61rxdyqx4skhf.png',
             answer: {
                 latitude: 123123.123123123,
                 longitude: 1212.121212
