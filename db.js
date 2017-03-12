@@ -26,7 +26,7 @@ var Users = sequelize.define('Users', {
 });
 */
 
-exports.Quests = sequelize.define('Quests', {
+var Quests = sequelize.define('Quests', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -47,7 +47,7 @@ exports.Quests = sequelize.define('Quests', {
     }
 });
 
-exports.Images = sequelize.define('Images', {
+var Images = sequelize.define('Images', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -64,7 +64,7 @@ exports.Images = sequelize.define('Images', {
     }
 });
 
-exports.Results = sequelize.define('Results', {
+var Results = sequelize.define('Results', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -91,16 +91,17 @@ exports.Results = sequelize.define('Results', {
 
 Quests.sync({force: true})
     .then(function () {
-        console.log('Create Quests')
+        console.log('Create Quests');
     })
     .catch(function (err) {
-        console.log('dont create Quests')
+        console.log('dont create Quests');
+        console.log(err);
     });
 
 
 Results.sync({force: true})
     .then(function () {
-        console.log('Create Results')
+        console.log('Create Results');
     })
     .catch(function (err) {
         console.log('dont create Results');
@@ -115,3 +116,7 @@ Images.sync({force: true})
         console.log('dont create Images');
         console.log(err);
     });
+
+exports.Results = Results;
+exports.Images = Results;
+exports.Users = Results;
