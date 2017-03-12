@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const hbs = require('hbs');
 const morgan = require('morgan');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.set('views', viewsDir);
 hbs.registerPartials(partialsDir);
 
 app.use(morgan('dev'));
+app.use(fileUpload());
 
 if (process.env.NODE_ENV === 'local') {
     app.use(express.static(publicDir));
