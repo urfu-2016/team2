@@ -4,7 +4,7 @@ const pages = require('./controllers/pages');
 const quests = require('./controllers/quests');
 const comments = require('./controllers/comments');
 const images = require('./controllers/images');
-const account = require('./controllers/images');
+const account = require('./controllers/account');
 
 module.exports = function (app) {
     app.get('/', quests.list);
@@ -49,9 +49,9 @@ module.exports = function (app) {
         .post(account.register);
 
     app
-        .route('/manage/:id')
+        .route('/users/:id')
         .get(account.management)
-        .put(account.manage);
+        .put(account.user);
 
     app.all('*', pages.error404);
 };
