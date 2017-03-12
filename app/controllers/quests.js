@@ -47,4 +47,10 @@ exports.delete = (req, res) => {
     const quest = Quest.find(questId);*/
 }
 
+exports.like = (req, res) => {
 
+}
+
+exports.unlike = (req, res) => {
+
+}
