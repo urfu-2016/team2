@@ -1,3 +1,7 @@
+/* eslint camelcase: 0 */
+/* eslint func-names: 0 */
+/* eslint arrow-parens: 0 */
+
 var cloudinary = require('cloudinary');
 var fs = require('fs');
 
@@ -15,16 +19,13 @@ module.exports = function upload(file, callback) {
         }
 
         cloudinary.uploader.upload('temp', (result, err) => {
-            if (err)
-            {
+            if (err) {
                 callback(null, err);
-            }
-            else if ('error' in result) {
+            } else if ('error' in result) {
                 callback(null, result.error);
-            }
-            else {
+            } else {
                 callback(result.url);
             }
-        })
-    })
-}
+        });
+    });
+};
