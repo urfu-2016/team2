@@ -1,6 +1,6 @@
 'use strict';
 
-const Quest = require('../models/Quest');
+/*const Quest = require('../models/Quest');*/
 
 // поулчить форму для реактирования
 exports.management = (req, res) => {

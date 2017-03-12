@@ -1,6 +1,6 @@
 'use strict';
 
-const Quest = require('../models/Quest');
+/*const Quest = require('../models/Quest');*/
 
 // q/:id/com -> add           ???здесь ли
 exports.create = (req, res) => {

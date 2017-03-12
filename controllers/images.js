@@ -1,6 +1,6 @@
 'use strict';
 
-const Quest = require('../models/Quest');
+/*const Quest = require('../models/Quest');*/
 
 exports.create = (req, res) => {
 /*    const image = new Quest({
