@@ -1,6 +1,6 @@
 'use strict';
 
-/*const Quest = require('../models/Quest');*/
+const Image = require('../models/image');
 
 exports.create = (req, res) => {
 /*    const image = new Quest({
@@ -17,8 +17,8 @@ exports.create = (req, res) => {
 
 exports.update = (req, res) => {
 
-}
+};
 
 exports.delete = (req, res) => {
 
-}
+};
