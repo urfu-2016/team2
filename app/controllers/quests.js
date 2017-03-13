@@ -1,6 +1,6 @@
 'use strict';
 
-// const Quest = require('../models/quest');
+const Quest = require('../models/quest');
 
 exports.create = (req, res) => {
     /* eslint no-unused-vars: 0 */
@@ -18,11 +18,10 @@ exports.create = (req, res) => {
 };
 
 exports.list = (req, res) => {
-    /* eslint no-unused-vars: 0 */
-    /* const quests = Quest.findAll();
-    const data = Object.assign({quests: quests}, res.locals);
-
-    res.render('quests', data); */
+    Quest.findAll()
+        .then(quests => {
+            res.render('../views/quests/list.hbs', {quests: quests});
+        });
 };
 
 exports.get = (req, res) => {
