@@ -14,17 +14,15 @@ cloudinary.config({
 module.exports = function upload(file, callback) {
     fs.writeFile('temp', file, (err) => {
         if (err) {
-            callback(null, err);
+            callback(err);
             return;
         }
 
-        cloudinary.uploader.upload('temp', (result, err) => {
-            if (err) {
-                callback(null, err);
-            } else if ('error' in result) {
-                callback(null, result.error);
+        cloudinary.uploader.upload('temp', (result) => {
+            if ('error' in result) {
+                callback(result.error);
             } else {
-                callback(result.url);
+                callback(null, result.url);
             }
         });
     });

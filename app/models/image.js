@@ -15,5 +15,9 @@ module.exports = db.sequelize.define('Image', {
     answer: {
         type: Sequelize.JSON,
         allowNull: false
+    },
+    questId: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false
     }
 });

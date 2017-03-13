@@ -36,7 +36,8 @@ module.exports = function (app) {
 
     app
         .route('/quests/:id/images')
-        .post(images.create);
+        .post(images.create)
+        .get(images.createPage);
 
     app
         .route('/quests/:questId/images/:id')
