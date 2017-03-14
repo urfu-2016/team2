@@ -19,6 +19,7 @@ module.exports = function upload(file, callback) {
         }
 
         cloudinary.uploader.upload('temp', (result) => {
+            console.log('upl');
             if ('error' in result) {
                 callback(result.error);
             } else {

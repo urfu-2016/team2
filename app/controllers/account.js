@@ -2,6 +2,11 @@
 
 // const Quest = require('../models/Quest');
 
+/**
+ * Добавить нового пользователя
+ * @param req
+ * @param res
+ */
 exports.register = (req, res) => {
     /* eslint no-unused-vars: 0 */
     /* const user = new Quest({
@@ -16,18 +21,31 @@ exports.register = (req, res) => {
     res.redirect(302, '/registration'); */
 };
 
-// получить форму регистрации
+/**
+ * Получить форму регистрации
+ * @param req
+ * @param res
+ */
 exports.registration = (req, res) => {
     /* eslint no-unused-vars: 0 */
 
 };
 
+/**
+ * Страница управления аккаунтом
+ * @param req
+ * @param res
+ */
 exports.management = (req, res) => {
     /* eslint no-unused-vars: 0 */
 
 };
 
-// обновить инфу о пользователе
+/**
+ * Обновление информации о пользователе
+ * @param req
+ * @param res
+ */
 exports.user = (req, res) => {
     /* eslint no-unused-vars: 0 */
 

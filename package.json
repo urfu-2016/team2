@@ -14,7 +14,9 @@
     "sequelize": "^3.30.2"
   },
   "devDependencies": {
-    "eslint": "^3.17.1"
+    "eslint": "^3.17.1",
+    "mocha": "3.2.0",
+    "supertest": "3.0.0"
   },
   "eslintConfig": {
     "extends": "xo",
@@ -24,6 +26,7 @@
     }
   },
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "eslint . && mocha **/controllers/*.spec.js **/models/*.spec.js"
   }
 }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Поиск</title>
+</head>
+<body>
+<h1>Поиск по запросу: {{pattern}}</h1>
+{{#if quests}}
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>AuthorId</th>
+            <th>Description</th>
+        </thead>
+        <tbody>
+        {{#quests}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{authorId}}</td>
+                <td>{{description}}</td>
+            </tr>
+        {{/quests}}
+        </tbody>
+    </table>
+{{else}}
+    <p>Ничего не найдено</p>
+{{/if}}
+</body>
+</html>
