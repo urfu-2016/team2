@@ -28,7 +28,7 @@ exports.get = (req, res) => {
     Quest.findById(req.params.id)
         .then(quest => {
             if (quest) {
-                res.render('../views/quests/get.hbs', {quest: quest});
+                res.render('../views/quests/get.hbs', quest.dataValues);
             } else {
                 res.sendStatus(404);
             }
