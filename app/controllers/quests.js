@@ -25,16 +25,14 @@ exports.list = (req, res) => {
 };
 
 exports.get = (req, res) => {
-    /* eslint no-unused-vars: 0 */
-    /* const questId = req.params.questId;
-    const quest = Quest.find(questId);
-    const data = Object.assign({quest: quest}, res.locals);
-
-    if (quest) {
-        res.render('quest', data);
-    } else {
-        res.sendStatus(404);
-    } */
+    Quest.findById(req.params.id)
+        .then(quest => {
+            if (quest) {
+                res.render('../views/quests/get.hbs', {quest: quest});
+            } else {
+                res.sendStatus(404);
+            }
+        });
 };
 
 exports.update = (req, res) => {
