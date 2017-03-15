@@ -49,11 +49,11 @@ exports.get = (req, res) => {
                 if (quest) {
                     res.render('../views/quests/get.hbs', quest.dataValues);
                 } else {
-                    res.render('../views/pages/notFound.hbs');
+                    res.status(404).send('<p>Страницы не существует</p>');
                 }
             });
     } else {
-        res.render('../views/pages/notFound.hbs');
+        res.status(404).send('<p>Страницы не существует</p>');
     }
 };
 

@@ -6,5 +6,5 @@
  * @param res
  */
 exports.error404 = (req, res) => {
-    res.render('../views/pages/notFound');
+    res.status(404).send('<p>Страницы не существует</p>');
 };
