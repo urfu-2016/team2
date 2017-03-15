@@ -11,7 +11,7 @@ const account = require('./controllers/account');
  * @param app
  */
 module.exports = function (app) {
-    app.get('/', quests.list);
+    app.get('/', pages.main);
 
     app
         .route('/quests')
@@ -51,6 +51,15 @@ module.exports = function (app) {
     app
         .route('/quests/search/:pattern')
         .get(quests.search);
+
+    app
+        .route('/quests/myQuests')
+        .get(quests.usersQuests);
+
+    app
+        .route('/login')
+        .get(account.signIn)
+        .post(account.authorize);
 
     app
         .route('/registration')
