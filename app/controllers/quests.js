@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const Quest = require('../models/quest');
 const numberPattern = /\d+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
@@ -49,11 +51,15 @@ exports.get = (req, res) => {
                 if (quest) {
                     res.render('../views/quests/get.hbs', quest.dataValues);
                 } else {
-                    res.status(404).send('<p>Страницы не существует</p>');
+                    res
+                        .status(404)
+                        .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
                 }
             });
     } else {
-        res.status(404).send('<p>Страницы не существует</p>');
+        res
+            .status(404)
+            .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
     }
 };
 
