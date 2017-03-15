@@ -6,6 +6,10 @@ const comments = require('./controllers/comments');
 const images = require('./controllers/images');
 const account = require('./controllers/account');
 
+/**
+ * Описание маршрутов приложения
+ * @param app
+ */
 module.exports = function (app) {
     app.get('/', quests.list);
 
@@ -43,6 +47,10 @@ module.exports = function (app) {
         .route('/quests/:questId/images/:id')
         .put(images.update)
         .delete(images.delete);
+
+    app
+        .route('/quests/search/:pattern')
+        .get(quests.search);
 
     app
         .route('/registration')
