@@ -5,6 +5,7 @@ const quests = require('./controllers/quests');
 const comments = require('./controllers/comments');
 const images = require('./controllers/images');
 const account = require('./controllers/account');
+const statistics = require('./controllers/statistics');
 
 /**
  * Описание маршрутов приложения
@@ -70,6 +71,10 @@ module.exports = function (app) {
         .route('/users/:id')
         .get(account.management)
         .put(account.user);
+
+    app
+        .route('/statistics')
+        .get(statistics.getStatistics);
 
     app.all('*', pages.error404);
 };

@@ -29,6 +29,7 @@
   },
   "scripts": {
     "lint": "eslint ./app/**.js && stylelint ./app/**.css --allow-empty-input",
-    "test": "npm run lint && mocha **/controllers/*.spec.js **/models/*.spec.js"
+    "test": "npm run lint && mocha **/controllers/*.spec.js **/models/*.spec.js",
+    "createTables": "node app/createDefault"
   }
 }

@@ -28,6 +28,8 @@ if (process.env.NODE_ENV === 'local') {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+app.use(require('./middlewares/review'));
+
 app.use((err, req, res, next) => {
     /* eslint no-unused-vars: 0 */
     /* eslint max-params: [2, 4] */
