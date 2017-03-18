@@ -3,7 +3,7 @@
 const path = require('path');
 
 const Quest = require('../models/quest');
-const numberPattern = /\d+/g;
+const notNumberPattern = /[^\d]+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
 
@@ -45,7 +45,11 @@ exports.list = (req, res) => {
  * @param res
  */
 exports.get = (req, res) => {
-    if (numberPattern.test(req.params.id)) {
+    if (req.params.id.match(notNumberPattern)) {
+        res
+            .status(404)
+            .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+    } else {
         Quest.findById(req.params.id)
             .then(quest => {
                 if (quest) {
@@ -56,11 +60,17 @@ exports.get = (req, res) => {
                         .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
                 }
             });
-    } else {
-        res
-            .status(404)
-            .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
     }
+};
+
+/**
+ * Получает квесты текущего пользователя
+ * @param req
+ * @param res
+ */
+exports.usersQuests = (req, res) => {
+    /* eslint no-unused-vars: 0 */
+    // Рендерит ../views/quests/list.hbs после соответствующей выборки
 };
 
 /**

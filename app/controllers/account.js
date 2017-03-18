@@ -1,6 +1,25 @@
 'use strict';
 
+const path = require('path');
 // const Quest = require('../models/Quest');
+
+/**
+ * Получить форму авторизации
+ * @param req
+ * @param res
+ */
+exports.signIn = (req, res) => {
+    res.sendFile(path.join(__dirname, '../views/account/signIn.html'));
+};
+
+/**
+ * Авторизация пользователя
+ * @param req
+ * @param res
+ */
+exports.authorize = (req, res) => {
+    res.redirect('/quests');
+};
 
 /**
  * Добавить нового пользователя
