@@ -28,7 +28,7 @@
     }
   },
   "scripts": {
-    "lint": "eslint *.js **/*.js && stylelint *.css **/*.css",
-    "test": "eslint . && mocha **/controllers/*.spec.js **/models/*.spec.js"
+    "lint": "eslint ./app/**.js && stylelint ./app/**.css --allow-empty-input",
+    "test": "npm run lint && mocha **/controllers/*.spec.js **/models/*.spec.js"
   }
 }
