@@ -20,13 +20,6 @@
     "mocha": "3.2.0",
     "supertest": "3.0.0"
   },
-  "eslintConfig": {
-    "extends": "xo",
-    "env": {
-      "es6": true,
-      "node": true
-    }
-  },
   "scripts": {
     "lint": "eslint ./app/**.js && stylelint ./app/**.css --allow-empty-input",
     "test": "npm run lint && mocha **/controllers/*.spec.js **/models/*.spec.js",
