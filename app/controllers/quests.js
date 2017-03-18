@@ -3,7 +3,7 @@
 const path = require('path');
 
 const Quest = require('../models/quest');
-const notNumberPattern = /[^\d]+/g;
+const notNumberPattern = /[\D]+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
 
@@ -13,18 +13,12 @@ const underline = /_/g;
  * @param res
  */
 exports.create = (req, res) => {
-    /* eslint no-unused-vars: 0 */
-    /* const quest = new Quest({
+    Quest.create({
         name: req.body.name,
-        description: req.body.description,
-        author: req.body.author,
-        questId: req.body.questId
+        description: req.body.description
+        // authorId: получить текущего пользователя
     });
-
-    quest.save();
-
-    // Не позволяем отправлять форму дважды
-    res.redirect(302, '/quests'); */
+    res.redirect(302, '/quests');
 };
 
 /**
@@ -46,20 +40,17 @@ exports.list = (req, res) => {
  */
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
-        res
-            .status(404)
+        res.status(404)
             .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
     } else {
-        Quest.findById(req.params.id)
-            .then(quest => {
-                if (quest) {
-                    res.render('../views/quests/get.hbs', quest.dataValues);
-                } else {
-                    res
-                        .status(404)
-                        .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
-                }
-            });
+        Quest.findById(req.params.id).then(quest => {
+            if (quest) {
+                res.render('../views/quests/get.hbs', quest.dataValues);
+            } else {
+                res.status(404)
+                    .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+            }
+        });
     }
 };
 

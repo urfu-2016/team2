@@ -27,6 +27,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "eslint . && mocha **/controllers/*.spec.js **/models/*.spec.js"
+    "test": "eslint . && mocha **/controllers/*.spec.js **/models/*.spec.js",
+    "createTables": "node app/createDefault"
   }
 }
