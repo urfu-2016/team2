@@ -4,7 +4,7 @@ const Image = require('../models/image');
 const upload = require('../../fileUploader.js');
 
 exports.create = (req, res) => {
-    var file = req.files.image;
+    const file = req.files.image;
     if (!file) {
         res.send('file doesnt exists');
         return;
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
             res.send('error: ' + JSON.stringify(err));
             return;
         }
-        var image = {
+        const image = {
             path: ans,
             answer: {
                 latitude: 3.123123123,

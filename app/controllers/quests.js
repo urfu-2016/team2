@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 exports.list = (req, res) => {
     Quest.findAll()
         .then(quests => {
-            res.render('../views/quests/list.hbs', {quests: quests});
+            res.render('../views/quests/list.hbs', {quests});
         });
 };
 
@@ -78,7 +78,7 @@ exports.search = (req, res) => {
         }
     }).then(quests => {
         res.render('../views/quests/search.hbs', {
-            quests: quests,
+            quests,
             pattern: pattern.replace(underline, ' ')
         });
     });

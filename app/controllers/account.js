@@ -26,7 +26,7 @@ exports.authorize = (req, res) => {
  * @param req
  * @param res
  */
-exports.register = (req, res) => {
+exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     /* const user = new Quest({
         name: req.body.name,
         password: req.body.password,

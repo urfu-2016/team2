@@ -38,10 +38,10 @@ exports.getStatistics = (req, res) => {
                         }
                     }).then(reviewsToday => {
                         res.render('../views/statistics/get.hbs', {
-                            visits: visits,
-                            visitsToday: visitsToday,
-                            reviews: reviews,
-                            reviewsToday: reviewsToday
+                            visits,
+                            visitsToday,
+                            reviews,
+                            reviewsToday
                         });
                     });
                 });
