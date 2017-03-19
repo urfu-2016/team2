@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
         }
     });
     Review.create({
-        dateTime: dateTime,
+        dateTime,
         ipAddress: req.ip,
         userAgent: req.headers['user-agent'],
         isVisit: !previousReview

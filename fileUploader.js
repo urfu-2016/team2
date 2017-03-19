@@ -2,8 +2,8 @@
 /* eslint func-names: 0 */
 /* eslint arrow-parens: 0 */
 
-var cloudinary = require('cloudinary');
-var fs = require('fs');
+const cloudinary = require('cloudinary');
+const fs = require('fs');
 
 cloudinary.config({
     cloud_name: 'photoquestteam2',

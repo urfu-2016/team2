@@ -13,7 +13,7 @@ handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'u
  * @param req
  * @param res
  */
-exports.createPage = (req, res) => {
+exports.createPage = (req, res) => { // eslint-disable-line no-unused-vars
     res.render('../views/comments/create.hbs');
 };
 
@@ -22,8 +22,7 @@ exports.createPage = (req, res) => {
  * @param req
  * @param res
  */
-exports.create = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.create = (req, res) => { // eslint-disable-line no-unused-vars
     /* const comment = new Quest({
         questId: req.body.questId,
         userId: req.body.userId,
@@ -42,8 +41,8 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.update = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
 
 /**
@@ -51,6 +50,6 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.delete = (req, res) => { // eslint-disable-line no-unused-vars
+
 };

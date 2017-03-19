@@ -30,8 +30,7 @@ exports.authorize = (req, res) => {
  * @param req
  * @param res
  */
-exports.register = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     /* const user = new Quest({
         name: req.body.name,
         password: req.body.password,
@@ -49,7 +48,7 @@ exports.register = (req, res) => {
  * @param req
  * @param res
  */
-exports.registration = (req, res) => {
+exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
     res.render('../views/account/registration.hbs');
 };
 
@@ -58,7 +57,7 @@ exports.registration = (req, res) => {
  * @param req
  * @param res
  */
-exports.management = (req, res) => {
+exports.management = (req, res) => { // eslint-disable-line no-unused-vars
     res.render('../views/account/management.hbs');
 };
 
@@ -67,6 +66,6 @@ exports.management = (req, res) => {
  * @param req
  * @param res
  */
-exports.user = (req, res) => {
+exports.user = (req, res) => { // eslint-disable-line no-unused-vars
     /* eslint no-unused-vars: 0 */
 };
