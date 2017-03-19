@@ -1,8 +1,14 @@
 'use strict';
 
-/* eslint no-unused-vars: 0 */
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
+
 const Image = require('../models/image');
 const upload = require('../../fileUploader.js');
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 exports.create = (req, res) => {
     /* eslint no-unused-vars: 0 */

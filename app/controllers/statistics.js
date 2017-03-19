@@ -1,6 +1,13 @@
 'use strict';
 
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
 const Review = require('../models/review');
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
+
 
 /**
  * Получает страницу со статистикой
@@ -9,7 +16,7 @@ const Review = require('../models/review');
  */
 exports.getStatistics = (req, res) => {
     // Требует определённых прав.
-    // Если их нет, res.sendFile(path.join(__dirname, '../views/pages/forbidden.html');
+    // Если их нет, res.render('../views/pages/forbidden.hbs');
     let today = new Date();
     today = new Date(
         today.getYear(),

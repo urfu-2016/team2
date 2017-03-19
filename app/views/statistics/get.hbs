@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <title>Статистика</title>
-</head>
-<body>
-    <table>
-        <thead>
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Статистика</title>
+    {{/content}}
+    {{#content "body"}}
+        <table>
+            <thead>
             <tr>
                 <th></th>
                 <th>Всего</th>
                 <th>Сегодня</th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             <tr>
                 <td>Визиты</td>
                 <td>{{visits}}</td>
@@ -24,7 +22,7 @@
                 <td>{{reviews}}</td>
                 <td>{{reviewsToday}}</td>
             </tr>
-        </tbody>
-    </table>
-</body>
-</html>
+            </tbody>
+        </table>
+    {{/content}}
+{{/extend}}
