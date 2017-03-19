@@ -1,28 +1,26 @@
-<!DOCTYPE html>
-<html lang="ru">
-	<head>
-		<meta charset="utf-8">
-		<title>Квесты</title>
-	</head>
-	<body>
-		<h1>Квесты</h1>
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Квесты</title>
+    {{/content}}
+    {{#content "body"}}
+        <h1>Квесты</h1>
         <table>
-        <thead>
-            <th>Id</th>
-            <th>Name</th>
-            <th>AuthorId</th>
-            <th>Description</th>
-        </thead>
-        <tbody>
-            {{#quests}}
-            <tr>
-                <td>{{id}}</td>
-                <td>{{name}}</td>
-                <td>{{authorId}}</td>
-                <td>{{description}}</td>
-            </tr>
-            {{/quests}}
-        </tbody>
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>AuthorId</th>
+                <th>Description</th>
+            </thead>
+            <tbody>
+                {{#quests}}
+                    <tr>
+                        <td>{{id}}</td>
+                        <td>{{name}}</td>
+                        <td>{{authorId}}</td>
+                        <td>{{description}}</td>
+                    </tr>
+                {{/quests}}
+            </tbody>
         </table>
-	</body>
-</html>
+    {{/content}}
+{{/extend}}

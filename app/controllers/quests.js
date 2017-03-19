@@ -4,8 +4,24 @@ const Quest = require('../models/quest');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
+
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
+
+/**
+ * Страница добавления квеста
+ * @param req
+ * @param res
+ */
+exports.createQuest = (req, res) => {
+    res.render('../views/quests/create.hbs');
+};
 
 /**
  * Добавление нового квеста

@@ -1,11 +1,9 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta chraset="utf-8">
-    <title>Квест</title>
-</head>
-<body>
-    <h1>Квест &laquo{{name}}&raquo</h1>
-    <p>{{description}}</p>
-</body>
-</html>
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Квест</title>
+    {{/content}}
+    {{#content "body"}}
+        <h1>Квест &laquo{{name}}&raquo</h1>
+        <p>{{description}}</p>
+    {{/content}}
+{{/extend}}
