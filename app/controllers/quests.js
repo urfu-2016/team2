@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('path');
-
 const Quest = require('../models/quest');
 const fs = require('fs');
 const layouts = require('handlebars-layouts');
