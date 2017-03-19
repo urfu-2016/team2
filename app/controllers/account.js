@@ -27,7 +27,6 @@ exports.authorize = (req, res) => {
  * @param res
  */
 exports.register = (req, res) => {
-    /* eslint no-unused-vars: 0 */
     /* const user = new Quest({
         name: req.body.name,
         password: req.body.password,
@@ -45,8 +44,7 @@ exports.register = (req, res) => {
  * @param req
  * @param res
  */
-exports.registration = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
 
 };
 
@@ -55,8 +53,7 @@ exports.registration = (req, res) => {
  * @param req
  * @param res
  */
-exports.management = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.management = (req, res) => { // eslint-disable-line no-unused-vars
 
 };
 
@@ -65,7 +62,6 @@ exports.management = (req, res) => {
  * @param req
  * @param res
  */
-exports.user = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.user = (req, res) => { // eslint-disable-line no-unused-vars
 
 };

@@ -59,8 +59,7 @@ exports.get = (req, res) => {
  * @param req
  * @param res
  */
-exports.usersQuests = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
     // Рендерит ../views/quests/list.hbs после соответствующей выборки
 };
 
@@ -90,8 +89,7 @@ exports.search = (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.update = (req, res) => { // eslint-disable-line no-unused-vars
     /* const questId = req.params.questId;
     const quest = Quest.find(questId); */
 };
@@ -101,8 +99,7 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.delete = (req, res) => { // eslint-disable-line no-unused-vars
     /* const questId = req.params.questId;
     const quest = Quest.find(questId); */
 };
@@ -112,8 +109,8 @@ exports.delete = (req, res) => {
  * @param req
  * @param res
  */
-exports.like = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.like = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
 
 /**
@@ -121,6 +118,6 @@ exports.like = (req, res) => {
  * @param req
  * @param res
  */
-exports.unlike = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.unlike = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
