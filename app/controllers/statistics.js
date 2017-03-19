@@ -8,7 +8,6 @@ const Review = require('../models/review');
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
-
 /**
  * Получает страницу со статистикой
  * @param req
