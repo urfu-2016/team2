@@ -1,6 +1,9 @@
 'use strict';
 
 const Quest = require('../models/quest');
+const pages = require('./pages.js');
+
+const notNumberPattern = /\D+/g;
 const fs = require('fs');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
@@ -8,7 +11,6 @@ const handlebars = require('hbs').handlebars;
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
-const notNumberPattern = /[\D]+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
 
@@ -54,13 +56,13 @@ exports.list = (req, res) => {
  */
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
-        res.render('../views/pages/notExists.hbs');
+        pages.error404(req, res);
     } else {
         Quest.findById(req.params.id).then(quest => {
             if (quest) {
                 res.render('../views/quests/get.hbs', quest.dataValues);
             } else {
-                res.render('../views/pages/notExists.hbs');
+                pages.error404(req, res);
             }
         });
     }
