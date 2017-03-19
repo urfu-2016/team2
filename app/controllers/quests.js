@@ -1,9 +1,9 @@
 'use strict';
 
-const path = require('path');
-
 const Quest = require('../models/quest');
-const notNumberPattern = /[\D]+/g;
+const pages = require('./pages.js');
+
+const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
 
@@ -40,15 +40,13 @@ exports.list = (req, res) => {
  */
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
-        res.status(404)
-            .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+        pages.error404(req, res);
     } else {
         Quest.findById(req.params.id).then(quest => {
             if (quest) {
                 res.render('../views/quests/get.hbs', quest.dataValues);
             } else {
-                res.status(404)
-                    .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+                pages.error404(req, res);
             }
         });
     }

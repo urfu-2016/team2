@@ -11,20 +11,22 @@ const Review = require('../models/review');
 module.exports = (req, res, next) => {
     const dateTime = new Date();
     const earlierDate = new Date(dateTime);
-    earlierDate.setMinutes(dateTime.getMinutes() - 30);
-    const previousReview = Review.find({
+    earlierDate.setUTCMinutes(dateTime.getMinutes() - 30);
+    Review.find({
         where: {
             ipAddress: req.ip,
             dateTime: {
                 $gt: earlierDate
             }
         }
+    }).then(review => {
+        Review.create({
+            dateTime,
+            ipAddress: req.ip,
+            userAgent: req.headers['user-agent'],
+            isVisit: !review
+        });
     });
-    Review.create({
-        dateTime,
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
-        isVisit: !previousReview
-    });
+
     next();
 };
