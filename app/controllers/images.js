@@ -1,12 +1,10 @@
 'use strict';
 
-/* eslint no-unused-vars: 0 */
 const Image = require('../models/image');
 const upload = require('../../fileUploader.js');
 
 exports.create = (req, res) => {
-    /* eslint no-unused-vars: 0 */
-    var file = req.files.image;
+    const file = req.files.image;
     if (!file) {
         res.send('file doesnt exists');
         return;
@@ -17,7 +15,7 @@ exports.create = (req, res) => {
             res.send('error: ' + JSON.stringify(err));
             return;
         }
-        var image = {
+        const image = {
             path: ans,
             answer: {
                 latitude: 3.123123123,
@@ -34,10 +32,10 @@ exports.createPage = (req, res) => {
     res.render('../views/images/create.hbs', {questId: req.params.id});
 };
 
-exports.update = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.update = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
 
-exports.delete = (req, res) => {
-    /* eslint no-unused-vars: 0 */
+exports.delete = (req, res) => { // eslint-disable-line no-unused-vars
+
 };

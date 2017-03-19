@@ -1,5 +1,5 @@
-var db = require('../db.js');
-var Sequelize = require('sequelize');
+const db = require('../db.js');
+const Sequelize = require('sequelize');
 
 module.exports = db.sequelize.define('Result', {
     id: {

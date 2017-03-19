@@ -31,9 +31,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(require('./middlewares/review'));
 
 app.use((err, req, res, next) => {
-    /* eslint no-unused-vars: 0 */
-    /* eslint max-params: [2, 4] */
-
     console.error(err.stack);
 
     next();
@@ -41,10 +38,7 @@ app.use((err, req, res, next) => {
 
 require('./routes')(app);
 
-app.use((err, req, res, next) => {
-    /* eslint no-unused-vars: 0 */
-    /* eslint max-params: [2, 4] */
-
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     console.error(err.stack);
 
     res.sendStatus(500);
