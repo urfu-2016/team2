@@ -4,19 +4,16 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 const express = require('express');
-const hbs = require('hbs');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 
 const app = express();
 
 const viewsDir = path.join(__dirname, 'views');
-const partialsDir = path.join(viewsDir, 'partials');
 const publicDir = path.join(__dirname, 'public');
 
 app.set('view engine', 'hbs');
 app.set('views', viewsDir);
-hbs.registerPartials(partialsDir);
 
 app.use(morgan('dev'));
 app.use(fileUpload());

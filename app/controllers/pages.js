@@ -1,6 +1,11 @@
 'use strict';
 
-const path = require('path');
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 /**
  * Страницы не существует
@@ -8,9 +13,7 @@ const path = require('path');
  * @param res
  */
 exports.error404 = (req, res) => {
-    res
-        .status(404)
-        .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+    res.render('../views/pages/notExists.hbs');
 };
 
 /**
@@ -19,5 +22,5 @@ exports.error404 = (req, res) => {
  * @param res
  */
 exports.main = (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/pages/main.html'));
+    res.render('../views/pages/main.hbs');
 };

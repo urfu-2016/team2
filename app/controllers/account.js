@@ -1,7 +1,11 @@
 'use strict';
 
-const path = require('path');
-// const Quest = require('../models/Quest');
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 /**
  * Получить форму авторизации
@@ -9,7 +13,7 @@ const path = require('path');
  * @param res
  */
 exports.signIn = (req, res) => {
-    res.sendFile(path.join(__dirname, '../views/account/signIn.html'));
+    res.render('../views/account/signIn.hbs');
 };
 
 /**
@@ -45,7 +49,7 @@ exports.register = (req, res) => { // eslint-disable-line no-unused-vars
  * @param res
  */
 exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
-
+    res.render('../views/account/registration.hbs');
 };
 
 /**
@@ -54,7 +58,7 @@ exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
  * @param res
  */
 exports.management = (req, res) => { // eslint-disable-line no-unused-vars
-
+    res.render('../views/account/management.hbs');
 };
 
 /**
@@ -63,5 +67,5 @@ exports.management = (req, res) => { // eslint-disable-line no-unused-vars
  * @param res
  */
 exports.user = (req, res) => { // eslint-disable-line no-unused-vars
-
+    /* eslint no-unused-vars: 0 */
 };

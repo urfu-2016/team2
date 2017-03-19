@@ -1,6 +1,12 @@
 'use strict';
 
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
 // const Quest = require('../models/Quest');
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 /**
  * Страница формы создания комментария
@@ -8,7 +14,7 @@
  * @param res
  */
 exports.createPage = (req, res) => { // eslint-disable-line no-unused-vars
-
+    res.render('../views/comments/create.hbs');
 };
 
 /**

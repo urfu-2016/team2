@@ -1,11 +1,25 @@
 'use strict';
 
-const path = require('path');
-
 const Quest = require('../models/quest');
+const fs = require('fs');
+const layouts = require('handlebars-layouts');
+const handlebars = require('hbs').handlebars;
+
+handlebars.registerHelper(layouts(handlebars));
+handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
+
 const notNumberPattern = /[\D]+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
+
+/**
+ * Страница добавления квеста
+ * @param req
+ * @param res
+ */
+exports.createQuest = (req, res) => {
+    res.render('../views/quests/create.hbs');
+};
 
 /**
  * Добавление нового квеста
@@ -40,15 +54,13 @@ exports.list = (req, res) => {
  */
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
-        res.status(404)
-            .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+        res.render('../views/pages/notExists.hbs');
     } else {
         Quest.findById(req.params.id).then(quest => {
             if (quest) {
                 res.render('../views/quests/get.hbs', quest.dataValues);
             } else {
-                res.status(404)
-                    .sendFile(path.join(__dirname, '../views/pages/notExists.html'));
+                res.render('../views/pages/notExists.hbs');
             }
         });
     }

@@ -16,7 +16,11 @@ module.exports = function (app) {
 
     app
         .route('/quests')
-        .get(quests.list)
+        .get(quests.list);
+
+    app
+        .route('/quests/createQuest')
+        .get(quests.createQuest)
         .post(quests.create);
 
     app
@@ -26,7 +30,8 @@ module.exports = function (app) {
         .delete(quests.delete);
 
     app
-        .route('/quests/:id/comments')
+        .route('/quests/:id/comment')
+        .get(comments.createPage)
         .post(comments.create);
 
     app
