@@ -4,7 +4,6 @@ const path = require('path');
 
 const bodyParser = require('body-parser');
 const express = require('express');
-const hbs = require('hbs');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 
