@@ -40,7 +40,7 @@ module.exports = function (app) {
         .delete(comments.delete);
 
     app
-        .route('/quest/:id/like')
+        .route('/quests/:id/like')
         .post(quests.like)
         .delete(quests.unlike);
 
