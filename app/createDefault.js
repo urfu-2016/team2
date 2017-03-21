@@ -14,8 +14,7 @@ Comment.sync({force: true})
         Comment.create({
             title: 'Какой замечательный квест!',
             questId: 1,
-            userId: 0,
-            createdOn: new Date()
+            userId: 0
         }).catch(err => {
             console.log(err);
         });
