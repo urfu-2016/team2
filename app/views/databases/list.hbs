@@ -1,0 +1,11 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Список баз данных</title>
+    {{/content}}
+    {{#content "body"}}
+        <h1>Список баз данных</h1>
+        {{#databases}}
+            <a href="/databases/{{name}}">{{name}}</a><br>
+        {{/databases}}
+    {{/content}}
+{{/extend}}
