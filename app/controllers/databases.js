@@ -5,12 +5,12 @@ const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
 const db = require('../db');
+const pages = require('./pages.js');
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 exports.getList = (req, res) => {
-    console.log(db.sequelize.models);
     const databases = Object.keys(db.sequelize.models).map(key => {
         return {name: key};
     });
@@ -19,6 +19,10 @@ exports.getList = (req, res) => {
 
 exports.getDatabase = (req, res) => {
     const modelName = req.params.name;
+    if (!db.sequelize.isDefined(modelName)) {
+        pages.error404(req, res);
+        return;
+    }
     const database = require(`../models/${modelName.toLowerCase()}`);
     Promise
         .all([
