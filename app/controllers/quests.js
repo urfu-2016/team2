@@ -1,6 +1,7 @@
 'use strict';
 
 const Quest = require('../models/quest');
+const Comment = require('../models/comment');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -58,15 +59,32 @@ exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
         pages.error404(req, res);
     } else {
-        Quest.findById(req.params.id).then(quest => {
+        Promise.all([
+            Quest.findById(req.params.id),
+            getQuestComments(req.params.id)
+        ]).then(([quest, comments]) => {
             if (quest) {
-                res.render('../views/quests/get.hbs', quest.dataValues);
+                res.render('../views/quests/get.hbs', Object.assign(
+                    {questComments: comments},
+                    quest.dataValues
+                ));
             } else {
                 pages.error404(req, res);
             }
         });
     }
 };
+
+/**
+ * Получает комментарии для переданного квеста
+ * @param questId
+ * @returns {*}
+ */
+function getQuestComments(questId) {
+    return Comment.findAll({
+        where: {questId}
+    });
+}
 
 /**
  * Получает квесты текущего пользователя
