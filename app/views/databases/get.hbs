@@ -1,0 +1,26 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>База данных {{name}}</title>
+    {{/content}}
+    {{#content "body"}}
+        <h1>Содержимое базы данных {{name}}</h1>
+        <table>
+            <thead>
+            <tr>
+                {{#each columns}}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+            </thead>
+            <tbody>
+            {{#rows as |row|}}
+                <tr>
+                    {{#each row}}
+                        <td>{{this}}</td>
+                    {{/each}}
+                </tr>
+            {{/rows}}
+            </tbody>
+        </table>
+    {{/content}}
+{{/extend}}

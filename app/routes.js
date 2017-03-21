@@ -6,6 +6,7 @@ const comments = require('./controllers/comments');
 const images = require('./controllers/images');
 const account = require('./controllers/account');
 const statistics = require('./controllers/statistics');
+const databases = require('./controllers/databases');
 
 /**
  * Описание маршрутов приложения
@@ -80,6 +81,14 @@ module.exports = function (app) {
     app
         .route('/statistics')
         .get(statistics.getStatistics);
+
+    app
+        .route('/databases')
+        .get(databases.getList);
+
+    app
+        .route('/databases/:name')
+        .get(databases.getDatabase);
 
     app.all('*', pages.error404);
 };
