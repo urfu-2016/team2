@@ -44,10 +44,9 @@ exports.create = (req, res) => {
  * @param res
  */
 exports.list = (req, res) => {
-    Quest.findAll()
-        .then(quests => {
-            res.render('../views/quests/list.hbs', {quests});
-        });
+    Quest.all().then(quests => {
+        res.render('../views/quests/list.hbs', {quests});
+    });
 };
 
 /**
@@ -65,8 +64,8 @@ exports.get = (req, res) => {
         ]).then(([quest, comments]) => {
             if (quest) {
                 res.render('../views/quests/get.hbs', Object.assign(
-                    {questComments: comments},
-                    quest.dataValues
+                    {questComments: comments.map(comment => comment.get())},
+                    quest.get()
                 ));
             } else {
                 pages.error404(req, res);
@@ -81,7 +80,7 @@ exports.get = (req, res) => {
  * @returns {*}
  */
 function getQuestComments(questId) {
-    return Comment.findAll({
+    return Comment.all({
         where: {questId}
     });
 }
@@ -102,7 +101,7 @@ exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
  */
 exports.search = (req, res) => {
     const pattern = req.params.pattern.replace(forbiddenSearch, '');
-    Quest.findAll({
+    Quest.all({
         where: {
             name: {
                 $iLike: '%' + pattern + '%'
@@ -110,7 +109,7 @@ exports.search = (req, res) => {
         }
     }).then(quests => {
         res.render('../views/quests/search.hbs', {
-            quests,
+            quests: quests.map(quest => quest.get()),
             pattern: pattern.replace(underline, ' ')
         });
     });
