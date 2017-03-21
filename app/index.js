@@ -19,7 +19,7 @@ app.set('views', viewsDir);
 app.use(morgan('dev'));
 app.use(fileUpload());
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(favicon('./favicon.ico'));
 app.use(express.static(publicDir));
 
 app.use(bodyParser.json());
