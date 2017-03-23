@@ -21,12 +21,5 @@ module.exports = db.sequelize.define('Comment', {
     userId: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false
-    },
-    createdOn: {
-        type: Sequelize.DATE,
-        allowNull: false
-    },
-    modifiedOn: {
-        type: Sequelize.DATE
     }
 });

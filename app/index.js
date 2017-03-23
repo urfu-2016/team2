@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
+const favicon = require('serve-favicon');
 
 const app = express();
 
@@ -18,9 +19,8 @@ app.set('views', viewsDir);
 app.use(morgan('dev'));
 app.use(fileUpload());
 
-if (process.env.NODE_ENV === 'local') {
-    app.use(express.static(publicDir));
-}
+app.use(favicon('./favicon.ico'));
+app.use(express.static(publicDir));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
