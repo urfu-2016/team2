@@ -5,7 +5,7 @@ const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
 const Image = require('../models/image');
-const upload = require('../../fileUploader.js');
+const upload = require('../../scripts/fileUploader.js');
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));

@@ -4,7 +4,7 @@ const fs = require('fs');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
-const db = require('../db');
+const db = require('../config/db');
 const pages = require('./pages.js');
 
 handlebars.registerHelper(layouts(handlebars));

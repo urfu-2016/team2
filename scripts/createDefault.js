@@ -1,12 +1,12 @@
 'use strict';
 
-const Comment = require('./models/comment');
-const Image = require('./models/image');
-const Like = require('./models/like');
-const Quest = require('./models/quest');
-const Result = require('./models/result');
-const Review = require('./models/review');
-const User = require('./models/user');
+const Comment = require('../app/models/comment');
+const Image = require('../app/models/image');
+const Like = require('../app/models/like');
+const Quest = require('../app/models/quest');
+const Result = require('../app/models/result');
+const Review = require('../app/models/review');
+const User = require('../app/models/user');
 
 Comment.sync({force: true})
     .then(() => {
