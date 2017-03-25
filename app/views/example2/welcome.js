@@ -1,5 +1,5 @@
 'use strict';
 
-module.exports = (message) => {
-    alert(`Welcome ${message}`);
+module.exports = message => {
+    console.log(`Welcome ${message}`);
 };
