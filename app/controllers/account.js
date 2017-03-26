@@ -37,6 +37,7 @@ exports.authorize = (req, res) => {
         successRedirect: '/quests',
         failureRedirect: '/login'
     });
+    res.redirect('/quests');
 };
 
 /**
