@@ -3,11 +3,17 @@
         <title>Вход</title>
     {{/content}}
     {{#content "body"}}
+        <h2>Введите ваши данные</h2>
         <form action="/login" method="POST">
-            <h2>Введите ваши данные</h2>
-            <input type="text" name="login" placeholder="Логин">
-            <input type="text" name="password" formenctype="application/x-www-form-urlencoded" placeholder="Пароль">
-            <input type="submit">
+            <div>
+                <input type="text" name="login" placeholder="Логин">
+            </div>
+            <div>
+                <input type="text" name="password" placeholder="Пароль">
+            </div>
+            <div>
+                <input type="submit" value="Войти">
+            </div>
         </form>
     {{/content}}
 {{/extend}}

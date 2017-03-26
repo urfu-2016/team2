@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const passport = require('passport');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
@@ -17,11 +18,25 @@ exports.signIn = (req, res) => {
 };
 
 /**
+ * Выход пользователя
+ * @param req
+ * @param res
+ */
+exports.logOut = (req, res) => {
+    req.logout();
+    res.redirect('/');
+};
+
+/**
  * Авторизация пользователя
  * @param req
  * @param res
  */
 exports.authorize = (req, res) => {
+    passport.authenticate('local', {
+        successRedirect: '/quests',
+        failureRedirect: '/login'
+    });
     res.redirect('/quests');
 };
 

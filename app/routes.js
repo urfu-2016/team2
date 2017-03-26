@@ -69,6 +69,10 @@ module.exports = function (app) {
         .post(account.authorize);
 
     app
+        .route('/logout')
+        .get(account.logOut);
+
+    app
         .route('/registration')
         .get(account.registration)
         .post(account.register);

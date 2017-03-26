@@ -7,6 +7,9 @@ const express = require('express');
 const morgan = require('morgan');
 const fileUpload = require('express-fileupload');
 const favicon = require('serve-favicon');
+const passport = require('passport');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 
@@ -21,6 +24,13 @@ app.use(fileUpload());
 
 app.use(favicon('./favicon.ico'));
 app.use(express.static(publicDir));
+
+app.use(session({secret: 'keyboard cat'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cookieParser());
+
+require('./config/configPassport');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
