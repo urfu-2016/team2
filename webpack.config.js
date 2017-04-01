@@ -3,15 +3,26 @@
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const postcssLoader = {
+    loader: 'postcss-loader',
+    options: {
+        plugins: () => {
+            return [
+                require('cssnano'),
+                require('autoprefixer')
+            ];
+        }
+    }
+};
 
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
-        example1: './example1/home',
-        example2: './example2/home'
+        logo: './blocks/header/logo/logo.pack'
     },
     output: {
-        path: path.join(__dirname, '/app/views/public'),
+        path: path.join(__dirname, '/app/public'),
         filename: '[name].bundle.js',
         library: '[name]'
     },
@@ -23,9 +34,24 @@ module.exports = {
 
     devtool: 'cheap-module-source-map',
 
+    module: {
+        rules: [
+            {
+                test: /.styl$/,
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader', postcssLoader, 'stylus-loader']
+                })
+            }
+        ]
+    },
+
     plugins: [
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
+        }),
+        new ExtractTextPlugin({
+            filename: '[name].bundle.css'
         })
     ]
 };

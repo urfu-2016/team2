@@ -6,6 +6,7 @@ const handlebars = require('hbs').handlebars;
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
+handlebars.registerPartial('logo', fs.readFileSync('app/views/blocks/header/logo/logo.html', 'utf-8'));
 
 /**
  * Страницы не существует
