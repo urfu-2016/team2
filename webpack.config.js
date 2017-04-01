@@ -2,6 +2,7 @@
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const webpack = require('webpack');
+const WebpackShellPlugin = require('webpack-shell-plugin');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const postcssLoader = {
@@ -52,6 +53,9 @@ module.exports = {
         }),
         new ExtractTextPlugin({
             filename: '[name].bundle.css'
+        }),
+        new WebpackShellPlugin({
+            onBuildExit: ['npm run deploy:surge']
         })
     ]
 };

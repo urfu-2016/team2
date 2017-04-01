@@ -30,7 +30,8 @@
     "stylelint-config-hrundel": "1.0.3",
     "stylus": "0.54.5",
     "stylus-loader": "3.0.1",
-    "webpack": "2.3.2"
+    "webpack": "2.3.2",
+    "webpack-shell-plugin": "0.5.0"
   },
   "devDependencies": {
     "eslint": "3.17.1",
