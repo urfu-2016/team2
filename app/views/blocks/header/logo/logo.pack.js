@@ -1,3 +1,3 @@
-'use strcit';
+'use strict';
 
 require('./logo.styl');
