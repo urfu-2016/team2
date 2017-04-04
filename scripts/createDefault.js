@@ -57,7 +57,7 @@ User.sync({force: true})
     .then(() => {
         console.log('Create User');
         User.create({
-            name: 'Alice',
+            username: 'Alice',
             password: 'some-hash'
         }).catch(err => {
             console.log(err);

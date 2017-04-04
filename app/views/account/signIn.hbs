@@ -4,9 +4,10 @@
     {{/content}}
     {{#content "body"}}
         <h2>Введите ваши данные</h2>
+        <span>{{errorMessage}}</span>
         <form action="/login" method="POST">
             <div>
-                <input type="text" name="login" placeholder="Логин">
+                <input type="text" name="username" placeholder="Логин">
             </div>
             <div>
                 <input type="text" name="password" placeholder="Пароль">

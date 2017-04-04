@@ -7,6 +7,7 @@ const images = require('./controllers/images');
 const account = require('./controllers/account');
 const statistics = require('./controllers/statistics');
 const databases = require('./controllers/databases');
+const isAuth = require('./middlewares/auth');
 
 /**
  * Описание маршрутов приложения
@@ -77,8 +78,10 @@ module.exports = function (app) {
         .get(account.registration)
         .post(account.register);
 
+    app.use('/manage', isAuth);
+
     app
-        .route('/users/:id')
+        .route('/manage')
         .get(account.management)
         .put(account.user);
 

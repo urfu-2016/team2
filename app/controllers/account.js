@@ -1,9 +1,10 @@
 'use strict';
 
 const fs = require('fs');
-const passport = require('passport');
+const passport = require('../config/configPassport');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
+const User = require('../models/user');
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
@@ -14,7 +15,7 @@ handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'u
  * @param res
  */
 exports.signIn = (req, res) => {
-    res.render('../views/account/signIn.hbs');
+    res.render('../views/account/signIn.hbs', {errorMessage:req.session.loginError});
 };
 
 /**
@@ -32,12 +33,20 @@ exports.logOut = (req, res) => {
  * @param req
  * @param res
  */
-exports.authorize = (req, res) => {
-    passport.authenticate('local', {
-        successRedirect: '/quests',
-        failureRedirect: '/login'
-    });
-    res.redirect('/quests');
+exports.authorize = function(req, res, next) {
+    passport.authenticate('local', (err, user, info) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user)
+        {
+            req.session.loginError = info.message;
+            return res.redirect('/login');
+        }
+        req.logIn(user, err => {
+            err ? next(err) : res.redirect('/manage')
+        });
+    })(req, res, next);
 };
 
 /**
@@ -46,16 +55,20 @@ exports.authorize = (req, res) => {
  * @param res
  */
 exports.register = (req, res) => { // eslint-disable-line no-unused-vars
-    /* const user = new Quest({
-        name: req.body.name,
-        password: req.body.password,
-        userId: req.body.userId
+    User.create({
+        username: req.body.username,
+        password: req.body.password
+    })
+    .then(user => req.logIn(user, err => {
+        console.log('this is it')
+        console.log(err);
+        res.redirect('/');
+    }))
+    .catch(err => {
+        console.log(err);
+        req.session.registerError = err;
+        res.redirect('/registration');
     });
-
-    user.save();
-
-    // Не позволяем отправлять форму дважды
-    res.redirect(302, '/registration'); */
 };
 
 /**
@@ -64,7 +77,7 @@ exports.register = (req, res) => { // eslint-disable-line no-unused-vars
  * @param res
  */
 exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
-    res.render('../views/account/registration.hbs');
+    res.render('../views/account/registration.hbs', {errorMessage: req.session.registerError});
 };
 
 /**

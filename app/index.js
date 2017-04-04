@@ -25,31 +25,24 @@ app.use(fileUpload());
 app.use(favicon('./favicon.ico'));
 app.use(express.static(publicDir));
 
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+    console.error(err.stack);
+    console.log('AZAZAZ')
+    res.sendStatus(500);
+});
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cookieParser());
 
 require('./config/configPassport');
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(require('./middlewares/review'));
 
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-
-    next();
-});
-
 require('./routes')(app);
-
-app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
-    console.error(err.stack);
-
-    res.sendStatus(500);
-});
 
 const port = process.env.PORT || 8080;
 
