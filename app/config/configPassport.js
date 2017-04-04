@@ -11,9 +11,7 @@ function validatePassword(user, password) {
 passport.use('local', new LocalStrategy(
     (username, password, done) => {
         User.findOne({
-            where: {
-                username: username
-            }
+            where: {username}
         })
         .catch(err => done(err))
         .then(user => {
@@ -24,7 +22,7 @@ passport.use('local', new LocalStrategy(
                 return done(null, false, {message: 'Неверный пароль'});
             }
 
-            return done(null, user)
+            return done(null, user);
         });
     })
 );

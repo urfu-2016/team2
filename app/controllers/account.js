@@ -15,7 +15,7 @@ handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'u
  * @param res
  */
 exports.signIn = (req, res) => {
-    res.render('../views/account/signIn.hbs', {errorMessage:req.session.loginError});
+    res.render('../views/account/signIn.hbs', {errorMessage: req.session.loginError});
 };
 
 /**
@@ -33,19 +33,16 @@ exports.logOut = (req, res) => {
  * @param req
  * @param res
  */
-exports.authorize = function(req, res, next) {
+exports.authorize = function (req, res, next) {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
         }
-        if (!user)
-        {
+        if (!user) {
             req.session.loginError = info.message;
             return res.redirect('/login');
         }
-        req.logIn(user, err => {
-            err ? next(err) : res.redirect('/manage')
-        });
+        req.logIn(user, err => err ? next(err) : res.redirect('/manage'));
     })(req, res, next);
 };
 
@@ -60,12 +57,12 @@ exports.register = (req, res) => { // eslint-disable-line no-unused-vars
         password: req.body.password
     })
     .then(user => req.logIn(user, err => {
-        console.log('this is it')
-        console.log(err);
-        res.redirect('/');
-    }))
+            console.error(err);
+            res.redirect('/');
+        })
+    )
     .catch(err => {
-        console.log(err);
+        console.error(err);
         req.session.registerError = err;
         res.redirect('/registration');
     });

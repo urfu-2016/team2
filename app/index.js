@@ -27,11 +27,11 @@ app.use(express.static(publicDir));
 
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     console.error(err.stack);
-    console.log('AZAZAZ')
+
     res.sendStatus(500);
 });
 
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(session({secret: 'keyboard cat'}));
