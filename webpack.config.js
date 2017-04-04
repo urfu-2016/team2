@@ -20,7 +20,10 @@ const postcssLoader = {
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
-        logo: './blocks/header/logo/logo.pack'
+        header: './blocks/header/header.pack',
+        logo: './blocks/header/logo/logo.pack',
+        login: './blocks/header/login/login.pack',
+        menu: './blocks/header/menu/menu.pack'
     },
     output: {
         path: path.join(__dirname, '/app/public'),
