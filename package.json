@@ -47,6 +47,6 @@
     "test": "npm run lint && mocha **/controllers/*.spec.js **/models/*.spec.js",
     "createTables": "node scripts/createDefault",
     "start": "nodemon app/index.js",
-    "deploy:surge": "surge -p ./app/public -d awesomequests.surge.sh"
+    "deploy:surge": "surge -p ./app/public"
   }
 }
