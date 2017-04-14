@@ -1,0 +1,32 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Awesome Quests</title>
+        <link rel="stylesheet" href="//awesomequests.surge.sh/header.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/logo.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/menu.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/login.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/main.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/mainContent.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/footer.bundle.css">
+    {{/content}}
+    {{#content "body"}}
+        {{> header}}
+        {{> mainContent}}
+        {{#if username}}
+            <p>hello, {{username}}!</p>
+        {{/if}}
+        {{> footer}}
+        <!--
+            <a href="/quests">Список квестов</a><br>
+            <a href="/quests/createQuest">Создать квест</a><br>
+            <a href="/quests/1">Посмотреть 1 квест</a><br>
+            <a href="/quests/1/comment">Создать комментарий к 1 квесту</a><br>
+            <a href="/quests/1/images">Добавить картинку к 1 квесту</a><br>
+            <a href="/login">Логин</a><br>
+            <a href="/registration">Регистрация</a><br>
+            <a href="/manage">Управление аккаунтом</a><br>
+            <a href="/logout">Логаут</a><br>
+            <a href="/databases">Просмотр списка баз данных</a><br>
+        -->
+    {{/content}}
+{{/extend}}

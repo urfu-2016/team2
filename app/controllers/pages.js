@@ -10,6 +10,8 @@ handlebars.registerPartial('header', fs.readFileSync('app/views/blocks/header/he
 handlebars.registerPartial('logo', fs.readFileSync('app/views/blocks/header/logo/logo.html', 'utf-8'));
 handlebars.registerPartial('menu', fs.readFileSync('app/views/blocks/header/menu/menu.html', 'utf-8'));
 handlebars.registerPartial('login', fs.readFileSync('app/views/blocks/header/login/login.html', 'utf-8'));
+handlebars.registerPartial('mainContent', fs.readFileSync('app/views/blocks/mainContent/mainContent.hbs', 'utf-8'));
+handlebars.registerPartial('footer', fs.readFileSync('app/views/blocks/footer/footer.html', 'utf-8'));
 
 handlebars.registerPartial('search', fs.readFileSync('app/views/blocks/search/search.hbs', 'utf-8'));
 handlebars.registerPartial('search__input', fs.readFileSync('app/views/blocks/search/__input/search__input.html', 'utf-8'));
@@ -45,7 +47,9 @@ exports.error404 = (req, res) => {
  * @param res
  */
 exports.main = (req, res) => {
-    res.render('../views/pages/main.hbs', {username: req.isAuthenticated() ? req.user.username : ''});
+    res.render('../views/pages/main/main.hbs', {
+        username: req.isAuthenticated() ? req.user.username : ''
+    });
 };
 
 exports.questsList = (req, res) => {
