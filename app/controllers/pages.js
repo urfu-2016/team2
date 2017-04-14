@@ -9,9 +9,10 @@ handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'u
 handlebars.registerPartial('header', fs.readFileSync('app/views/blocks/header/header.hbs', 'utf-8'));
 handlebars.registerPartial('logo', fs.readFileSync('app/views/blocks/header/logo/logo.html', 'utf-8'));
 handlebars.registerPartial('menu', fs.readFileSync('app/views/blocks/header/menu/menu.html', 'utf-8'));
-handlebars.registerPartial('login', fs.readFileSync('app/views/blocks/header/login/login.html', 'utf-8'));
+handlebars.registerPartial('login', fs.readFileSync('app/views/blocks/header/login/login.hbs', 'utf-8'));
 handlebars.registerPartial('mainContent', fs.readFileSync('app/views/blocks/mainContent/mainContent.hbs', 'utf-8'));
 handlebars.registerPartial('footer', fs.readFileSync('app/views/blocks/footer/footer.html', 'utf-8'));
+handlebars.registerPartial('serviceName', fs.readFileSync('app/views/blocks/mainContent/name/name.html', 'utf-8'));
 
 handlebars.registerPartial('search', fs.readFileSync('app/views/blocks/search/search.hbs', 'utf-8'));
 handlebars.registerPartial('search__input', fs.readFileSync('app/views/blocks/search/__input/search__input.html', 'utf-8'));

@@ -28,6 +28,7 @@ module.exports = {
         main: './pages/main/main.pack',
         mainContent: './blocks/mainContent/mainContent.pack',
         menu: './blocks/header/menu/menu.pack',
+        serviceName: './blocks/mainContent/name/name.pack',
         search: './blocks/search/search.pack',
         searchInput: './blocks/search/__input/search__input.pack',
         searchIconLoupe: './blocks/search/__icon-loupe/search__icon-loupe.pack',
