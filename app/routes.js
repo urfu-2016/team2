@@ -18,7 +18,10 @@ module.exports = function (app) {
 
     app
         .route('/quests')
-        .get(quests.list);
+        // было
+        //.get(quests.list);
+        // стало
+        .get(pages.questsList);
 
     app
         .route('/quests/createQuest')
