@@ -30,7 +30,6 @@ handlebars.registerPartial('sort-bar__sort-choice', fs.readFileSync('app/views/b
 handlebars.registerPartial('sort-list__option', fs.readFileSync('app/views/blocks/sort/sort-list/__option/sort-list__option.html', 'utf-8'));
 handlebars.registerPartial('sort-list', fs.readFileSync('app/views/blocks/sort/sort-list/sort-list.hbs', 'utf-8'));
 
-
 /**
  * Страницы не существует
  * @param req
