@@ -1,10 +1,11 @@
-@font-face
-    font-family 'OpenSans'
-    font-style normal
-    src url(//awesomequests.surge.sh/fonts/OpenSans-Regular.ttf)
-
 .header
-    font-family 'OpenSans'
     display flex
     align-items center
+    justify-content space-around
     background-color #000
+    padding 0 10px
+
+@media screen and (max-width: 991px)
+    .header
+        flex-direction column
+        padding 20px

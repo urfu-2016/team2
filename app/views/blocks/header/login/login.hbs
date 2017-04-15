@@ -1,0 +1,9 @@
+<div class="login">
+    {{#if username}}
+        <p class="login__greeting">Привет, <a class="login__greeting__username" href="/manage">{{username}}</a>!</p>
+        <a class="login__logout" href="/logout">Выйти</a>
+    {{else}}
+        <img class="login__pic" alt="user picture" title="user picture" src="//awesomequests.surge.sh/user_picture.png">
+        <a href="/login" class="login__register">Войти/регистрация</a>
+    {{/if}}
+</div>

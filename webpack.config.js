@@ -20,10 +20,15 @@ const postcssLoader = {
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
+        layout: './_layout.pack',
+        footer: './blocks/footer/footer.pack',
         header: './blocks/header/header.pack',
         logo: './blocks/header/logo/logo.pack',
         login: './blocks/header/login/login.pack',
+        main: './pages/main/main.pack',
+        mainContent: './blocks/mainContent/mainContent.pack',
         menu: './blocks/header/menu/menu.pack',
+        serviceName: './blocks/mainContent/name/name.pack',
         search: './blocks/search/search.pack',
         searchInput: './blocks/search/__input/search__input.pack',
         searchIconLoupe: './blocks/search/__icon-loupe/search__icon-loupe.pack',
@@ -57,11 +62,15 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /.styl$/,
+                test: /\.styl$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader', postcssLoader, 'stylus-loader']
                 })
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf)$/,
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
