@@ -23,6 +23,11 @@ module.exports = db.sequelize.define('User', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    email: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+        unique: true
+    },
     passwordResetToken: {
         type: Sequelize.TEXT,
         allowNull: true
