@@ -1,4 +1,4 @@
-# Фотоквесты awesomequests [![BuildStatus](https://api.travis-ci.org/urfu-2016/team2.svg?branch=master)](https://travis-ci.org/urfu-2016/team2)
+# Фотоквесты awesomequests
 
 #### http://awesomequests.herokuapp.com
 
@@ -14,25 +14,19 @@
 
 ## Скрипты менеджера пакетов
 
-------------------------------
+| Скрипт | Назначение |
+| ---------------- | ------------------------------ |
 | npm start | Запуск сервиса |
-------------------------------
 | npm test | Запуск тестов |
-----------------------------
 | npm lint | Запуск линтера |
------------------------------
 | npm createTables | Команда заполнения базы данных |
-----------------------------------------------------
 | npm build | Запуск webpack |
-------------------------------
 | npm build:dev | Запуск webpack в режиме разработки |
-------------------------------------------------------
 | npm deploy:surge | Деплой статики в CDN |
--------------------------------------------
 
 ## Разработчики
-* @dkondrashin
-* @FoKycHuk
-* @kol9nus
-* @nikitc1
-* @SemyonMakhaev
+* [**@dkondrashin**](//github.com/dkondrashin)
+* [**@FoKycHuk**](//github.com/FoKycHuk)
+* [**@kol9nus**](//github.com/kol9nus)
+* [**@nikitc**](//github.com/nikitc)
+* [**@SemyonMakhaev**](//github.com/SemyonMakhaev)
