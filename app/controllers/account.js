@@ -5,6 +5,7 @@ const passport = require('../config/configPassport');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
@@ -54,7 +55,7 @@ exports.authorize = function (req, res, next) {
 exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     User.create({
         username: req.body.username,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync())
     })
     .then(user => req.logIn(user, err => {
             console.error(err);

@@ -18,5 +18,13 @@ module.exports = db.sequelize.define('User', {
     password: {
         type: Sequelize.TEXT,
         allowNull: false
+    },
+    salt: {
+        type: Sequelize.TEXT,
+        allowNull: false
+    },
+    passwordResetToken: {
+        type: Sequelize.TEXT,
+        allowNull: true
     }
 });
