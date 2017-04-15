@@ -24,6 +24,7 @@ module.exports = {
         layout: './_layout.pack',
         footer: './blocks/footer/footer.pack',
         finished: './blocks/finished/finished.pack',
+        forbidden: './pages/forbidden/forbidden.pack',
         header: './blocks/header/header.pack',
         likes: './blocks/likes/likes.pack',
         logo: './blocks/header/logo/logo.pack',
