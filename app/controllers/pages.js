@@ -33,6 +33,9 @@ handlebars.registerPartial('sort-bar__sort-choice', fs.readFileSync('app/views/b
 handlebars.registerPartial('sort-list__option', fs.readFileSync('app/views/blocks/sort/sort-list/__option/sort-list__option.html', 'utf-8'));
 handlebars.registerPartial('sort-list', fs.readFileSync('app/views/blocks/sort/sort-list/sort-list.hbs', 'utf-8'));
 
+handlebars.registerPartial('quest-info', fs.readFileSync('app/views/blocks/quest-info/quest-info.hbs', 'utf-8'));
+handlebars.registerPartial('likes', fs.readFileSync('app/views/blocks/likes/likes.hbs', 'utf-8'));
+handlebars.registerPartial('finished', fs.readFileSync('app/views/blocks/finished/finished.hbs', 'utf-8'));
 /**
  * Страницы не существует
  * @param req

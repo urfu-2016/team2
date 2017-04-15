@@ -20,20 +20,24 @@ const postcssLoader = {
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
+        getQuest: './quest/get-quest.pack.js',
         layout: './_layout.pack',
         footer: './blocks/footer/footer.pack',
+        finished: './blocks/finished/finished.pack',
         header: './blocks/header/header.pack',
+        likes: './blocks/likes/likes.pack',
         logo: './blocks/header/logo/logo.pack',
         login: './blocks/header/login/login.pack',
+        menu: './blocks/header/menu/menu.pack',
         main: './pages/main/main.pack',
         mainContent: './blocks/mainContent/mainContent.pack',
-        menu: './blocks/header/menu/menu.pack',
-        serviceName: './blocks/mainContent/name/name.pack',
         search: './blocks/search/search.pack',
         searchInput: './blocks/search/__input/search__input.pack',
         searchIconLoupe: './blocks/search/__icon-loupe/search__icon-loupe.pack',
+        serviceName: './blocks/mainContent/name/name.pack',
         questsSet: './blocks/quests-set/quests-set.pack',
         quest: './blocks/quests-set/quest/quest.pack',
+        questInfo: './blocks/quest-info/quest-info.pack.js',
         questBarNew: './blocks/quests-set/quest/__bar-new/quest__bar-new.pack',
         questName: './blocks/quests-set/quest/__name/quest__name.pack',
         questPhoto: './blocks/quests-set/quest/__photo/quest__photo.pack',
@@ -62,15 +66,11 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.styl$/,
+                test: /.styl$/,
                 use: ExtractTextPlugin.extract({
                     fallback: 'style-loader',
                     use: ['css-loader', postcssLoader, 'stylus-loader']
                 })
-            },
-            {
-                test: /\.(woff|woff2|eot|ttf)$/,
-                loader: 'url-loader?limit=100000'
             }
         ]
     },
