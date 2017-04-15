@@ -57,11 +57,12 @@ Review.sync({force: true})
 User.sync({force: true})
     .then(() => {
         console.log('Create User');
-        var salt = bcrypt.getSaltSync();
+        const salt = bcrypt.genSaltSync();
         User.create({
             username: 'Alice',
             password: bcrypt.hashSync('somePass', salt),
-            salt: salt
+            salt,
+            email: 'fokychuk47@ya.ru'
         }).catch(err => {
             console.log(err);
         });
