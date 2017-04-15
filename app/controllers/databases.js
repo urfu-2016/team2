@@ -34,7 +34,7 @@ exports.getDatabase = (req, res) => {
             const stringRows = rows.map(row => {
                 return row.get();
             });
-            res.render('../views/databases/get.hbs', {
+            res.render('../views/databases/get-quest.hbs', {
                 name: modelName,
                 columns: columnsNames,
                 rows: stringRows

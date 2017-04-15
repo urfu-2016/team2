@@ -61,10 +61,11 @@ exports.get = (req, res) => {
         Promise.all([
             Quest.findById(req.params.id),
             getQuestComments(req.params.id)
+
         ]).then(([quest, comments]) => {
             if (quest) {
-                res.render('../views/quests/get.hbs', Object.assign(
-                    {questComments: comments.map(comment => comment.get())},
+                res.render('../views/quest/get-quest.hbs', Object.assign({
+                        questComments: comments.map(comment => comment.get())},
                     quest.get()
                 ));
             } else {

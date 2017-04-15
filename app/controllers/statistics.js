@@ -24,7 +24,7 @@ exports.getStatistics = (req, res) => {
         Review.count(), // всего просмотров
         countReviewsSinceDate(today)
     ]).then(([visits, visitsToday, reviews, reviewsToday]) => {
-        res.render('../views/statistics/get.hbs', {
+        res.render('../views/statistics/get-quest.hbs', {
             visits,
             visitsToday,
             reviews,
