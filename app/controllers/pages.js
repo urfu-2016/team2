@@ -42,7 +42,7 @@ handlebars.registerPartial('finished', fs.readFileSync('app/views/blocks/finishe
  * @param res
  */
 exports.error404 = (req, res) => {
-    res.render('../views/pages/notExists.hbs');
+    res.render('../views/pages/notExists/notExists.hbs');
 };
 
 /**

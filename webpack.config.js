@@ -31,6 +31,7 @@ module.exports = {
         menu: './blocks/header/menu/menu.pack',
         main: './pages/main/main.pack',
         mainContent: './blocks/mainContent/mainContent.pack',
+        notExists: './pages/notExists/notExists.pack',
         search: './blocks/search/search.pack',
         searchInput: './blocks/search/__input/search__input.pack',
         searchIconLoupe: './blocks/search/__icon-loupe/search__icon-loupe.pack',
