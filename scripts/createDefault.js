@@ -7,6 +7,7 @@ const Quest = require('../app/models/quest');
 const Result = require('../app/models/result');
 const Review = require('../app/models/review');
 const User = require('../app/models/user');
+const bcrypt = require('bcrypt');
 
 Comment.sync({force: true})
     .then(() => {
@@ -19,7 +20,7 @@ Comment.sync({force: true})
             console.log(err);
         });
     }).catch(err => {
-        console.log('dont create Comment');
+        console.log('cant create Comment');
         console.log(err);
     });
 
@@ -33,7 +34,7 @@ Like.sync({force: true})
             console.log(err);
         });
     }).catch(err => {
-        console.log('dont create Like');
+        console.log('cant create Like');
         console.log(err);
     });
 
@@ -49,21 +50,24 @@ Review.sync({force: true})
             console.log(err);
         });
     }).catch(err => {
-        console.log('dont create Review');
+        console.log('cant create Review');
         console.log(err);
     });
 
 User.sync({force: true})
     .then(() => {
         console.log('Create User');
+        const salt = bcrypt.genSaltSync();
         User.create({
             username: 'Alice',
-            password: 'some-hash'
+            password: bcrypt.hashSync('somePass', salt),
+            salt,
+            email: 'fokychuk47@ya.ru'
         }).catch(err => {
             console.log(err);
         });
     }).catch(err => {
-        console.log('dont create User');
+        console.log('cant create User');
         console.log(err);
     });
 
@@ -80,7 +84,7 @@ Quest.sync({force: true})
         );
     })
     .catch(err => {
-        console.log('dont create Quests');
+        console.log('cant create Quests');
         console.log(err);
     });
 
@@ -100,7 +104,7 @@ Result.sync({force: true})
         });
     })
     .catch(err => {
-        console.log('dont create Results');
+        console.log('cant create Results');
         console.log(err);
     });
 
@@ -119,6 +123,6 @@ Image.sync({force: true})
         });
     })
     .catch(err => {
-        console.log('dont create Images');
+        console.log('cant create Images');
         console.log(err);
     });

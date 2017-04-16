@@ -5,6 +5,9 @@ const passport = require('../config/configPassport');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const emailService = require('../services/emailService');
 
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
@@ -52,9 +55,12 @@ exports.authorize = function (req, res, next) {
  * @param res
  */
 exports.register = (req, res) => { // eslint-disable-line no-unused-vars
+    const salt = bcrypt.genSaltSync();
     User.create({
         username: req.body.username,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, salt),
+        salt,
+        email: req.body.email
     })
     .then(user => req.logIn(user, err => {
             console.error(err);
@@ -93,4 +99,54 @@ exports.management = (req, res) => { // eslint-disable-line no-unused-vars
  */
 exports.user = (req, res) => { // eslint-disable-line no-unused-vars
     /* eslint no-unused-vars: 0 */
+};
+
+exports.forgotPassword = (req, res) => {
+    res.render('../views/account/forgotPassword.hbs');
+};
+
+exports.requestToken = (req, res) => {
+    const email = req.body.email;
+    User.findOne({
+            where: {email}
+        })
+    .catch(err => res.render('../views/account/forgotPassword.hbs', {errorMessage: err}))
+    .then(user => {
+        if (!user) {
+            res.render('../views/account/forgotPassword.hbs', {errorMessage: 'Пользователь с таким email не найден'});
+        }
+
+        const token = crypto.randomBytes(32).toString('hex');
+        user.update({
+            passwordResetToken: token
+        }).then(() => {
+            emailService.sendToken(user.email, 'http://' + req.headers.host + '/resetPassword?token=' + token);
+            res.send('Проверьте вашу электронную почту');
+        });
+    });
+};
+
+exports.resetPassword = (req, res) => {
+    const token = req.query.token;
+    User.findOne({
+            where: {passwordResetToken: token}
+        })
+    .catch(err => res.render('../views/account/forgotPassword.hbs', {errorMessage: err}))
+    .then(user => {
+        if (!user) {
+            res.render('../views/account/forgotPassword.hbs', {errorMessage: 'Неправильный токен'});
+        }
+
+        const newPassword = Math.random().toString(36).slice(-8);
+        const newSalt = bcrypt.genSaltSync();
+        user.update({
+            password: bcrypt.hashSync(newPassword, newSalt),
+            salt: newSalt
+        })
+        .then(() => {
+            emailService.sendNewPassword(user.email, user.username, newPassword);
+        });
+
+        res.redirect('/login');
+    });
 };
