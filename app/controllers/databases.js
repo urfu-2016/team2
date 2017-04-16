@@ -14,7 +14,7 @@ exports.getList = (req, res) => {
     const databases = Object.keys(db.sequelize.models).map(key => {
         return {name: key};
     });
-    res.render('../views/databases/quests-list.hbs', {databases});
+    res.render('../views/databases/list.hbs', {databases});
 };
 
 exports.getDatabase = (req, res) => {

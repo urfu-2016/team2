@@ -45,7 +45,7 @@ exports.create = (req, res) => {
  */
 exports.list = (req, res) => {
     Quest.all().then(quests => {
-        res.render('../views/quests/quests-list.hbs', {quests});
+        res.render('../views/quests/list.hbs', {quests});
     });
 };
 
@@ -92,7 +92,7 @@ function getQuestComments(questId) {
  * @param res
  */
 exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
-    // Рендерит ../views/quests/quests-list.hbs после соответствующей выборки
+    // Рендерит ../views/quests/list.hbs после соответствующей выборки
 };
 
 /**
