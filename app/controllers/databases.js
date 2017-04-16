@@ -14,7 +14,7 @@ exports.getList = (req, res) => {
     const databases = Object.keys(db.sequelize.models).map(key => {
         return {name: key};
     });
-    res.render('../views/databases/list.hbs', {databases});
+    res.render('../views/databases/quests-list.hbs', {databases});
 };
 
 exports.getDatabase = (req, res) => {
@@ -34,7 +34,7 @@ exports.getDatabase = (req, res) => {
             const stringRows = rows.map(row => {
                 return row.get();
             });
-            res.render('../views/databases/get-quest.hbs', {
+            res.render('../views/databases/get.hbs', {
                 name: modelName,
                 columns: columnsNames,
                 rows: stringRows

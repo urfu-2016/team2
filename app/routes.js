@@ -18,7 +18,7 @@ module.exports = function (app) {
 
     app
         .route('/quests')
-        // .get(quests.list);
+        // .get(quests.quests-list);
         .get(pages.questsList);
 
     app

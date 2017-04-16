@@ -39,6 +39,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./config/configPassport');
+require('./config/registerPartials');
 
 app.use(require('./middlewares/review'));
 
