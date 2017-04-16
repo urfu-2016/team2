@@ -1,30 +1,29 @@
 'use strict';
 
-var iconTriangle = document.getElementsByClassName('icon-triangle')[0];
-var sortList = document.getElementsByClassName('sort-list')[0];
-var sortChoice = document.getElementsByClassName('sort-choice')[0];
+const iconTriangle = document.getElementsByClassName('icon-triangle')[0];
+const sortList = document.getElementsByClassName('sort-list')[0];
+const sortChoice = document.getElementsByClassName('sort-choice')[0];
 
-var options = document.getElementsByClassName('option');
+const options = document.getElementsByClassName('option');
 
-var k = 0;
-if (iconTriangle) {
-
-    iconTriangle.onclick = function () {
+let k = 0;
+iconTriangle.onclick = function () {
     k++;
     if (k % 2 === 0) {
-        sortList.style.cssText = "display: block";
+        sortList.style.cssText = 'display: block';
     } else {
-        sortList.style.cssText = "display: none";
+        sortList.style.cssText = 'display: none';
     }
-}
-}
+};
 
-
-for (var i = 0; i < options.length; i++) {
-    options[i].onclick = function () {
-        sortChoice.innerHTML = this.innerHTML;
-        sortList.style.cssText = "display: none";
+for (let i = 0; i < options.length; i++) {
+        click(options[i], sortChoice, sortList);
         k++;
-    }
 }
 
+function click(option, sortChoice, sortList) {
+    option.onclick = function () {
+        sortChoice.innerHTML = this.innerHTML;
+        sortList.style.cssText = 'display: none';
+    };
+}
