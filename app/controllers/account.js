@@ -80,7 +80,7 @@ exports.register = (req, res) => { // eslint-disable-line no-unused-vars
  * @param res
  */
 exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
-    res.render('../views/account/registration.hbs', {errorMessage: req.session.registerError});
+    res.render('../views/account/registration/registration.hbs', {errorMessage: req.session.registerError});
 };
 
 /**
