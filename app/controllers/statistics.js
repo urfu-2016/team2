@@ -1,12 +1,6 @@
 'use strict';
 
-const fs = require('fs');
-const layouts = require('handlebars-layouts');
-const handlebars = require('hbs').handlebars;
 const Review = require('../models/review');
-
-handlebars.registerHelper(layouts(handlebars));
-handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 /**
  * Получает страницу со статистикой

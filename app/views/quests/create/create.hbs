@@ -1,0 +1,17 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Создание квеста</title>
+    {{/content}}
+    {{#content "body"}}
+        <h1>Создать новый квест</h1>
+        <form action="/quests/createQuest" method="post">
+            <input
+                name="name"
+                placeholder="Название квеста"
+                required
+                pattern="[A-Za-z]+">
+            <textarea name="description"></textarea>
+            <input type="submit" value="Создать">
+        </form>
+    {{/content}}
+{{/extend}}

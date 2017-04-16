@@ -2,16 +2,10 @@
 
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
+const User = require('../models/user');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
-const fs = require('fs');
-const layouts = require('handlebars-layouts');
-const handlebars = require('hbs').handlebars;
-
-handlebars.registerHelper(layouts(handlebars));
-handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
-
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
 
@@ -21,7 +15,11 @@ const underline = /_/g;
  * @param res
  */
 exports.createQuest = (req, res) => {
-    res.render('../views/quests/create.hbs');
+    if (req.isAuthenticated()) {
+        res.render('../views/quests/create/create.hbs');
+    } else {
+        res.render('../views/quests/notAuthorized.hbs');
+    }
 };
 
 /**
@@ -32,10 +30,14 @@ exports.createQuest = (req, res) => {
 exports.create = (req, res) => {
     Quest.create({
         name: req.body.name,
-        description: req.body.description
-        // authorId: получить текущего пользователя
+        description: req.body.description,
+        authorId: req.user.id
+    }).then(() => {
+        res.redirect(302, '/quests');
+    }).catch(err => {
+        console.error(err);
+        res.redirect('/');
     });
-    res.redirect(302, '/quests');
 };
 
 /**
