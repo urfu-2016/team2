@@ -9,8 +9,9 @@
             <h1 class="container__header">Регистрация</h1>
             <form class="container__form" action="/registration" method="POST">
                 <span class="container__form__error-message">{{errorMessage}}</span>
-                <input class="container__form__input"type="text" name="username" placeholder="Логин">
-                <input class="container__form__input" type="email" name="email" placeholder="Email">
+                <input class="container__form__input" type="text" name="username" placeholder="Логин">
+                <input class="container__form__input" type="email" name="email"
+                       placeholder="Email" required pattern="^[-._a-z0-9]+@(?:[a-z0-9][-a-z0-9]+\.)+[a-z]{2,6}$">
                 <input class="container__form__input" type="text" name="password" placeholder="Пароль">
                 <input class="container__form__change-file" type="file" name="image" multiple accept="image/*" >
                 <input class="container__form__submit-button" type="submit" value="Регистрация">
