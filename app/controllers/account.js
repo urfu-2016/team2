@@ -12,7 +12,7 @@ const emailService = require('../services/emailService');
  * @param res
  */
 exports.signIn = (req, res) => {
-    res.render('../views/account/signIn.hbs', {errorMessage: req.session.loginError});
+    res.render('../views/account/signIn/signIn.hbs', {errorMessage: req.session.loginError});
 };
 
 /**

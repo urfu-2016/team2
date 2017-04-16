@@ -20,6 +20,7 @@ const postcssLoader = {
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
+        signIn: './account/signIn/signIn.pack.js',
         registration: './account/registration/registration.pack.js',
         getQuest: './quest/get-quest.pack.js',
         layout: './_layout.pack',
