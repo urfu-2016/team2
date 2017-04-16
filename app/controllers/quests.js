@@ -2,7 +2,6 @@
 
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
-const User = require('../models/user');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
