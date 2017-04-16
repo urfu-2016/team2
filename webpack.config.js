@@ -51,7 +51,8 @@ module.exports = {
         sortList: './blocks/sort/sort-list/sort-list.pack',
         sortListOption: './blocks/sort/sort-list/__option/sort-list__option.pack',
         sort: './blocks/sort/sort.pack',
-        sortAndSearch: './blocks/sortAndSearch/sortAndSearch.pack'
+        sortAndSearch: './blocks/sortAndSearch/sortAndSearch.pack',
+        sortJS: './blocks/sort/sort'
     },
     output: {
         path: path.join(__dirname, '/app/public'),

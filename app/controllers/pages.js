@@ -20,6 +20,3 @@ exports.main = (req, res) => {
     });
 };
 
-exports.questsList = (req, res) => {
-    res.render('../views/pages/quests-list.hbs');
-};
