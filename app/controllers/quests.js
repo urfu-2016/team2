@@ -45,7 +45,7 @@ exports.create = (req, res) => {
  */
 exports.list = (req, res) => {
     Quest.all().then(quests => {
-        res.render('../views/quests/list.hbs', {quests});
+        res.render('../views/quests/quests-list/list.hbs', {quests});
     });
 };
 

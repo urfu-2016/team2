@@ -1,0 +1,13 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Awesome Quests</title>
+        <link rel="stylesheet" href="//awesomequests.surge.sh/questsList.bundle.css">
+
+    {{/content}}
+    {{#content "body"}}
+        {{> header}}
+        {{> sortAndSearch}}
+        {{> quests-set}}
+        <script type="text/javascript" src="//awesomequests-dima.surge.sh/sortJS.bundle.js"></script>
+    {{/content}}
+{{/extend}}
