@@ -5,16 +5,15 @@
     {{/content}}
     <span>{{errorMessage}}</span>
     {{#content "body"}}
-        {{> header}}
-        <section class="registration">
-            <h1 class="registration__header">Регистрация</h1>
-            <form class="registration__form" action="/registration" method="POST">
-                <span class="error-message">{{errorMessage}}</span>
-                <input class="registration__form__input"type="text" name="username" placeholder="Логин">
-                <input class="registration__form__input" type="email" name="email" placeholder="Email">
-                <input class="registration__form__input" type="text" name="password" placeholder="Пароль">
-                <input class="registration__form__change-file" type="file" name="image" multiple accept="image/*" >
-                <input class="registration__form__submit-button" type="submit" value="Регистрация">
+        <section class="container">
+            <h1 class="header-name">Регистрация</h1>
+            <form class="form" action="/registration" method="POST">
+                <span class="form__error-message">{{errorMessage}}</span>
+                <input class="form__input" type="text" name="username" placeholder="Логин">
+                <input class="form__input" type="email" name="email" placeholder="Email" required>
+                <input class="form__input" type="text" name="password" placeholder="Пароль">
+                <input class="form__change-file" type="file" name="image" multiple accept="image/*" >
+                <input class="form__submit-button" type="submit" value="Регистрация">
             </form>
         </section>
     {{/content}}
