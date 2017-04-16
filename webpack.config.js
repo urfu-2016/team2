@@ -44,6 +44,7 @@ module.exports = {
         questName: './blocks/quests-set/quest/__name/quest__name.pack',
         questPhoto: './blocks/quests-set/quest/__photo/quest__photo.pack',
         questStats: './blocks/quests-set/quest/__stats/quest__stats.pack',
+        questsList: './quests/quests-list/quests-list.pack',
         sortBar: './blocks/sort/sort-bar/sort-bar.pack',
         sortBarIconTriangle: './blocks/sort/sort-bar/__icon-triangle/sort-bar__icon-triangle.pack',
         sortBarSortChoice: './blocks/sort/sort-bar/__sort-choice/sort-bar__sort-choice.pack',
