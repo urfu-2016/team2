@@ -3,5 +3,8 @@
   "rules": {
     "indent": "off",
     "linebreak-style": "off"
+  },
+  "globals": {
+    "document": true
   }
 }
