@@ -5,12 +5,12 @@
     {{/content}}
     {{#content "body"}}
         <section class="container">
-            <h1 class="container__header">Вход</h1>
-            <form class="container__form" action="/login" method="POST">
-                <span class="container__form__error-message">{{errorMessage}}</span>
-                <input class="container__form__input" type="text" name="username" placeholder="Логин">
-                <input class="container__form__input" type="text" name="password" placeholder="Пароль">
-                <input class="container__form__submit-button" type="submit" value="Войти">
+            <h1 class="header-name">Вход</h1>
+            <form class="form" action="/login" method="POST">
+                <span class="form__error-message">{{errorMessage}}</span>
+                <input class="form__input" type="text" name="username" placeholder="Логин">
+                <input class="form__input" type="text" name="password" placeholder="Пароль">
+                <input class="form__submit-button" type="submit" value="Войти">
                 <a class="restore-password" href='/forgotPassword'>Восстановить пароль</a>
             </form>
         </section>

@@ -15,56 +15,56 @@ body
     justify-content space-around
     align-items center
 
-    &__form > input
-        margin-top 15px
-        margin-bottom 15px
+.header-name
+    color #ffffff
+    font-weight normal !important
 
-    &__form
-        padding-top 20px
-        padding-bottom 20px
-        height 100%
-        display flex
-        flex-direction column
-        justify-content space-around
-        align-items center
-        width 30%
-        border-radius 7px
-        background-color #000
+.error-message
+    color #ff0000
 
-        &__error-message
-            color #ff0000
+.form
+    padding-top 20px
+    padding-bottom 20px
+    height 100%
+    display flex
+    flex-direction column
+    justify-content space-around
+    align-items center
+    width 30%
+    border-radius 7px
+    background-color #000
 
-        &__change-file
+    &__change-file
+        color darkgray
+        background-color #252525
+        border-radius 4px
+        width 70%
+
+    &__submit-button
+        width 70%
+        cursor pointer
+        color: #ffffff
+        border-radius 5px
+        background-color #454545
+        font-size 1.6vw
+        border 0 none
+        padding 5px 0 5px 0color darkgray
+
+    &__input
+        border 0 none
+        border-radius 4px
+        padding 5px
+        background-color #252525
+        font-size 1.6vw
+        color #fff
+        outline none
+
+        &::-moz-placeholder
             color darkgray
-            background-color #252525
-            border-radius 4px
-            width 70%
 
-        &__submit-button
-            width 70%
-            cursor pointer
-            color: #ffffff
-            border-radius 5px
-            background-color #454545
-            font-size 1.6vw
-            border 0 none
-            padding 5px 0 5px 0color darkgray
+        &::-webkit-input-placeholder
+            color darkgray
 
-        &__input
-            border 0 none
-            border-radius 4px
-            padding 5px
-            background-color #252525
-            font-size 1.6vw
-            color #fff
-            outline none
-
-            &::-moz-placeholder
-                color darkgray
-
-            &::-webkit-input-placeholder
-                color darkgray
-
-    &__header
-        color #ffffff
-        font-weight normal !important
+.form > input
+    margin-top 15px
+    margin-bottom 15px
