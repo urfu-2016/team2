@@ -76,7 +76,7 @@ Quest.sync({force: true})
         console.log('Create Quests');
         Quest.create({
             name: 'Вечерняя прогулка',
-            authorId: 0,
+            authorId: 1,
             description: 'Квест о вечерней прогулке в центре города'
         }).catch(err => {
                 console.log(err);

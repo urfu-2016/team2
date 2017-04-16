@@ -122,9 +122,27 @@ exports.search = (req, res) => {
  * @param req
  * @param res
  */
-exports.update = (req, res) => { // eslint-disable-line no-unused-vars
-    /* const questId = req.params.questId;
-    const quest = Quest.find(questId); */
+exports.update = (req, res) => {
+    Quest.findById(req.params.id).then(quest => {
+        quest.set('name', req.body.name);
+        quest.set('description', req.body.description);
+        quest.save();
+        res.redirect(`/quests/${quest.id}`);
+    });
+};
+
+exports.getEdit = (req, res) => {
+    if (req.isAuthenticated()) {
+        Quest.findById(req.params.id).then(quest => {
+            if (req.user.id === quest.authorId) {
+                res.render('../views/quests/update.hbs', {quest});
+            } else {
+                res.render('../views/pages/forbidden/forbidden.hbs');
+            }
+        });
+    } else {
+        res.render('../views/quests/notAuthorized.hbs');
+    }
 };
 
 /**

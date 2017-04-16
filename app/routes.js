@@ -28,8 +28,11 @@ module.exports = function (app) {
     app
         .route('/quests/:id')
         .get(quests.get)
-        .put(quests.update)
         .delete(quests.delete);
+
+    app.route('/quests/:id/edit')
+        .get(quests.getEdit)
+        .post(quests.update);
 
     app
         .route('/quests/:id/comment')

@@ -4,12 +4,15 @@
     {{/content}}
     {{#content "body"}}
         <h1>Измененить квест</h1>
-        <input
-            name="name"
-            placeholder="Название квеста"
-            required
-            pattern="[A-Za-z]+">
-        <textarea name="description"></textarea>
-        <input type="submit" value="Создать">
+        <form method="post" action="/quests/{{quest.id}}/edit">
+            <input
+                name="name"
+                value="{{quest.name}}"
+                placeholder="Название квеста"
+                required
+                pattern="[A-Za-zА-Яа-я ]+">
+            <textarea name="description">{{quest.description}}</textarea>
+            <input type="submit" value="Изменить">
+        </form>
     {{/content}}
 {{/extend}}
