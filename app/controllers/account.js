@@ -1,16 +1,10 @@
 'use strict';
 
-const fs = require('fs');
 const passport = require('../config/configPassport');
-const layouts = require('handlebars-layouts');
-const handlebars = require('hbs').handlebars;
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const emailService = require('../services/emailService');
-
-handlebars.registerHelper(layouts(handlebars));
-handlebars.registerPartial('layout', fs.readFileSync('app/views/_layout.hbs', 'utf-8'));
 
 /**
  * Получить форму авторизации
