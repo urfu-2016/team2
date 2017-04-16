@@ -87,6 +87,18 @@ module.exports = function (app) {
         .put(account.user);
 
     app
+        .route('/forgotPassword')
+        .get(account.forgotPassword);
+
+    app
+        .route('/requestToken')
+        .post(account.requestToken);
+
+    app
+        .route('/resetPassword')
+        .get(account.resetPassword);
+
+    app
         .route('/statistics')
         .get(statistics.getStatistics);
 
