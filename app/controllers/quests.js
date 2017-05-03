@@ -150,9 +150,26 @@ exports.getEdit = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => { // eslint-disable-line no-unused-vars
-    /* const questId = req.params.questId;
-    const quest = Quest.find(questId); */
+exports.delete = (req, res) => {
+    if (req.isAuthenticated()) {
+        const questId = req.query.questId;
+        const quest = Quest.find(questId);
+        if (req.user.id === quest.authorId) {
+            Quest.destroy({
+                where: {
+                    id: questId
+                }
+            }).then(deletedCount => {
+                if (deletedCount !== 1) {
+                    res.render('../views/pages/forbidden/forbidden.hbs');
+                }
+            });
+        } else {
+            res.render('../views/pages/forbidden/forbidden.hbs');
+        }
+    } else {
+        res.render('../views/pages/forbidden/forbidden.hbs');
+    }
 };
 
 /**
