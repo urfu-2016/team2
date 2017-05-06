@@ -94,7 +94,6 @@ function getQuestComments(questId) {
  * @param res
  */
 exports.usersQuests = (req, res) => {
-    console.log('qwe');
     if (req.isAuthenticated()) {
         Quest.findAll({
             where: {
