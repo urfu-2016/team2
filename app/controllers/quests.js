@@ -2,7 +2,6 @@
 
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
-const Like = require('../models/like');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -93,21 +92,8 @@ function getQuestComments(questId) {
  * @param req
  * @param res
  */
-exports.usersQuests = (req, res) => {
-    if (req.isAuthenticated()) {
-        Quest.findAll({
-            where: {
-                userId: req.user.id
-            }
-        }).then(quests => {
-            res.render('../views/quests/quests-list/list.hbs', {quests});
-        }).catch(err => {
-            console.error(err);
-            res.render('../views/pages/forbidden/forbidden.hbs');
-        });
-    } else {
-        res.render('../views/pages/forbidden/forbidden.hbs');
-    }
+exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
+    // Рендерит ../views/quests/list.hbs после соответствующей выборки
 };
 
 /**
@@ -166,38 +152,24 @@ exports.getEdit = (req, res) => {
  */
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
-        const questId = req.params.id;
-        Quest.find(questId).then(quest => {
-            if (req.user.id === quest.authorId) {
-                Quest.destroy({
-                    where: {
-                        id: questId
-                    }
-                }).then(deletedCount => {
-                    if (deletedCount !== 1) {
-                        res.render('../views/pages/forbidden/forbidden.hbs');
-                    }
-                });
-            } else {
-                res.render('../views/pages/forbidden/forbidden.hbs');
-            }
-        });
+        const questId = req.query.questId;
+        const quest = Quest.find(questId);
+        if (req.user.id === quest.authorId) {
+            Quest.destroy({
+                where: {
+                    id: questId
+                }
+            }).then(deletedCount => {
+                if (deletedCount !== 1) {
+                    res.render('../views/pages/forbidden/forbidden.hbs');
+                }
+            });
+        } else {
+            res.render('../views/pages/forbidden/forbidden.hbs');
+        }
     } else {
         res.render('../views/pages/forbidden/forbidden.hbs');
     }
-};
-
-/**
- * Возвращает число лайков для данного квеста
- * @param req
- * @param res
- */
-exports.getLikes = (req, res) => {
-    Like.count({
-        where: {
-            questId: req.params.id
-        }
-    }).then(count => res.send(count));
 };
 
 /**
@@ -205,17 +177,8 @@ exports.getLikes = (req, res) => {
  * @param req
  * @param res
  */
-exports.like = (req, res) => {
-    if (req.isAuthenticated()) {
-        Like.create({
-            questId: req.params.id,
-            userId: req.user.id
-        }).catch(err => {
-            console.error(err);
-        });
-    } else {
-        res.render('../views/pages/forbidden/forbidden.hbs');
-    }
+exports.like = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
 
 /**
@@ -223,21 +186,6 @@ exports.like = (req, res) => {
  * @param req
  * @param res
  */
-exports.unlike = (req, res) => {
-    if (req.isAuthenticated()) {
-        Like.findOne({
-            questId: req.params.id,
-            userId: req.user.id
-        }).then(like => {
-            Like.destroy({
-                where: {
-                    id: like.id
-                }
-            });
-        }).catch(err => {
-            console.error(err);
-        });
-    } else {
-        res.render('../views/pages/forbidden/forbidden.hbs');
-    }
+exports.unlike = (req, res) => { // eslint-disable-line no-unused-vars
+
 };
