@@ -92,6 +92,24 @@ exports.update = (req, res) => {
  * @param req
  * @param res
  */
-exports.delete = (req, res) => { // eslint-disable-line no-unused-vars
-
+exports.delete = (req, res) => {
+    if (req.isAuthenticated()) {
+        Comment.findById(req.params.id).then(comment => {
+            if (comment.userId === req.user.id) {
+                Comment.destroy({
+                    where: {
+                        id: req.params.id
+                    }
+                }).then(deletedCount => {
+                    if (deletedCount !== 1) {
+                        res.render('../views/pages/forbidden/forbidden.hbs')
+                    }
+                });
+            } else {
+                res.render('../views/pages/forbidden/forbidden.hbs');
+            }
+        });
+    } else {
+        res.render('../views/comments/notAuthorized.hbs');
+    }
 };
