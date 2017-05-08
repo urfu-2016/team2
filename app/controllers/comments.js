@@ -102,7 +102,7 @@ exports.delete = (req, res) => {
                     }
                 }).then(deletedCount => {
                     if (deletedCount !== 1) {
-                        res.render('../views/pages/forbidden/forbidden.hbs')
+                        res.render('../views/pages/forbidden/forbidden.hbs');
                     }
                 });
             } else {

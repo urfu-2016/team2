@@ -92,8 +92,21 @@ function getQuestComments(questId) {
  * @param req
  * @param res
  */
-exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
-    // Рендерит ../views/quests/list.hbs после соответствующей выборки
+exports.usersQuests = (req, res) => {
+    if (req.isAuthenticated()) {
+        Quest.findAll({
+            where: {
+                userId: req.user.id
+            }
+        }).then(quests => {
+            res.render('../views/quests/quests-list/list.hbs', {quests});
+        }).catch(err => {
+            console.error(err);
+            res.render('../views/pages/forbidden/forbidden.hbs');
+        });
+    } else {
+        res.render('../views/account/notAuthorized.hbs');
+    }
 };
 
 /**
@@ -152,7 +165,7 @@ exports.getEdit = (req, res) => {
  */
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
-        const questId = req.query.questId;
+        const questId = req.params.id;
         const quest = Quest.find(questId);
         if (req.user.id === quest.authorId) {
             Quest.destroy({
