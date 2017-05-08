@@ -41,7 +41,8 @@ module.exports = function (app) {
 
     app
         .route('/quests/:questId/comments/:id')
-        .put(comments.update)
+        .get(comments.updatePage)
+        .post(comments.update)
         .delete(comments.delete);
 
     app

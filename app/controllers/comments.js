@@ -41,12 +41,50 @@ exports.create = (req, res) => {
 };
 
 /**
+ * Страница редиктирования комментария
+ * @param req
+ * @param res
+ */
+exports.updatePage = (req, res) => {
+    if (req.isAuthenticated()) {
+        Comment.findById(req.params.id).then(comment => {
+            if (comment.userId === req.user.id) {
+                res.render('../views/comments/update.hbs', {
+                    questId: req.params.questId,
+                    commentId: req.params.id
+                });
+            } else {
+                res.render('../views/pages/forbidden/forbidden.hbs');
+            }
+        });
+    } else {
+        res.render('../views/comments/notAuthorized.hbs');
+    }
+};
+
+/**
  * Редактирование комментария
  * @param req
  * @param res
  */
-exports.update = (req, res) => { // eslint-disable-line no-unused-vars
-
+exports.update = (req, res) => {
+    if (req.isAuthenticated()) {
+        Comment.findById(req.params.id).then(comment => {
+            if (comment.userId === req.user.id) {
+                comment.set('title', req.body.title);
+                comment.set('text', req.body.text);
+                comment.save();
+                res.redirect('/quests/' + req.params.id);
+            } else {
+                res.render('../views/pages/forbidden/forbidden.hbs');
+            }
+        }).catch(err => {
+            console.error(err);
+            res.render('../views/comments/error.hbs');
+        });
+    } else {
+        res.render('../views/comments/notAuthorized.hbs');
+    }
 };
 
 /**
