@@ -2,6 +2,7 @@
 
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -186,12 +187,39 @@ exports.delete = (req, res) => {
 };
 
 /**
+ * Возвращает число лайков у заданного квеста
+ * @param req
+ * @param res
+ */
+exports.getLikes = (req, res) => { // eslint-disable-line no-unused-vars
+
+};
+
+/**
  * Увеличение числа лайков у заданного квеста
  * @param req
  * @param res
  */
-exports.like = (req, res) => { // eslint-disable-line no-unused-vars
-
+exports.like = (req, res) => {
+    if (req.isAuthenticated()) {
+        Like.count({
+            where: {
+                questId: req.params.id,
+                userId: req.user.id
+            }
+        }).then(likesCount => {
+            if (likesCount === 0) {
+                Like.create({
+                    questId: req.params.id,
+                    userId: req.user.id
+                }).catch(err => {
+                    console.error((err));
+                });
+            }
+        });
+    } else {
+        res.render('../views/pages/forbidden/forbidden.hbs');
+    }
 };
 
 /**
