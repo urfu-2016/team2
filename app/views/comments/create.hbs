@@ -4,5 +4,10 @@
     {{/content}}
     {{#content "body"}}
         <h1>Создание комментария</h1>
+        <form method="post" action="/quests/{{questId}}/comment">
+            <input name="title" type="text" placeholder="Название">
+            <input name="text" type="text" placeholder="Текст">
+            <input type="submit" value="Создать">
+        </form>
     {{/content}}
 {{/extend}}

@@ -1,14 +1,20 @@
 'use strict';
 
-// const Quest = require('../models/Quest');
+const Comment = require('../models/comment');
 
 /**
  * Страница формы создания комментария
  * @param req
  * @param res
  */
-exports.createPage = (req, res) => { // eslint-disable-line no-unused-vars
-    res.render('../views/comments/create.hbs');
+exports.createPage = (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render('../views/comments/create.hbs', {
+            questId: req.params.id
+        });
+    } else {
+        res.render('../views/comments/notAuthorized.hbs');
+    }
 };
 
 /**
@@ -16,18 +22,22 @@ exports.createPage = (req, res) => { // eslint-disable-line no-unused-vars
  * @param req
  * @param res
  */
-exports.create = (req, res) => { // eslint-disable-line no-unused-vars
-    /* const comment = new Quest({
-        questId: req.body.questId,
-        userId: req.body.userId,
-        text: req.body.text,
-        commentId: req.body.commentId
-    });
-
-    comment.save();
-
-    // Не позволяем отправлять форму дважды
-    res.redirect(302, '/comments.js'); */
+exports.create = (req, res) => {
+    if (req.isAuthenticated()) {
+        Comment.create({
+            questId: req.params.id,
+            title: req.body.title,
+            text: req.body.text,
+            userId: req.user.id
+        }).then(() => {
+            res.redirect('/quests/' + req.params.id);
+        }).catch(err => {
+            console.error(err);
+            res.render('../views/comments/error.hbs');
+        });
+    } else {
+        res.render('../views/comments/notAuthorized.hbs');
+    }
 };
 
 /**
