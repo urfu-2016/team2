@@ -13,7 +13,8 @@ Comment.sync({force: true})
     .then(() => {
         console.log('Create Comment');
         Comment.create({
-            title: 'Какой замечательный квест!',
+            title: 'Замечательный квест',
+            text: 'Какой замечательный квест!',
             questId: 1,
             userId: 0
         }).catch(err => {
