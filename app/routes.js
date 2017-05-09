@@ -68,7 +68,7 @@ module.exports = function (app) {
         .get(quests.search);
 
     app
-        .route('/quests/myQuests')
+        .route('/myQuests')
         .get(quests.usersQuests);
 
     app
