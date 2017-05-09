@@ -47,8 +47,11 @@ module.exports = function (app) {
 
     app
         .route('/quests/:id/like')
-        .post(quests.like)
-        .delete(quests.unlike);
+        .get(quests.like);
+
+    app
+        .route('/quests/:id/unlike')
+        .get(quests.unlike);
 
     app
         .route('/quests/:id/images')
@@ -67,10 +70,6 @@ module.exports = function (app) {
     app
         .route('/quests/myQuests')
         .get(quests.usersQuests);
-
-    app
-        .route('/quests/:id/likes')
-        .get(quests.getLikes);
 
     app
         .route('/login')
