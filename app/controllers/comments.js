@@ -74,7 +74,7 @@ exports.update = (req, res) => {
                 comment.set('title', req.body.title);
                 comment.set('text', req.body.text);
                 comment.save();
-                res.redirect('/quests/' + req.params.id);
+                res.redirect('/quests/' + req.params.questId);
             } else {
                 res.render('../views/pages/forbidden/forbidden.hbs');
             }
