@@ -101,7 +101,9 @@ exports.delete = (req, res) => {
                         id: req.params.id
                     }
                 }).then(deletedCount => {
-                    if (deletedCount !== 1) {
+                    if (deletedCount === 1) {
+                        res.redirect('/quests/' + req.params.questId);
+                    } else {
                         res.render('../views/pages/forbidden/forbidden.hbs');
                     }
                 });
