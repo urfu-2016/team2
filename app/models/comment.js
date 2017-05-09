@@ -14,6 +14,10 @@ module.exports = db.sequelize.define('Comment', {
         type: Sequelize.TEXT,
         allowNull: false
     },
+    text: {
+        type: Sequelize.TEXT,
+        allowNull: false
+    },
     questId: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false

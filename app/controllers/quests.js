@@ -2,6 +2,7 @@
 
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
+const Like = require('../models/like');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -61,13 +62,19 @@ exports.get = (req, res) => {
     } else {
         Promise.all([
             Quest.findById(req.params.id),
-            getQuestComments(req.params.id)
-
-        ]).then(([quest, comments]) => {
+            getQuestComments(req.params.id),
+            Like.count({
+                where: {
+                    questId: req.params.id
+                }
+            })
+        ]).then(([quest, comments, likesCount]) => {
             if (quest) {
                 res.render('../views/quest/get-quest.hbs', Object.assign({
-                        questComments: comments.map(comment => comment.get())},
-                    quest.get()
+                        questComments: comments.map(comment => comment.get())
+                    },
+                    quest.get(),
+                    {likesCount}
                 ));
             } else {
                 pages.error404(req, res);
@@ -92,8 +99,21 @@ function getQuestComments(questId) {
  * @param req
  * @param res
  */
-exports.usersQuests = (req, res) => { // eslint-disable-line no-unused-vars
-    // Рендерит ../views/quests/list.hbs после соответствующей выборки
+exports.usersQuests = (req, res) => {
+    if (req.isAuthenticated()) {
+        Quest.findAll({
+            where: {
+                userId: req.user.id
+            }
+        }).then(quests => {
+            res.render('../views/quests/quests-list/list.hbs', {quests});
+        }).catch(err => {
+            console.error(err);
+            res.render('../views/pages/forbidden/forbidden.hbs');
+        });
+    } else {
+        res.render('../views/account/notAuthorized.hbs');
+    }
 };
 
 /**
@@ -152,7 +172,7 @@ exports.getEdit = (req, res) => {
  */
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
-        const questId = req.query.questId;
+        const questId = req.params.id;
         const quest = Quest.find(questId);
         if (req.user.id === quest.authorId) {
             Quest.destroy({
@@ -177,8 +197,32 @@ exports.delete = (req, res) => {
  * @param req
  * @param res
  */
-exports.like = (req, res) => { // eslint-disable-line no-unused-vars
-
+exports.like = (req, res) => {
+    if (req.isAuthenticated()) {
+        Like.count({
+            where: {
+                questId: req.params.id,
+                userId: req.user.id
+            }
+        }).then(likesCount => {
+            if (likesCount === 0) {
+                Like.create({
+                    questId: req.params.id,
+                    userId: req.user.id
+                }).then(() => {
+                    res.send(200);
+                }).catch(err => {
+                    console.error((err));
+                    res.send(500);
+                });
+            }
+        }).catch(err => {
+            console.error((err));
+            res.send(500);
+        });
+    } else {
+        res.send(403);
+    }
 };
 
 /**
@@ -186,6 +230,37 @@ exports.like = (req, res) => { // eslint-disable-line no-unused-vars
  * @param req
  * @param res
  */
-exports.unlike = (req, res) => { // eslint-disable-line no-unused-vars
-
+exports.unlike = (req, res) => {
+    if (req.isAuthenticated()) {
+        Like.count({
+            where: {
+                questId: req.params.id,
+                userId: req.user.id
+            }
+        }).then(likesCount => {
+            if (likesCount > 0) {
+                Like.destroy({
+                    where: {
+                        questId: req.params.id,
+                        userId: req.user.id
+                    },
+                    limit: 1
+                }).then(deletedCount => {
+                    if (deletedCount === 1) {
+                        res.send(200);
+                    } else {
+                        res.send(403);
+                    }
+                }).catch(err => {
+                    console.error((err));
+                    res.send(500);
+                });
+            }
+        }).catch(err => {
+            console.error((err));
+            res.send(500);
+        });
+    } else {
+        res.send(403);
+    }
 };

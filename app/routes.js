@@ -41,13 +41,17 @@ module.exports = function (app) {
 
     app
         .route('/quests/:questId/comments/:id')
-        .put(comments.update)
+        .get(comments.updatePage)
+        .post(comments.update)
         .delete(comments.delete);
 
     app
         .route('/quests/:id/like')
-        .post(quests.like)
-        .delete(quests.unlike);
+        .get(quests.like);
+
+    app
+        .route('/quests/:id/unlike')
+        .get(quests.unlike);
 
     app
         .route('/quests/:id/images')
