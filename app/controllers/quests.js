@@ -103,7 +103,7 @@ exports.usersQuests = (req, res) => {
     if (req.isAuthenticated()) {
         Quest.findAll({
             where: {
-                userId: req.user.id
+                authorId: req.user.id
             }
         }).then(quests => {
             res.render('../views/quests/quests-list/list.hbs', {quests});
