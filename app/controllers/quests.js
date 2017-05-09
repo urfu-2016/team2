@@ -215,6 +215,8 @@ exports.like = (req, res) => {
                     console.error((err));
                     res.send(500);
                 });
+            } else {
+                res.send('Вы уже лайкали этот квест');
             }
         }).catch(err => {
             console.error((err));
@@ -255,6 +257,8 @@ exports.unlike = (req, res) => {
                     console.error((err));
                     res.send(500);
                 });
+            } else {
+                res.send('Вы ещё не лайкали этот квест');
             }
         }).catch(err => {
             console.error((err));
