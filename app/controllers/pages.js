@@ -15,8 +15,6 @@ exports.error404 = (req, res) => {
  * @param res
  */
 exports.main = (req, res) => {
-    res.render('../views/pages/main/main.hbs', {
-        username: req.isAuthenticated() ? req.user.username : ''
-    });
+    res.render('../views/pages/main/main.hbs');
 };
 

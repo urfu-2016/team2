@@ -4,6 +4,8 @@
         <a class="login__logout" href="/logout">Выйти</a>
     {{else}}
         <img class="login__pic" alt="user picture" title="user picture" src="//awesomequests.surge.sh/profile.png">
-        <a href="/login" class="login__register">Войти/регистрация</a>
+        <div class="login__register">
+            <a href="/login">Войти</a>/<a href="/registration">Регистрация</a>
+        </div>
     {{/if}}
 </div>

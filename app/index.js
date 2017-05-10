@@ -42,6 +42,7 @@ require('./config/configPassport');
 require('./config/registerPartials');
 
 app.use(require('./middlewares/review'));
+app.use(require('./middlewares/username'));
 
 require('./routes')(app);
 
