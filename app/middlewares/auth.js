@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Middleware для записи просмотров в базу данных
+ * Middleware для ограничения доступа незарегистрированным пользователям
  * @param req
  * @param res
  * @param next
