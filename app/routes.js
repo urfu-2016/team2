@@ -26,40 +26,40 @@ module.exports = function (app) {
         .post(quests.create);
 
     app
-        .route('/quests/:id')
+        .route('/quests/:id(\\d+)')
         .get(quests.get)
         .delete(quests.delete);
 
-    app.route('/quests/:id/edit')
+    app.route('/quests/:id(\\d+)/edit')
         .get(quests.getEdit)
         .post(quests.update);
 
     app
-        .route('/quests/:id/comment')
+        .route('/quests/:id(\\d+)/comment')
         .get(comments.createPage)
         .post(comments.create);
 
     app
-        .route('/quests/:questId/comments/:id')
+        .route('/quests/:questId(\\d+)/comments/:id(\\d+)')
         .get(comments.updatePage)
         .post(comments.update)
         .delete(comments.delete);
 
     app
-        .route('/quests/:id/like')
+        .route('/quests/:id(\\d+)/like')
         .get(quests.like);
 
     app
-        .route('/quests/:id/unlike')
+        .route('/quests/:id(\\d+)/unlike')
         .get(quests.unlike);
 
     app
-        .route('/quests/:id/images')
+        .route('/quests/:id(\\d+)/images')
         .post(images.create)
         .get(images.createPage);
 
     app
-        .route('/quests/:questId/images/:id')
+        .route('/quests/:questId(\\d+)/images/:id(\\d+)')
         .put(images.update)
         .delete(images.delete);
 
