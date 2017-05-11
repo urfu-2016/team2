@@ -118,5 +118,3 @@ module.exports = function (app) {
 
     app.all('*', pages.error404);
 };
-
-
