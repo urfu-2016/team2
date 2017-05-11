@@ -6,7 +6,7 @@ const sortChoice = document.getElementsByClassName('sort-choice')[0];
 
 const options = document.getElementsByClassName('option');
 
-let k = 0;
+let k = 1;
 iconTriangle.onclick = function () {
     k++;
     if (k % 2 === 0) {

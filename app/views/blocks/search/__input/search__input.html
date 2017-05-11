@@ -1,3 +1,6 @@
-<form action="" class="search__input-form">
-    <input type="text" class="search__input" placeholder="Поиск квеста">
+<form action="/quests/search" method="GET" class="search__input-form">
+    <input type="text" name="pattern" class="search__input" placeholder="Поиск квеста" required>
+    <input type="submit" id="submit">
+    <label for="submit" class="search__icon-loupe">&#128269;</label>
 </form>
+
