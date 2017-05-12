@@ -6,11 +6,17 @@ function allowDrop(event) {
     event.preventDefault();
 }
 
+/**
+ * Действия, когда элемент начал перетаскиваться
+ */
 function drag(event) {
     event.dataTransfer.setData('text', event.target.id);
     event.dataTransfer.setData('parent', event.target.parentNode.id);
 }
 
+/**
+ * Действия, когда перетаскиваемый элемент перемещен в принимающий его элемент удаления
+ */
 function dropDelete(event) {
     event.preventDefault();
     const data = event.dataTransfer.getData('text');
@@ -22,6 +28,9 @@ function dropDelete(event) {
     recountPhotos();
 }
 
+/**
+ * Переномеруем порядок фотографий после перемещения dragn'drop
+ */
 function recountPhotos() {
     const photos = document.getElementById('photo');
     const elements = photos.getElementsByTagName('div');
@@ -32,6 +41,9 @@ function recountPhotos() {
     }
 }
 
+/**
+ * Действия, когда перетаскиваемый элемент перемещен в принимающий
+ */
 function drop(event) {
     event.preventDefault();
     const data = event.dataTransfer.getData('text');
@@ -48,7 +60,11 @@ function drop(event) {
     outputBlock.appendChild(targetImg);
 }
 
+/**
+ * Загружаем изображение
+ */
 function loadImage(event) {
+    clearDialog();
     const fileInput = event.target;
     const image = fileInput.files[0];
     /*eslint-disable */
@@ -65,6 +81,9 @@ function loadImage(event) {
     });
 }
 
+/**
+ * Открываем диалог выбора фото
+ */
 function openLoadDialog() {
     const dialog = document.getElementById('photo-dialog');
     const shadow = document.getElementById('shadow');
@@ -72,20 +91,30 @@ function openLoadDialog() {
     shadow.className = 'block-hidden';
 }
 
+/**
+ * Закрываем диалог выбора фото
+ */
 function closeDialog() {
     const dialog = document.getElementById('photo-dialog');
     dialog.className = 'block-hidden';
     clearDialog();
+    MAP.geoObjects.removeAll();
+    document.getElementById('warning').className = 'block-hidden';
 }
 
+/**
+ * Очищаем данные о фото поле сохранения
+ */
 function clearDialog() {
     const showPhotoBlock = document.getElementById('show-photo');
     for (let i = 0; i < showPhotoBlock.childElementCount; i++) {
         showPhotoBlock.removeChild(showPhotoBlock.firstElementChild);
     }
-    MAP.geoObjects.removeAll();
 }
 
+/**
+ * Сохраняем фото и ее метку на карте
+ */
 function savePhoto() {
     if (MAP.geoObjects.getLength() === 0 || document.getElementById('show-photo').childElementCount === 0) {
         document.getElementById('warning').className = '';
@@ -108,10 +137,12 @@ function savePhoto() {
     wrapImage.appendChild(img);
     document.getElementById('photo').appendChild(wrapImage);
     document.getElementById('input').value = '';
-    document.getElementById('warning').className = 'block-hidden';
     closeDialog();
 }
 
+/**
+ * Инициализируем Яндекс.Карту
+ */
 function initMap() {
     const centerYekaterinburg = [56.835, 60.59];
     /*eslint-disable */

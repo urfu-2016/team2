@@ -1,5 +1,8 @@
 'use strict';
 
+/**
+ * Заполняем инпуты добавленными картинками
+ */
 function fillForm() {
     const photos = document.getElementById('photo');
     const collectBlock = document.getElementById('collect-block');
