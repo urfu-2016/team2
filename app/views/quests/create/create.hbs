@@ -1,17 +1,81 @@
 {{#extend "layout"}}
     {{#content "head"}}
         <title>Создание квеста</title>
+        <link rel="stylesheet" href="//awesomequests-nikitc.surge.sh/create.bundle.css">
+        <script type="text/javascript" src="//awesomequests-nikitc.surge.sh/create.bundle.js"></script>
+        <script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
     {{/content}}
     {{#content "body"}}
-        <h1>Создать новый квест</h1>
-        <form action="/quests/createQuest" method="post">
-            <input
-                name="name"
-                placeholder="Название квеста"
-                required
-                pattern="[A-Za-z]+">
-            <textarea name="description"></textarea>
-            <input type="submit" value="Создать">
-        </form>
+        <section class="container">
+            <div id="shadow" class="block-hidden"></div>
+            <h1 class="header-name">Создать новый квест</h1>
+            <form class="form-create" action="/quests/createQuest" method="POST">
+                <article id="info-block" class="main-blocks">
+                    <div class="main-info">
+                        <h3 class="input-name">Название:</h3>
+                        <input id="quest-name"
+                               class="main-info__input"
+                               name="name"
+                               placeholder="Веселый квест">
+
+                        <h3 class="input-name">Описание:</h3>
+                        <textarea class="main-info__description"
+                                  name="description"
+                                  rows="7"
+                                  cols="45"></textarea>
+                        <input class="input-hidden" id="load" type="file" accept="image/*">
+                    </div>
+                    <div class="photo">
+                        <h3 class="name-photo">Фотографии:</h3>
+                        <div class="photo-content">
+                            <div id="photo">
+                            </div>
+                            <div class="add-options">
+                                <div class="add-options__delete-block" ondrop="create.loadPhoto.drop(event)"
+                                     ondragover="create.loadPhoto.dragOver(event)">
+                                    <img width="50px" height="50px" src="//awesomequests-nikitc.surge.sh/delete.png">
+                                </div>
+                                <input id="add-photo" class="input-hidden" type="button">
+                                <label for="add-photo" class="add-options__label-load">
+                                    Добавить фото
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="photo-dialog" class="block-hidden">
+                        <div id="map"></div>
+                        <div class="photo-dialog__options">
+                            <div id="show-photo"></div>
+                            <input id="input" class="input-hidden" type="file" accept="image/*">
+                            <label for="input" class="load">
+                                Загрузить изображение
+                            </label>
+                            <input id="save-photo" class="input-hidden" type="button">
+                            <label for="save-photo" class="load">
+                                Сохранить
+                            </label>
+                            <div id="warning" class="block-hidden">
+                                Выберите отметку и загрузите изображение!!
+                            </div>
+                            <div id="close-dialog">
+                                <img width="40px" height="40px" src="//awesomequests-nikitc.surge.sh/close-btn.png">
+                            </div>
+                        </div>
+                        <input id="coords" class="input-hidden" type="text">
+                    </div>
+                    <div id="collect-block"></div>
+                </article>
+                <input id="create-button" class="submit-button" type="submit" value="Создать">
+            </form>
+        </section>
+        <script>
+            document.getElementById('input').addEventListener('change', create.loadPhoto.loadImage);
+            document.getElementById('add-photo').addEventListener('click', create.loadPhoto.openLoadDialog);
+            document.getElementById('close-dialog').addEventListener('click', create.loadPhoto.closeDialog);
+            document.getElementById('save-photo').addEventListener('click', create.loadPhoto.savePhoto);
+            document.getElementById('create-button').addEventListener('click', create.fillForm.fillForm);
+            document.getElementById('close-dialog').addEventListener('click', create.fillForm.fillForm);
+            ymaps.ready(create.loadPhoto.initMap);
+        </script>
     {{/content}}
 {{/extend}}

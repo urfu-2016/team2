@@ -1,5 +1,6 @@
 'use strict';
 
+const Image = require('../models/image');
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
@@ -8,6 +9,7 @@ const pages = require('./pages.js');
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const underline = /_/g;
+const upload = require('../../scripts/fileUploader.js');
 
 /**
  * Страница добавления квеста
@@ -22,17 +24,42 @@ exports.createQuest = (req, res) => {
     }
 };
 
+
 /**
  * Добавление нового квеста
  * @param req
  * @param res
  */
 exports.create = (req, res) => {
-    Quest.create({
+        Quest.create({
         name: req.body.name,
         description: req.body.description,
         authorId: req.user.id
-    }).then(() => {
+    }).then(quest => {
+            let i = 1;
+            let data = req.body['inputImage' + i];
+            while (data !== undefined) {
+                const coords = req.body['inputCoords' + i].split(',');
+                upload(data, (err, ans) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                        const image = {
+                            path: ans,
+                            answer: {
+                                latitude: coords[0],
+                                longitude: coords[1]
+                            },
+                            questId: quest.id
+                        };
+                        Image.create(image);
+                    });
+                i++;
+                data = req.body['inputImage' + i];
+                }
+            })
+    .then(() => {
         res.redirect(302, '/quests');
     }).catch(err => {
         console.error(err);
