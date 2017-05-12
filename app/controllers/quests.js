@@ -24,7 +24,6 @@ exports.createQuest = (req, res) => {
     }
 };
 
-
 /**
  * Добавление нового квеста
  * @param req

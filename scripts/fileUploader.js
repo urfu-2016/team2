@@ -3,7 +3,6 @@
 /* eslint arrow-parens: 0 */
 
 const cloudinary = require('cloudinary');
-const fs = require('fs');
 
 cloudinary.config({
     cloud_name: 'photoquestteam2',

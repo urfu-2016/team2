@@ -7,14 +7,14 @@ function allowDrop(event) {
 }
 
 function drag(event) {
-    event.dataTransfer.setData("text", event.target.id);
-    event.dataTransfer.setData("parent", event.target.parentNode.id);
+    event.dataTransfer.setData('text', event.target.id);
+    event.dataTransfer.setData('parent', event.target.parentNode.id);
 }
 
 function dropDelete(event) {
     event.preventDefault();
-    const data = event.dataTransfer.getData("text");
-    const parentData = event.dataTransfer.getData("parent");
+    const data = event.dataTransfer.getData('text');
+    const parentData = event.dataTransfer.getData('parent');
     const outputBlock = document.getElementById(parentData);
     const dataNote = document.getElementById(data);
     outputBlock.parentNode.removeChild(outputBlock);
@@ -25,8 +25,8 @@ function dropDelete(event) {
 function recountPhotos() {
     const photos = document.getElementById('photo');
     const elements = photos.getElementsByTagName('div');
-    for (var i = 1; i <= elements.length; i++) {
-        let currentChild = elements[i - 1];
+    for (let i = 1; i <= elements.length; i++) {
+        const currentChild = elements[i - 1];
         currentChild.firstChild.id = 'drag' + i;
         currentChild.id = 'div' + i;
     }
@@ -34,8 +34,8 @@ function recountPhotos() {
 
 function drop(event) {
     event.preventDefault();
-    const data = event.dataTransfer.getData("text");
-    const parentData = event.dataTransfer.getData("parent");
+    const data = event.dataTransfer.getData('text');
+    const parentData = event.dataTransfer.getData('parent');
     const outputBlock = document.getElementById(parentData);
     const targetImg = event.target;
     if (targetImg.tagName !== 'IMG') {
@@ -48,13 +48,16 @@ function drop(event) {
     outputBlock.appendChild(targetImg);
 }
 
-function loadImage() {
-    const image = input.files[0];
+function loadImage(event) {
+    const fileInput = event.target;
+    const image = fileInput.files[0];
+    /*eslint-disable */
     const reader = new FileReader();
+    /*eslint-enable */
 
     reader.readAsDataURL(image);
-    reader.addEventListener('load', function () {
-        let photo = document.createElement('img');
+    reader.addEventListener('load', () => {
+        const photo = document.createElement('img');
         photo.width = 100;
         photo.height = 100;
         photo.src = reader.result;
@@ -77,7 +80,7 @@ function closeDialog() {
 
 function clearDialog() {
     const showPhotoBlock = document.getElementById('show-photo');
-    for (var i = 0; i < showPhotoBlock.childElementCount; i++) {
+    for (let i = 0; i < showPhotoBlock.childElementCount; i++) {
         showPhotoBlock.removeChild(showPhotoBlock.firstElementChild);
     }
     MAP.geoObjects.removeAll();
@@ -88,7 +91,7 @@ function savePhoto() {
         document.getElementById('warning').className = '';
         return;
     }
-    let img = document.createElement('img');
+    const img = document.createElement('img');
     img.draggable = true;
     img.id = 'drag' + (document.getElementById('photo').childElementCount + 1);
     img.width = 100;
@@ -97,7 +100,7 @@ function savePhoto() {
     img.src = document.getElementById('show-photo').firstChild.src;
     img.coords = document.getElementById('coords').value;
 
-    let wrapImage = document.createElement('div');
+    const wrapImage = document.createElement('div');
     wrapImage.className = 'wrap-img';
     wrapImage.id = 'div' + (document.getElementById('photo').childElementCount + 1);
     wrapImage.ondrop = drop;
@@ -111,28 +114,31 @@ function savePhoto() {
 
 function initMap() {
     const centerYekaterinburg = [56.835, 60.59];
-    MAP = new ymaps.Map("map", {
+    /*eslint-disable */
+    MAP = new ymaps.Map('map', {
         center: centerYekaterinburg,
         zoom: 10
     });
-    MAP.events.add('click', event =>  {
-        if(MAP.geoObjects.getLength() === 1) {
+    /*eslint-enable */
+    MAP.events.add('click', event => {
+        if (MAP.geoObjects.getLength() === 1) {
             MAP.geoObjects.removeAll();
         }
-        var myGeoObject = new ymaps.GeoObject({
+        /*eslint-disable */
+        const myGeoObject = new ymaps.GeoObject({
             geometry: {
-                type: "Point",
+                type: 'Point',
                 coordinates: event.get('coords')
             },
             properties: {
                 hintContent: event.get('coords')
             }
         });
+        /*eslint-enable */
         MAP.geoObjects.add(myGeoObject);
         document.getElementById('coords').value = event.get('coords');
     });
 }
-
 
 exports.initMap = initMap;
 exports.savePhoto = savePhoto;

@@ -1,8 +1,7 @@
 'use strict';
 
-
-let loadPhoto = require('./add-photo');
-let fillForm = require('./fill-form');
+const loadPhoto = require('./add-photo');
+const fillForm = require('./fill-form');
 require('./create.styl');
 
 exports.loadPhoto = loadPhoto;
