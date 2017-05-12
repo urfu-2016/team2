@@ -122,7 +122,7 @@ exports.usersQuests = (req, res) => {
  * @param res
  */
 exports.search = (req, res) => {
-    const pattern = req.params.pattern.replace(forbiddenSearch, '');
+    const pattern = req.query.pattern.replace(forbiddenSearch, '');
     Quest.all({
         where: {
             name: {
@@ -130,7 +130,7 @@ exports.search = (req, res) => {
             }
         }
     }).then(quests => {
-        res.render('../views/quests/search.hbs', {
+         res.render('../views/blocks/quests-set/quest/quest.hbs', {
             quests: quests.map(quest => quest.get()),
             pattern: pattern.replace(underline, ' ')
         });

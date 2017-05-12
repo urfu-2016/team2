@@ -26,6 +26,10 @@ module.exports = function (app) {
         .post(quests.create);
 
     app
+        .route('/quests/search')
+        .get(quests.search);
+
+    app
         .route('/quests/:id(\\d+)')
         .get(quests.get)
         .delete(quests.delete);
@@ -62,10 +66,6 @@ module.exports = function (app) {
         .route('/quests/:questId(\\d+)/images/:id(\\d+)')
         .put(images.update)
         .delete(images.delete);
-
-    app
-        .route('/quests/search/:pattern')
-        .get(quests.search);
 
     app
         .route('/myQuests')
