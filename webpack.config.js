@@ -33,6 +33,7 @@ module.exports = {
             './account/signIn/signIn.pack.js',
             './account/registration/registration.pack.js'
         ],
+        statistics: './statistics/statistics.pack',
         create: './quests/create/create.pack',
         registration: './account/registration/registration.pack.js',
         getQuest: [
