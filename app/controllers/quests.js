@@ -156,7 +156,7 @@ exports.search = (req, res) => {
             }
         }
     }).then(quests => {
-         res.render('../views/blocks/quests-set/quest/quest.hbs', {
+         res.render('../views/quests/quests-list/list.hbs', {
             quests: quests.map(quest => quest.get()),
             pattern: pattern.replace(underline, ' ')
         });
