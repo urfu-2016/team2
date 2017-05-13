@@ -8,7 +8,6 @@ const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
-const underline = /_/g;
 const upload = require('../../scripts/fileUploader.js');
 
 /**
