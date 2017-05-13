@@ -8,7 +8,6 @@ const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
-const underline = /_/g;
 const upload = require('../../scripts/fileUploader.js');
 
 /**
@@ -72,10 +71,24 @@ exports.create = (req, res) => {
  * @param res
  */
 exports.list = (req, res) => {
-    Quest.all().then(quests => {
-        res.render('../views/quests/quests-list/list.hbs', {quests});
-    });
+    Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
 };
+
+function getRenderOfQuestsList(res) {
+    return quests => {
+        quests.map(quest => {
+            const images = quest.Images;
+            if (images.length === 0) {
+                return quest;
+            }
+
+            /* Для каждого квеста картинка выбирается случайным образом из квестовых */
+            const i = Math.floor(Math.random() * images.length);
+            return Object.assign(quest, {imgSrc: images[i].path});
+        });
+        res.render('../views/quests/quests-list/list.hbs', {quests});
+    };
+}
 
 /**
  * Получить квест по id
@@ -120,6 +133,13 @@ function getQuestComments(questId) {
     });
 }
 
+function getQuestsWhere(req, res, condition) {
+    Quest.findAll({
+        where: condition,
+        include: [Image]
+    }).then(getRenderOfQuestsList(res));
+}
+
 /**
  * Получает квесты текущего пользователя
  * @param req
@@ -127,16 +147,7 @@ function getQuestComments(questId) {
  */
 exports.usersQuests = (req, res) => {
     if (req.isAuthenticated()) {
-        Quest.findAll({
-            where: {
-                authorId: req.user.id
-            }
-        }).then(quests => {
-            res.render('../views/quests/quests-list/list.hbs', {quests});
-        }).catch(err => {
-            console.error(err);
-            res.render('../views/pages/forbidden/forbidden.hbs');
-        });
+        getQuestsWhere(req, res, {authorId: req.user.id});
     } else {
         res.render('../views/account/notAuthorized.hbs');
     }
@@ -149,17 +160,10 @@ exports.usersQuests = (req, res) => {
  */
 exports.search = (req, res) => {
     const pattern = req.query.pattern.replace(forbiddenSearch, '');
-    Quest.all({
-        where: {
-            name: {
-                $iLike: '%' + pattern + '%'
-            }
+    getQuestsWhere(req, res, {
+        name: {
+            $iLike: '%' + pattern + '%'
         }
-    }).then(quests => {
-         res.render('../views/quests/quests-list/list.hbs', {
-            quests: quests.map(quest => quest.get()),
-            pattern: pattern.replace(underline, ' ')
-        });
     });
 };
 
