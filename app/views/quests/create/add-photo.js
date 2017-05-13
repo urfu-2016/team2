@@ -71,8 +71,8 @@ function loadImage(event) {
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
         const photo = document.createElement('img');
-        photo.style.width = '100px';
-        photo.style.height = '100px';
+        photo.style.width = '100%';
+        photo.style.height = '100%';
         photo.src = reader.result;
         document.getElementById('show-photo').appendChild(photo);
     });
@@ -124,7 +124,7 @@ function savePhoto() {
     img.style.height = '100px';
     img.ondragstart = drag;
     img.src = document.getElementById('show-photo').firstChild.src;
-    img['data-coords'] = document.getElementById('coords').value;
+    img.dataset.coords = document.getElementById('coords').value;
 
     const wrapImage = document.createElement('div');
     wrapImage.className = 'wrap-img';

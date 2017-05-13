@@ -15,7 +15,7 @@ function fillForm() {
         inputCoords.name = 'inputCoords' + i;
         inputCoords.type = 'text';
         inputCoords.className = 'input-hidden';
-        inputCoords.value = image.dataCoords;
+        inputCoords.value = image.getAttribute('data-coords');
         collectBlock.appendChild(inputCoords);
 
         newInput.name = 'inputImage' + i;
