@@ -94,7 +94,7 @@ module.exports = function (app) {
     app
         .route('/manage')
         .get(account.management)
-        .put(account.user);
+        .post(account.user);
 
     app
         .route('/forgotPassword')

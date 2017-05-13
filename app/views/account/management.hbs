@@ -1,8 +1,19 @@
 {{#extend "layout"}}
     {{#content "head"}}
         <title>Управление аккаунтом</title>
+        <link rel="stylesheet" href="//awesomequests.surge.sh/registration.bundle.css">
     {{/content}}
     {{#content "body"}}
-        <h1>Управление аккаунтом</h1>
+        <section class="container">
+            <h1 class="header-name">Управление аккаунтом</h1>
+            <form class="form" action="/manage" method="POST">
+                <span class="form__error-message">{{errorMessage}}</span>
+                <input class="form__input" type="text" name="username" placeholder="Логин" required value="{{username}}">
+                <input class="form__input" type="email" name="email" placeholder="Email" required value="{{email}}">
+                <input class="form__input" type="password" name="password" placeholder="Пароль" required>
+                <input class="form__change-file" type="file" name="image" multiple accept="image/*">
+                <input class="form__submit-button" type="submit" value="Сохранить">
+            </form>
+        </section>
     {{/content}}
 {{/extend}}
