@@ -20,7 +20,7 @@ handlebars.registerPartial('quests-set', fs.readFileSync('app/views/blocks/quest
 handlebars.registerPartial('quest', fs.readFileSync('app/views/blocks/quests-set/quest/quest.hbs', 'utf-8'));
 handlebars.registerPartial('quest__bar-new', fs.readFileSync('app/views/blocks/quests-set/quest/__bar-new/quest__bar-new.html', 'utf-8'));
 handlebars.registerPartial('quest__name', fs.readFileSync('app/views/blocks/quests-set/quest/__name/quest__name.hbs', 'utf-8'));
-handlebars.registerPartial('quest__photo', fs.readFileSync('app/views/blocks/quests-set/quest/__photo/quest__photo.html', 'utf-8'));
+handlebars.registerPartial('quest__photo', fs.readFileSync('app/views/blocks/quests-set/quest/__photo/quest__photo.hbs', 'utf-8'));
 handlebars.registerPartial('quest__stats', fs.readFileSync('app/views/blocks/quests-set/quest/__stats/quest__stats.html', 'utf-8'));
 handlebars.registerPartial('sortAndSearch', fs.readFileSync('app/views/blocks/sortAndSearch/sortAndSearch.hbs', 'utf-8'));
 handlebars.registerPartial('sort', fs.readFileSync('app/views/blocks/sort/sort.hbs', 'utf-8'));

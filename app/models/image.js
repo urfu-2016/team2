@@ -2,8 +2,9 @@
 
 const db = require('../config/db.js');
 const Sequelize = require('sequelize');
+const Quest = require('./quest.js');
 
-module.exports = db.sequelize.define('Image', {
+const Image = db.sequelize.define('Image', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -17,9 +18,9 @@ module.exports = db.sequelize.define('Image', {
     answer: {
         type: Sequelize.JSON,
         allowNull: false
-    },
-    questId: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        allowNull: false
     }
 });
+
+Quest.hasMany(Image, {foreignKey: 'questId'});
+
+module.exports = Image;
