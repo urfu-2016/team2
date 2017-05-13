@@ -71,8 +71,8 @@ function loadImage(event) {
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
         const photo = document.createElement('img');
-        photo.width = 100;
-        photo.height = 100;
+        photo.style.width = '100px';
+        photo.style.height = '100px';
         photo.src = reader.result;
         document.getElementById('show-photo').appendChild(photo);
     });
@@ -120,8 +120,8 @@ function savePhoto() {
     const img = document.createElement('img');
     img.draggable = true;
     img.id = 'drag' + (document.getElementById('photo').childElementCount + 1);
-    img.width = 100;
-    img.height = 100;
+    img.style.width = '100px';
+    img.style.height = '100px';
     img.ondragstart = drag;
     img.src = document.getElementById('show-photo').firstChild.src;
     img['data-coords'] = document.getElementById('coords').value;
