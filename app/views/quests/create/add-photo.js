@@ -19,12 +19,9 @@ function drag(event) {
  */
 function dropDelete(event) {
     event.preventDefault();
-    const data = event.dataTransfer.getData('text');
     const parentData = event.dataTransfer.getData('parent');
     const outputBlock = document.getElementById(parentData);
-    const dataNote = document.getElementById(data);
     outputBlock.parentNode.removeChild(outputBlock);
-    outputBlock.removeChild(dataNote);
     recountPhotos();
 }
 
@@ -74,8 +71,8 @@ function loadImage(event) {
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
         const photo = document.createElement('img');
-        photo.width = 100;
-        photo.height = 100;
+        photo.width = '100px';
+        photo.height = '100px';
         photo.src = reader.result;
         document.getElementById('show-photo').appendChild(photo);
     });
@@ -123,8 +120,8 @@ function savePhoto() {
     const img = document.createElement('img');
     img.draggable = true;
     img.id = 'drag' + (document.getElementById('photo').childElementCount + 1);
-    img.width = 100;
-    img.height = 100;
+    img.width = '100px';
+    img.height = '100px';
     img.ondragstart = drag;
     img.src = document.getElementById('show-photo').firstChild.src;
     img.coords = document.getElementById('coords').value;
