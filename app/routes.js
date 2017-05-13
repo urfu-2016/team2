@@ -72,6 +72,10 @@ module.exports = function (app) {
         .get(quests.usersQuests);
 
     app
+        .route('/about')
+        .get(pages.about);
+
+    app
         .route('/login')
         .get(account.signIn)
         .post(account.authorize);

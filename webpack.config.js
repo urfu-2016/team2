@@ -28,6 +28,7 @@ module.exports = {
             './blocks/footer/footer.pack',
             './_layout.pack'
         ],
+        about: './about/about.pack',
         signIn: [
             './account/signIn/signIn.pack.js',
             './account/registration/registration.pack.js'

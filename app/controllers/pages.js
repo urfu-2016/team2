@@ -18,3 +18,12 @@ exports.main = (req, res) => {
     res.render('../views/pages/main/main.hbs');
 };
 
+/**
+ * Страница с описанием проекта
+ * @param req
+ * @param res
+ */
+exports.about = (req, res) => {
+    res.render('../views/about/about.hbs');
+};
+
