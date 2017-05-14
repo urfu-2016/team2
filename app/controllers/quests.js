@@ -54,25 +54,26 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.list = (req, res) => {
-    Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
+exports.list = async (req, res) => {
+    //Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
+    let quests = await Quest.all({include: [Image]});
+
+    quests = await Promise.all(quests.map(async quest => {
+        console.log(quest.Images);
+        if (quest.Images.length !== 0) {
+            console.log("HEEEE")
+            const i = Math.floor(Math.random() * quest.Images.length);
+            quest.imgSrc = quest.Images[i].path;
+        }
+
+        quest.likesCount = await Like.count({where: {questId: quest.id}});
+        quest.finishedCount = (await getQuestFinishedCount(quest.id)).length;
+
+        return quest;
+    }));
+
+    res.render('../views/quests/quests-list/list.hbs', {quests});
 };
-
-function getRenderOfQuestsList(res) {
-    return quests => {
-        quests.map(quest => {
-            const images = quest.Images;
-            if (images.length === 0) {
-                return quest;
-            }
-
-            /* Для каждого квеста картинка выбирается случайным образом из квестовых */
-            const i = Math.floor(Math.random() * images.length);
-            return Object.assign(quest, {imgSrc: images[i].path});
-        });
-        res.render('../views/quests/quests-list/list.hbs', {quests});
-    };
-}
 
 /**
  * Получить квест по id
