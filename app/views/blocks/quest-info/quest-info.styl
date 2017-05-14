@@ -27,7 +27,7 @@
 
 .description
     display inline-block
-    width 58%
+    width 60%
     margin-left 2%
     vertical-align top
     font-size 120%
@@ -42,17 +42,18 @@
     width: 80%
     margin: auto
 
-.photo
+.photo-wrapper
     display: inline-block
+    position relative
+
+.photo
     box-sizing: border-box
-    width: 20%
     height: 200px
     margin: 2%
     border-radius: 20px
-    cursor pointer
 
 .pop-up
-    position absolute
+    position fixed
     margin auto
     top 0
     bottom 0
@@ -64,3 +65,28 @@
     visibility hidden
     border-radius 20px
     border 1px solid black
+
+.geo
+.geo-error
+    width 40%
+    cursor pointer
+    position absolute
+    bottom 15px
+    right 0
+
+.geo-error
+    animation shake 0.5s
+
+@keyframes shake
+{
+    0%, 100% {transform: translateX(0);}
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-10px);}
+    20%, 40%, 60%, 80% {transform: translateX(10px);}
+}
+
+.excelent
+    width 40%
+    visibility hidden
+    position absolute
+    top 0
+    left 0
