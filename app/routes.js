@@ -63,6 +63,10 @@ module.exports = function (app) {
         .get(images.createPage);
 
     app
+        .route('/quests/:id(\\d+)/delete')
+        .get(quests.delete);
+
+    app
         .route('/quests/:questId(\\d+)/images/:id(\\d+)')
         .put(images.update)
         .delete(images.delete);

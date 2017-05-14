@@ -42,6 +42,7 @@ module.exports = {
             './blocks/quest-info/quest-info.pack.js',
             './blocks/likes/likes.pack',
             './blocks/finished/finished.pack',
+            './comments/comment/comment.pack',
             './blocks/quest-info/geolocation'
         ],
         main: [

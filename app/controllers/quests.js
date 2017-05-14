@@ -73,7 +73,7 @@ function getRenderOfQuestsList(res) {
             return quest;
         }));
 
-       res.render('../views/quests/quests-list/list.hbs', {quests});
+        res.render('../views/quests/quests-list/list.hbs', {quests});
     };
 }
 
@@ -114,7 +114,7 @@ exports.get = (req, res) => {
             quest.get(),
             {likesCount},
             {finished: finishedCount.length}
-        ));
+            ));
     });
 };
 
@@ -137,7 +137,7 @@ function getQuestImages(questId) {
 
 function getQuestFinishedCount(questId) {
     return Result.count({
-        where: {questId},
+            where: {questId},
         group: ['userId']
     });
 }

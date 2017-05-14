@@ -6,7 +6,7 @@
  * @param res
  */
 exports.error404 = (req, res) => {
-    res.render('../views/error/error.hbs', {
+    res.render(404, '../views/error/error.hbs', {
         title: 'Не существует',
         errorMessage: 'Страница не существует'
     });
