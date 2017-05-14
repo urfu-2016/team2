@@ -33,37 +33,16 @@ exports.createQuest = (req, res) => {
  * @param res
  */
 exports.create = (req, res) => {
-        Quest.create({
+    Quest.create({
         name: req.body.name,
         description: req.body.description,
         authorId: req.user.id
     }).then(quest => {
-            let i = 1;
-            let data = req.body['inputImage' + i];
-            while (data !== undefined) {
-                const coords = req.body['inputCoords' + i].split(',');
-                upload(data, (err, ans) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-                        const image = {
-                            path: ans,
-                            answer: {
-                                latitude: coords[0],
-                                longitude: coords[1]
-                            },
-                            questId: quest.id
-                        };
-                        Image.create(image);
-                    });
-                i++;
-                data = req.body['inputImage' + i];
-                }
-            })
-    .then(() => {
-        res.redirect(302, '/quests');
-    }).catch(err => {
+        uploadImage(req, quest.id);
+    })
+        .then(() => {
+            res.redirect(302, '/quests');
+        }).catch(err => {
         console.error(err);
         res.redirect('/');
     });
@@ -188,25 +167,71 @@ exports.search = (req, res) => {
     });
 };
 
+function handlerUpload(coords, id, i) {
+    return (err, ans) => {
+        if (err) {
+            console.error(err);
+            return;
+        }
+        const image = {
+            path: ans,
+            answer: {
+                latitude: coords[0],
+                longitude: coords[1]
+            },
+            questId: id,
+            order: i
+        };
+        Image.create(image);
+    };
+}
+
+function uploadImage(req, id) {
+    let i = 1;
+    let data = req.body['inputImage' + i];
+    while (data !== undefined) {
+        const coords = req.body['inputCoords' + i].split(',');
+        upload(data, handlerUpload(coords, id, i));
+        i++;
+        data = req.body['inputImage' + i];
+    }
+}
+
 /**
  * Изменение квеста
  * @param req
  * @param res
  */
 exports.update = (req, res) => {
+    Promise.all([
+        Image.destroy({
+            where: {questId: req.params.id}
+        }).then(() => {
+            uploadImage(req, req.params.id);
+        }),
     Quest.findById(req.params.id).then(quest => {
         quest.set('name', req.body.name);
         quest.set('description', req.body.description);
         quest.save();
         res.redirect(`/quests/${quest.id}`);
-    });
+    })]);
 };
 
 exports.getEdit = (req, res) => {
     if (req.isAuthenticated()) {
-        Quest.findById(req.params.id).then(quest => {
+        Promise.all([
+            Quest.findById(req.params.id),
+            Image.findAll({
+                where: {
+                    questId: req.params.id
+                }
+            })
+        ]).then(([quest, images]) => {
+            images.sort((firstImage, secondImage) => {
+                return (firstImage.order > secondImage.order) ? 1 : -1;
+            });
             if (req.user.id === quest.authorId) {
-                res.render('../views/quests/update.hbs', {quest});
+                res.render('../views/quests/update/update.hbs', {quest, images});
             } else {
                 res.render('../views/error/error.hbs', {
                     title: 'Недостаточно прав',

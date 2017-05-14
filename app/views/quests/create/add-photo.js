@@ -58,27 +58,6 @@ function drop(event) {
 }
 
 /**
- * Загружаем изображение
- */
-function loadImage(event) {
-    clearDialog();
-    const fileInput = event.target;
-    const image = fileInput.files[0];
-    /*eslint-disable */
-    const reader = new FileReader();
-    /*eslint-enable */
-
-    reader.readAsDataURL(image);
-    reader.addEventListener('load', () => {
-        const photo = document.createElement('img');
-        photo.style.width = '100%';
-        photo.style.height = '100%';
-        photo.src = reader.result;
-        document.getElementById('show-photo').appendChild(photo);
-    });
-}
-
-/**
  * Открываем диалог выбора фото
  */
 function openLoadDialog() {
@@ -172,6 +151,5 @@ exports.initMap = initMap;
 exports.savePhoto = savePhoto;
 exports.closeDialog = closeDialog;
 exports.openLoadDialog = openLoadDialog;
-exports.loadImage = loadImage;
 exports.drop = dropDelete;
 exports.dragOver = allowDrop;
