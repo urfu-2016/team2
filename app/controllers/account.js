@@ -63,7 +63,7 @@ exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     )
     .catch(err => {
         console.error(err);
-        req.session.registerError = "Ошибка регистрации";
+        req.session.registerError = 'Ошибка регистрации';
         res.redirect('/registration');
     });
 };
