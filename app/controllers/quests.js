@@ -55,25 +55,27 @@ exports.create = (req, res) => {
  * @param res
  */
 exports.list = async (req, res) => {
-    //Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
-    let quests = await Quest.all({include: [Image]});
-
-    quests = await Promise.all(quests.map(async quest => {
-        console.log(quest.Images);
-        if (quest.Images.length !== 0) {
-            console.log("HEEEE")
-            const i = Math.floor(Math.random() * quest.Images.length);
-            quest.imgSrc = quest.Images[i].path;
-        }
-
-        quest.likesCount = await Like.count({where: {questId: quest.id}});
-        quest.finishedCount = (await getQuestFinishedCount(quest.id)).length;
-
-        return quest;
-    }));
-
-    res.render('../views/quests/quests-list/list.hbs', {quests});
+    const quests = await Quest.all({include: [Image]});
+    getRenderOfQuestsList(res)(quests);
 };
+
+function getRenderOfQuestsList(res) {
+    return async quests => {
+        quests = await Promise.all(quests.map(async quest => {
+            if (quest.Images.length !== 0) {
+                const i = Math.floor(Math.random() * quest.Images.length);
+                quest.imgSrc = quest.Images[i].path;
+            }
+
+            quest.likesCount = await Like.count({where: {questId: quest.id}});
+            quest.finishedCount = (await getQuestFinishedCount(quest.id)).length;
+
+            return quest;
+        }));
+
+       res.render('../views/quests/quests-list/list.hbs', {quests});
+    };
+}
 
 /**
  * Получить квест по id
@@ -140,11 +142,12 @@ function getQuestFinishedCount(questId) {
     });
 }
 
-function getQuestsWhere(req, res, condition) {
-    Quest.findAll({
+async function getQuestsWhere(req, res, condition) {
+    const quests = await Quest.findAll({
         where: condition,
         include: [Image]
-    }).then(getRenderOfQuestsList(res));
+    });
+    getRenderOfQuestsList(res)(quests);
 }
 
 /**
