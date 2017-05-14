@@ -8,3 +8,4 @@ npm-debug.log.*
 node_modules
 app/public
 desktop.ini
+scripts/testScript.js
