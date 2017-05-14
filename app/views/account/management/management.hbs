@@ -1,19 +1,68 @@
 {{#extend "layout"}}
     {{#content "head"}}
         <title>Управление аккаунтом</title>
-        <link rel="stylesheet" href="//awesomequests.surge.sh/registration.bundle.css">
+        <link rel="stylesheet" href="//awesomequests-nikitc.surge.sh/management.bundle.css">
+        <script type="text/javascript" src="//awesomequests-nikitc.surge.sh/management.bundle.js"></script>
     {{/content}}
     {{#content "body"}}
         <section class="container">
             <h1 class="header-name">Управление аккаунтом</h1>
             <form class="form" action="/manage" method="POST">
                 <span class="form__error-message">{{errorMessage}}</span>
-                <input class="form__input" type="text" name="username" placeholder="Логин" required value="{{username}}">
-                <input class="form__input" type="email" name="email" placeholder="Email" required value="{{email}}">
-                <input class="form__input" type="password" name="password" placeholder="Пароль" required>
-                <input class="form__change-file" type="file" name="image" multiple accept="image/*">
-                <input class="form__submit-button" type="submit" value="Сохранить">
+                <article class="user-info">
+                    <div class="text-info">
+                        <h3 class="text-info__input-login">Логин: {{username}}</h3>
+                        <h3>E-mail: {{email}}</h3>
+                        <div class="text-info__password-edit">
+                            <h3 class="input-name">Пароль:</h3>
+                            <input class="password-input" type="password" name="password" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="dialog-avatar">
+                        <h3 class="input-name">Аватар:</h3>
+                        <div class="dialog-avatar__load-avatar" id="avatar">
+                            <span id="add" class="add-symb">+</span>
+                        </div>
+                        <label class="dialog-avatar__load-button" for="avatar-image">
+                            Загрузить
+                        </label>
+                        <input id="avatar-image" class="input-hidden" type="file"
+                               name="image" value="Загрузить" multiple accept="image/*">
+                        <input type="text" name="dataImage" id="dataImage" class="input-hidden">
+                    </div>
+                </article>
+                <article class="quest-lists">
+                    <div class="myQuests">
+                        <h3>Мои квесты:</h3>
+                        {{#if myQuests}}
+                        <ul class="quests-url">
+                            {{#myQuests}}
+                                <li><a href="../quests/{{id}}">{{name}}</a></li>
+                            {{/myQuests}}
+                        </ul>
+                        {{else}}
+                            Не создал ни одного квеста
+                        {{/if}}
+                    </div>
+                    <div class="startQuests">
+                        <h3>Принял участие:</h3>
+                        {{#if startQuests}}
+                        <ul class="quests-url">
+                                {{#startQuests}}
+                                    <li>{{name}}</li>
+                                {{/startQuests}}
+                        </ul>
+                        {{else}}
+                            Не принимал участие ни в одном квесте
+                        {{/if}}
+                    </div>
+                </article>
+                <input class="save" type="submit" value="Сохранить">
             </form>
         </section>
+        <script>
+            document.getElementById('avatar-image').addEventListener('change', management.addAvatar.handleFileSelect);
+            management.addAvatar.initAvatar('{{avatar}}');
+        </script>
     {{/content}}
 {{/extend}}

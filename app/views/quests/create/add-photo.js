@@ -121,17 +121,14 @@ function savePhoto() {
  */
 function initMap() {
     const centerYekaterinburg = [56.835, 60.59];
-    /*eslint-disable */
     MAP = new ymaps.Map('map', {
         center: centerYekaterinburg,
         zoom: 10
     });
-    /*eslint-enable */
     MAP.events.add('click', event => {
         if (MAP.geoObjects.getLength() === 1) {
             MAP.geoObjects.removeAll();
         }
-        /*eslint-disable */
         const myGeoObject = new ymaps.GeoObject({
             geometry: {
                 type: 'Point',
@@ -141,7 +138,6 @@ function initMap() {
                 hintContent: event.get('coords')
             }
         });
-        /*eslint-enable */
         MAP.geoObjects.add(myGeoObject);
         document.getElementById('coords').value = event.get('coords');
     });

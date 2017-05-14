@@ -5,9 +5,7 @@ function loadImage(event) {
     clearDialog();
     const fileInput = event.target;
     const image = fileInput.files[0];
-    /*eslint-disable */
     const reader = new FileReader();
-    /*eslint-enable */
 
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
