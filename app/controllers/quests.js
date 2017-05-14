@@ -110,7 +110,7 @@ exports.get = (req, res) => {
             },
             quest.get(),
             {likesCount},
-            {finishedCount}
+            {finished: finishedCount.length}
         ));
     });
 };
