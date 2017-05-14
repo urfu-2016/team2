@@ -130,7 +130,8 @@ function createImage() {
                     latitude: 123123.123123123,
                     longitude: 1212.121212
                 },
-                questId: 1
+                questId: 1,
+                order: 1
             }).catch(err => {
                 console.log(err);
             });

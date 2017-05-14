@@ -18,6 +18,10 @@ const Image = db.sequelize.define('Image', {
     answer: {
         type: Sequelize.JSON,
         allowNull: false
+    },
+    order: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false
     }
 });
 

@@ -67,7 +67,8 @@ module.exports = {
             './blocks/quests-set/quest/__stats/quest__stats.pack',
             './blocks/places/places.pack.js'
         ],
-        sortJS: './blocks/sort/sort'
+        sortJS: './blocks/sort/sort',
+        update: './quests/update/update.pack'
     },
     output: {
         path: path.join(__dirname, '/app/public'),
