@@ -3,7 +3,6 @@
 /* eslint arrow-parens: 0 */
 
 const cloudinary = require('cloudinary');
-const fs = require('fs');
 
 cloudinary.config({
     cloud_name: 'photoquestteam2',
@@ -12,19 +11,11 @@ cloudinary.config({
 });
 
 module.exports = function upload(file, callback) {
-    fs.writeFile('temp', file, (err) => {
-        if (err) {
-            callback(err);
-            return;
+    cloudinary.uploader.upload(file, (result) => {
+        if ('error' in result) {
+            callback(result.error);
+        } else {
+            callback(null, result.url);
         }
-
-        cloudinary.uploader.upload('temp', (result) => {
-            console.log('upl');
-            if ('error' in result) {
-                callback(result.error);
-            } else {
-                callback(null, result.url);
-            }
-        });
     });
 };

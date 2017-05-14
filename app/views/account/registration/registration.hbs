@@ -1,7 +1,7 @@
 {{#extend "layout"}}
     {{#content "head"}}
         <title>Регистрация</title>
-        <link rel="stylesheet" href="//awesomequests-nikitc.surge.sh/registration.bundle.css">
+        <link rel="stylesheet" href="//awesomequests.surge.sh/registration.bundle.css">
     {{/content}}
     <span>{{errorMessage}}</span>
     {{#content "body"}}
@@ -9,10 +9,10 @@
             <h1 class="header-name">Регистрация</h1>
             <form class="form" action="/registration" method="POST">
                 <span class="form__error-message">{{errorMessage}}</span>
-                <input class="form__input" type="text" name="username" placeholder="Логин">
+                <input class="form__input" type="text" name="username" placeholder="Логин" required>
                 <input class="form__input" type="email" name="email" placeholder="Email" required>
-                <input class="form__input" type="text" name="password" placeholder="Пароль">
-                <input class="form__change-file" type="file" name="image" multiple accept="image/*" >
+                <input class="form__input" type="text" name="password" placeholder="Пароль" required>
+                <input class="form__change-file" type="file" name="image" multiple accept="image/*" required>
                 <input class="form__submit-button" type="submit" value="Регистрация">
             </form>
         </section>
