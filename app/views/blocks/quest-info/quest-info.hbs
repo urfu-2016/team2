@@ -1,15 +1,28 @@
 <div class="quest-info">
-    <h1>{{name}}</h1>
-    <img class="quest-info__pic" src="//awesomequests-nikitc.surge.sh/cube.jpg">
-    <div class="quest-info__users-evaluate">
-        {{>likes}}
-        {{>finished}}
+    <div class="name">{{name}}</div>
+    <div class="info-block">
+        {{#if avatar}}
+            <img class="avatar" alt="Нет фото" src="{{avatar}}">
+        {{else}}
+            <img  class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
+        {{/if}}
+        <div class="stats">
+            {{>likes}}
+            <br>
+            {{>finished}}
+        </div>
+        <div class="description">{{description}}</div>
     </div>
-    <p class="quest-info__descr">{{description}}</p>
+    <p class="places">Места</p>
+    <div class="all-photos">
+        {{#images}}
+            <img class="photo" src="{{path}}">
+        {{/images}}
+    </div>
     <h3>Комментарии к квесту</h3>
     <ul>
         {{#questComments}}
-            <li>{{title}}</li>
+            <li>{{userId}} : {{text}}</li>
         {{/questComments}}
     </ul>
 </div>

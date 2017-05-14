@@ -1,6 +1,10 @@
-<div class="quests-set">
-{{#quests}}
-    {{> quest}}
-{{/quests}}
-</div>
+{{#if quests.length}}
+    <div class="quests-set">
+    {{#quests}}
+        {{> quest}}
+    {{/quests}}
+    </div>
+{{else}}
+    <p class="places">Не найдено</p>
+{{/if}}
 

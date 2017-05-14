@@ -106,15 +106,22 @@ exports.get = (req, res) => {
         Promise.all([
             Quest.findById(req.params.id),
             getQuestComments(req.params.id),
+            getQuestImages(req.params.id),
             Like.count({
                 where: {
                     questId: req.params.id
                 }
             })
-        ]).then(([quest, comments, likesCount]) => {
+        ]).then(([quest, comments, images, likesCount]) => {
             if (quest) {
                 res.render('../views/quest/get-quest.hbs', Object.assign({
                         questComments: comments.map(comment => comment.get())
+                    },
+                    {
+                        avatar: images.length === 0 ? null : images[0].path,
+                        imgSrc: images.map(image => image.path),
+                        images,
+                        registered: req.isAuthenticated()
                     },
                     quest.get(),
                     {likesCount}
@@ -133,6 +140,12 @@ exports.get = (req, res) => {
  */
 function getQuestComments(questId) {
     return Comment.all({
+        where: {questId}
+    });
+}
+
+function getQuestImages(questId) {
+    return Image.findAll({
         where: {questId}
     });
 }

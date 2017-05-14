@@ -62,10 +62,10 @@ module.exports = {
             './blocks/sort/sort-list/__option/sort-list__option.pack',
             './blocks/quests-set/quests-set.pack',
             './blocks/quests-set/quest/quest.pack',
-            './blocks/quests-set/quest/__bar-new/quest__bar-new.pack',
             './blocks/quests-set/quest/__name/quest__name.pack',
             './blocks/quests-set/quest/__photo/quest__photo.pack',
-            './blocks/quests-set/quest/__stats/quest__stats.pack'
+            './blocks/quests-set/quest/__stats/quest__stats.pack',
+            './blocks/places/places.pack.js'
         ],
         sortJS: './blocks/sort/sort'
     },
