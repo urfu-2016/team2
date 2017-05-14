@@ -50,7 +50,8 @@ module.exports = {
             './pages/main/main.pack',
             './blocks/mainContent/mainContent.pack',
             './blocks/mainContent/name/name.pack',
-            './blocks/advantages/advantages.pack'
+            './blocks/advantages/advantages.pack',
+            './blocks/steps/steps.pack'
         ],
         questsList: [
             './quests/quests-list/quests-list.pack',
