@@ -1,5 +1,8 @@
 'use strict';
 
+const Quest = require('../models/quest');
+const User = require('../models/user');
+
 /**
  * Страницы не существует
  * @param req
@@ -18,7 +21,21 @@ exports.error404 = (req, res) => {
  * @param res
  */
 exports.main = (req, res) => {
-    res.render('../views/pages/main/main.hbs');
+    Promise.all([
+        Quest.count(),
+        User.count()
+    ]).then(([questsCount, gamersCount]) => {
+        res.render('../views/pages/main/main.hbs', {
+            questsCount,
+            gamersCount
+        });
+    }).catch(err => {
+        console.error(err);
+        res.render('../views/error/error.hbs', {
+            title: 'Awesome Quests',
+            errorMessage: 'Я, конечно, мало что знаю о тебе, а ты обо мне, но теперь у нас есть кое-что общее :)'
+        });
+    });
 };
 
 /**

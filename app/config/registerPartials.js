@@ -32,3 +32,5 @@ handlebars.registerPartial('quest-info', fs.readFileSync('app/views/blocks/quest
 handlebars.registerPartial('likes', fs.readFileSync('app/views/blocks/likes/likes.hbs', 'utf-8'));
 handlebars.registerPartial('finished', fs.readFileSync('app/views/blocks/finished/finished.hbs', 'utf-8'));
 handlebars.registerPartial('comment', fs.readFileSync('app/views/comments/comment/comment.hbs', 'utf-8'));
+handlebars.registerPartial('advantages', fs.readFileSync('app/views/blocks/advantages/advantages.hbs', 'utf-8'));
+handlebars.registerPartial('steps', fs.readFileSync('app/views/blocks/steps/steps.hbs', 'utf-8'));
