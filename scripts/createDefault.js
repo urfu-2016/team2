@@ -70,7 +70,8 @@ function createUser() {
                 username: 'Alice',
                 password: bcrypt.hashSync('somePass', salt),
                 salt,
-                email: 'fokychuk47@ya.ru'
+                email: 'fokychuk47@ya.ru',
+                avatar: 'http://res.cloudinary.com/photoquestteam2/image/upload/v1489312400/sjwmqil61rxdyqx4skhf.png'
             }).then(createQuest).catch(err => {
                 console.log(err);
             });

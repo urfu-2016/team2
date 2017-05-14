@@ -31,6 +31,10 @@ const User = db.sequelize.define('User', {
     passwordResetToken: {
         type: Sequelize.TEXT,
         allowNull: true
+    },
+    avatar: {
+        type: Sequelize.TEXT,
+        allowNull: true
     }
 });
 

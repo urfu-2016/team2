@@ -1,0 +1,157 @@
+.layout-body
+    display flex
+    flex-direction column
+
+.container
+    width 100%
+    height 100%
+    display flex
+    flex-direction column
+    align-self center
+    justify-content space-around
+    align-items center
+
+.header-name
+    color #ffffff
+    font-weight normal !important
+
+.error-message
+    color #ff0000
+
+.form
+    padding-top 20px
+    padding-bottom 20px
+    height 100%
+    display flex
+    flex-direction column
+    justify-content space-around
+    width 90%
+    border-radius 7px
+    background-color #000
+    color #ffffff
+
+.user-info
+    display flex
+    justify-content space-around
+
+.text-info
+    display flex
+    flex-direction column
+    justify-content space-around
+    align-self flex-start
+
+    &__input-login
+        margin 0
+
+    &__password-edit
+        display flex
+        justify-content space-between
+
+.password-input
+    border 0 none
+    border-radius 4px
+    padding 5px
+    background-color #252525
+    font-size 1.6vw
+    color #fff
+    outline none
+
+.input-name
+    margin-bottom 0
+    margin-top 0
+    margin-right 10px
+
+.input-hidden
+    display none
+
+.dialog-avatar
+    display flex
+    flex-direction column
+
+    &__load-button
+        margin-top 10px
+        margin-right 0
+        align-self flex-end
+        cursor pointer
+        color: #ffffff
+        border-radius 5px
+        background-color #371440
+        font-size 1.4vw
+        border 0 none
+        padding 10px
+
+    &__load-avatar
+        display flex
+        align-items center
+        margin-top 20px
+        justify-content center
+        width 150px
+        height 150px
+        border 1px solid #cccccc
+
+.save
+    align-self flex-end
+    margin-right 8%
+    cursor pointer
+    color: #ffffff
+    border-radius 5px
+    background-color #371440
+    font-size 1.4vw
+    border 0 none
+    padding 10px
+
+.add-symb
+    color #cccccc
+    font-size 70px
+
+.quest-lists
+    display flex
+    width 90%
+    justify-content space-around
+
+.quests-url li
+    color rebeccapurple
+
+.quests-url li a
+    text-decoration none !important
+
+.quests-url li a:hover
+    color indianred
+
+.quests-url li:hover
+    color indianred
+
+@media (max-width: 768px)
+    .quest-lists
+        flex-direction column
+        margin-left 20px
+
+    .password-input
+        font-size 16px
+
+    .dialog-avatar__load-button
+        align-self center
+        font-size 16px
+
+    .save
+        align-self center
+        font-size 16px
+
+@media (max-width: 550px)
+    .user-info
+        flex-direction column
+        justify-content center
+        align-items center
+        margin-left 10px
+
+    .dialog-avatar__load-button
+        align-self flex-start
+
+    .save
+        margin-top 10px
+
+    .form
+        width 100%
+
+    .text-info
+        align-self center

@@ -5,6 +5,9 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const emailService = require('../services/emailService');
+const upload = require('../../scripts/fileUploader.js');
+const Quest = require('../models/quest');
+const Result = require('../models/result');
 
 /**
  * Получить форму авторизации
@@ -84,9 +87,34 @@ exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
  */
 exports.management = (req, res) => {
     if (req.isAuthenticated()) {
-        res.render('../views/account/management/management.hbs', {
-            username: req.user.username,
-            email: req.user.email
+        Promise.all([
+            Quest.findAll({
+                where: {
+                    authorId: req.user.id
+                }
+            }),
+            Result.findAll({
+                where: {
+                    userId: req.user.id
+                }
+            }).then(res => {
+                const questIds = res.map(result => result.questId);
+                Quest.findAll({
+                    where: {
+                        id: {
+                            $in: questIds
+                        }
+                    }
+                });
+            })
+        ]).then(([myQuests, startQuests]) => {
+            res.render('../views/account/management/management.hbs', {
+                username: req.user.username,
+                email: req.user.email,
+                avatar: req.user.avatar,
+                myQuests,
+                startQuests
+            });
         });
     } else {
         res.render('../views/error/error.hbs', {
@@ -104,22 +132,26 @@ exports.management = (req, res) => {
  */
 exports.user = (req, res) => {
     if (req.isAuthenticated()) {
-        try {
-            const salt = bcrypt.genSaltSync();
-            req.user.set('username', req.body.username);
-            req.user.set('password', bcrypt.hashSync(req.body.password, salt));
-            req.user.set('salt', salt);
-            req.user.set('email', req.body.email);
-            req.user.save();
-            res.redirect('/');
-        } catch (err) {
-            console.error(err);
-            req.session.registerError = err;
-            res.render('../views/error/error.hbs', {
-                title: 'Ошибка',
-                errorMessage: 'Ошибка при изменении личных данных'
+            upload(req.body.dataImage, (err, ans) => {
+                const defaultImage = 'http://awesomequests.surge.sh/profile.png';
+                try {
+                    const salt = bcrypt.genSaltSync();
+                    if (req.body.password) {
+                        req.user.set('password', bcrypt.hashSync(req.body.password, salt));
+                    }
+                    req.user.set('salt', salt);
+                    req.user.set('avatar', (!err && ans) ? ans : defaultImage);
+                    req.user.save();
+                    res.redirect('/');
+                } catch (err) {
+                    console.error(err);
+                    req.session.registerError = err;
+                    res.render('../views/error/error.hbs', {
+                        title: 'Ошибка',
+                        errorMessage: 'Ошибка при изменении личных данных'
+                    });
+                }
             });
-        }
     } else {
         res.render('../views/error/error.hbs', {
             title: 'Не авторизован',
