@@ -24,11 +24,9 @@
     </div>
     <img class="pop-up" src="">
     <h3>Комментарии к квесту</h3>
-    <ul>
-        {{#questComments}}
-            <li>{{userId}} : {{text}}</li>
-        {{/questComments}}
-    </ul>
+    {{#questComments}}
+        {{> comment}}
+    {{/questComments}}
 </div>
 
 <script type="text/javascript">

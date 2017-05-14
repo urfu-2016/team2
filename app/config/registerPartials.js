@@ -31,3 +31,4 @@ handlebars.registerPartial('sort-list', fs.readFileSync('app/views/blocks/sort/s
 handlebars.registerPartial('quest-info', fs.readFileSync('app/views/blocks/quest-info/quest-info.hbs', 'utf-8'));
 handlebars.registerPartial('likes', fs.readFileSync('app/views/blocks/likes/likes.hbs', 'utf-8'));
 handlebars.registerPartial('finished', fs.readFileSync('app/views/blocks/finished/finished.hbs', 'utf-8'));
+handlebars.registerPartial('comment', fs.readFileSync('app/views/comments/comment/comment.hbs', 'utf-8'));

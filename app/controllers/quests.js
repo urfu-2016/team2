@@ -4,7 +4,6 @@ const Image = require('../models/image');
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
-const Result = require('../models/result');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -54,26 +53,23 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.list = async (req, res) => {
-    const quests = await Quest.all({include: [Image]});
-    getRenderOfQuestsList(res)(quests);
+exports.list = (req, res) => {
+    Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
 };
 
 function getRenderOfQuestsList(res) {
-    return async quests => {
-        quests = await Promise.all(quests.map(async quest => {
-            if (quest.Images.length !== 0) {
-                const i = Math.floor(Math.random() * quest.Images.length);
-                quest.imgSrc = quest.Images[i].path;
+    return quests => {
+        quests.map(quest => {
+            const images = quest.Images;
+            if (images.length === 0) {
+                return quest;
             }
 
-            quest.likesCount = await Like.count({where: {questId: quest.id}});
-            quest.finishedCount = (await getQuestFinishedCount(quest.id)).length;
-
-            return quest;
-        }));
-
-       res.render('../views/quests/quests-list/list.hbs', {quests});
+            /* Для каждого квеста картинка выбирается случайным образом из квестовых */
+            const i = Math.floor(Math.random() * images.length);
+            return Object.assign(quest, {imgSrc: images[i].path});
+        });
+        res.render('../views/quests/quests-list/list.hbs', {quests});
     };
 }
 
@@ -85,37 +81,35 @@ function getRenderOfQuestsList(res) {
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
         pages.error404(req, res);
-
-        return;
+    } else {
+        Promise.all([
+            Quest.findById(req.params.id),
+            getQuestComments(req.params.id),
+            getQuestImages(req.params.id),
+            Like.count({
+                where: {
+                    questId: req.params.id
+                }
+            })
+        ]).then(([quest, comments, images, likesCount]) => {
+            if (quest) {
+                res.render('../views/quest/get-quest.hbs', Object.assign({
+                        questComments: comments.map(comment => comment.get())
+                    },
+                    {
+                        avatar: images.length === 0 ? null : images[0].path,
+                        imgSrc: images.map(image => image.path),
+                        images,
+                        registered: req.isAuthenticated()
+                    },
+                    quest.get(),
+                    {likesCount}
+                ));
+            } else {
+                pages.error404(req, res);
+            }
+        });
     }
-    Promise.all([
-        Quest.findById(req.params.id),
-        getQuestComments(req.params.id),
-        getQuestImages(req.params.id),
-        Like.count({
-            where: {questId: req.params.id}
-        }),
-        getQuestFinishedCount(req.params.id)
-    ]).then(([quest, comments, images, likesCount, finishedCount]) => {
-        if (!quest) {
-            pages.error404(req, res);
-
-            return;
-        }
-        res.render('../views/quest/get-quest.hbs', Object.assign({
-                questComments: comments.map(comment => comment.get())
-            },
-            {
-                avatar: images.length === 0 ? null : images[0].path,
-                imgSrc: images.map(image => image.path),
-                images,
-                registered: req.isAuthenticated()
-            },
-            quest.get(),
-            {likesCount},
-            {finished: finishedCount.length}
-        ));
-    });
 };
 
 /**
@@ -135,19 +129,11 @@ function getQuestImages(questId) {
     });
 }
 
-function getQuestFinishedCount(questId) {
-    return Result.count({
-        where: {questId},
-        group: ['userId']
-    });
-}
-
-async function getQuestsWhere(req, res, condition) {
-    const quests = await Quest.findAll({
+function getQuestsWhere(req, res, condition) {
+    Quest.findAll({
         where: condition,
         include: [Image]
-    });
-    getRenderOfQuestsList(res)(quests);
+    }).then(getRenderOfQuestsList(res));
 }
 
 /**
