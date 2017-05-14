@@ -132,7 +132,6 @@ exports.management = (req, res) => {
  */
 exports.user = (req, res) => {
     if (req.isAuthenticated()) {
-        console.log(req.body);
             upload(req.body.dataImage, (err, ans) => {
                 const defaultImage = 'http://awesomequests.surge.sh/profile.png';
                 try {
