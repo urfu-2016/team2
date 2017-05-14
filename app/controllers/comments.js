@@ -13,7 +13,11 @@ exports.createPage = (req, res) => {
             questId: req.params.id
         });
     } else {
-        res.render('../views/comments/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут создавать комментарии',
+            signInFor: 'оставить комментарий'
+        });
     }
 };
 
@@ -33,10 +37,17 @@ exports.create = (req, res) => {
             res.redirect('/quests/' + req.params.id);
         }).catch(err => {
             console.error(err);
-            res.render('../views/comments/error.hbs');
+            res.render('../views/error/error.hbs', {
+                title: 'Ошибка',
+                errorMessage: 'Ошибка добавления комментария'
+            });
         });
     } else {
-        res.render('../views/comments/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут создавать комментарии',
+            signInFor: 'оставить комментарий'
+        });
     }
 };
 
@@ -54,11 +65,18 @@ exports.updatePage = (req, res) => {
                     commentId: req.params.id
                 });
             } else {
-                res.render('../views/pages/forbidden/forbidden.hbs');
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Вы не можете редактировать чужой комментарий'
+                });
             }
         });
     } else {
-        res.render('../views/comments/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут редактировать комментарии',
+            signInFor: 'отредактировать комментарий'
+        });
     }
 };
 
@@ -76,14 +94,24 @@ exports.update = (req, res) => {
                 comment.save();
                 res.redirect('/quests/' + req.params.questId);
             } else {
-                res.render('../views/pages/forbidden/forbidden.hbs');
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Вы не можете редактировать чужой комментарий'
+                });
             }
         }).catch(err => {
             console.error(err);
-            res.render('../views/comments/error.hbs');
+            res.render('../views/error/error.hbs', {
+                title: 'Ошибка',
+                errorMessage: 'Ошибка добавления комментария'
+            });
         });
     } else {
-        res.render('../views/comments/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут редактировать комментарии',
+            signInFor: 'отредактировать комментарий'
+        });
     }
 };
 
@@ -104,14 +132,24 @@ exports.delete = (req, res) => {
                     if (deletedCount === 1) {
                         res.redirect('/quests/' + req.params.questId);
                     } else {
-                        res.render('../views/pages/forbidden/forbidden.hbs');
+                        res.render('../views/error/error.hbs', {
+                            title: 'Ошибка',
+                            errorMessage: 'Ошибка удаления комментария'
+                        });
                     }
                 });
             } else {
-                res.render('../views/pages/forbidden/forbidden.hbs');
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Вы не можете удалить чужой комментарий'
+                });
             }
         });
     } else {
-        res.render('../views/comments/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут удалять свои комментарии',
+            signInFor: 'удалить комментарий'
+        });
     }
 };

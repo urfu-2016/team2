@@ -28,10 +28,13 @@ module.exports = {
             './blocks/footer/footer.pack',
             './_layout.pack'
         ],
+        about: './about/about.pack',
+        error: './error/error.pack',
         signIn: [
             './account/signIn/signIn.pack.js',
             './account/registration/registration.pack.js'
         ],
+        statistics: './statistics/statistics.pack',
         create: './quests/create/create.pack',
         registration: './account/registration/registration.pack.js',
         getQuest: [
@@ -40,13 +43,11 @@ module.exports = {
             './blocks/likes/likes.pack',
             './blocks/finished/finished.pack'
         ],
-        forbidden: './pages/forbidden/forbidden.pack',
         main: [
             './pages/main/main.pack',
             './blocks/mainContent/mainContent.pack',
             './blocks/mainContent/name/name.pack'
         ],
-        notExists: './pages/notExists/notExists.pack',
         questsList: [
             './quests/quests-list/quests-list.pack',
             './blocks/sortAndSearch/sortAndSearch.pack',
