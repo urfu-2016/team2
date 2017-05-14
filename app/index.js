@@ -31,13 +31,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
     res.sendStatus(500);
 });
 
-app.use((req, res, next) => {
-    if (req.headers.host.includes('heroku') && !req.connection.encrypted && req.protocol === 'http') {
-        res.redirect('https://' + req.headers.host + req.url);
-    } else {
-        next();
-    }
-});
+app.use(require('express-https-redirect')());
 
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
