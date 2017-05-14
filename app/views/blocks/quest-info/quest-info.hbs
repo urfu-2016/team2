@@ -19,6 +19,7 @@
             <img class="photo" src="{{path}}">
         {{/images}}
     </div>
+    <img class="pop-up" src="">
     <h3>Комментарии к квесту</h3>
     <ul>
         {{#questComments}}
@@ -26,3 +27,20 @@
         {{/questComments}}
     </ul>
 </div>
+
+<script type="text/javascript">
+    var photos = document.getElementsByClassName('photo');
+    var popUp = document.getElementsByClassName('pop-up')[0];
+    var source;
+
+    for (var i = 0; i < photos.length; i++) {
+        photos[i].onclick = function () {
+            source = this.getAttribute('src');
+            popUp.setAttribute('src', source);
+            popUp.style.cssText = "visibility: visible";
+        }
+    }
+    popUp.onclick = function () {
+        popUp.style.cssText = "visibility: hidden"
+    }
+</script>
