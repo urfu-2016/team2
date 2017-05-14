@@ -6,6 +6,8 @@
   },
   "globals": {
     "document": true,
+    "FileReader": true,
+    "ymaps": true,
     "XMLHttpRequest": true,
     "navigator": true
   }
