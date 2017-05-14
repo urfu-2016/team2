@@ -32,7 +32,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
 });
 
 app.use((req, res, next) => {
-    if (req.headers.host.includes('heroku') && req.protocol === 'http') {
+    if (req.headers.host.includes('heroku') && !req.connection.encrypted && protocol === 'http') {
         res.redirect('https://' + req.headers.host + req.url);
     } else {
         next();
