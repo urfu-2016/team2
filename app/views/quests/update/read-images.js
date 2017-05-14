@@ -212,8 +212,34 @@ function savePhoto() {
     document.getElementById('photo').appendChild(wrapImage);
 }
 
+/**
+ * Переномеруем порядок фотографий после перемещения dragn'drop
+ */
+function recountPhotos() {
+    const photos = document.getElementById('photo');
+    const elements = photos.getElementsByTagName('div');
+    for (let i = 1; i <= elements.length; i++) {
+        const currentChild = elements[i - 1];
+        currentChild.firstChild.id = 'drag' + i;
+        currentChild.id = 'div' + i;
+    }
+}
+
+/**
+ * Действия, когда перетаскиваемый элемент перемещен в принимающий его элемент удаления
+ */
+function dropDelete(event) {
+    event.preventDefault();
+    const parentData = event.dataTransfer.getData('parent');
+    const outputBlock = document.getElementById(parentData);
+    outputBlock.parentNode.removeChild(outputBlock);
+    recountPhotos();
+}
+
 exports.savePhoto = savePhoto;
 exports.openLoadDialog = openLoadDialog;
 exports.readImage = readImage;
 exports.initMap = initMap;
 exports.closeDialog = closeDialog;
+exports.drop = dropDelete;
+exports.dragOver = allowDrop;

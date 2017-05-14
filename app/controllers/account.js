@@ -84,7 +84,7 @@ exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
  */
 exports.management = (req, res) => {
     if (req.isAuthenticated()) {
-        res.render('../views/account/management.hbs', {
+        res.render('../views/account/management/management.hbs', {
             username: req.user.username,
             email: req.user.email
         });
