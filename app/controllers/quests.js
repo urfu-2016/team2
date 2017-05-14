@@ -7,6 +7,7 @@ const Like = require('../models/like');
 const User = require('../models/user');
 const Result = require('../models/result');
 const pages = require('./pages.js');
+const Result = require('../models/result');
 
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
@@ -246,6 +247,72 @@ exports.update = (req, res) => {
         res.redirect(`/quests/${quest.id}`);
     })]);
 };
+
+/**
+ * Прохождение квеста
+ * @param req
+ * @param res
+ */
+exports.checkCoords = (req, res) => {
+    if (req.isAuthenticated()) {
+        Image.findAll({
+            where: {
+                questId: req.param.id,
+                order: req.param.order
+            }
+        }).then(images => {
+            if (images.length !== 1) {
+                res.send(500);
+                res.render('../views/error/error.hbs', {
+                    title: 'Internal Error',
+                    errorMessage: 'Упс, кажется один из разработчиков криворукий'
+                });
+                return;
+            }
+
+            /* coord - то что нам передали */
+            if (checkRadius(images[0].answer, req.body.coords)) {
+                res.send(200, 'Правильное местоположение!');
+                return;
+            }
+
+            res.send(400, 'Неправильное местоположение:(');
+        });
+    } else {
+        res.send(401);
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут проходить квесты',
+            signInFor: 'пройти квест'
+        });
+    }
+};
+
+function checkRadius(expected, actual) {
+    return getDistanceFromLatLonInKm(
+            expected.latitude,
+            expected.longitude,
+            actual.latitude,
+            actual.longitude
+        ) <= 0.2;
+}
+
+function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Radius of the earth in km
+    const dLat = deg2rad(lat2 - lat1);  // deg2rad below
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+        (Math.sin(dLat / 2) * Math.sin(dLat / 2)) +
+        (Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2))
+    ;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+}
+
+function deg2rad(deg) {
+    return deg * (Math.PI / 180);
+}
 
 exports.getEdit = (req, res) => {
     if (req.isAuthenticated()) {
