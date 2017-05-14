@@ -24,6 +24,7 @@
 });
 
 function sendGeolocation() {
+    var resolveGeo = document.getElementById('resolve-geo');
     var self = this;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '/complete');
@@ -42,11 +43,14 @@ function sendGeolocation() {
         }
     };
     navigator.geolocation.getCurrentPosition(function (position) {
+        resolveGeo.style.visibility = 'hidden';
         xhr.send(JSON.stringify({
             order: parseInt(self.id),
             coords: position.coords
         }));
-    }, console.error, {
+    }, function () {
+        resolveGeo.style.visibility = 'visible';
+    }, {
         enableHighAccuracy: true,
         maximumAge: 50000,
         timeout: 10000
