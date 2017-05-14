@@ -4,6 +4,7 @@ const Image = require('../models/image');
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
+const Result = require('../models/result');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
@@ -81,35 +82,37 @@ function getRenderOfQuestsList(res) {
 exports.get = (req, res) => {
     if (req.params.id.match(notNumberPattern)) {
         pages.error404(req, res);
-    } else {
-        Promise.all([
-            Quest.findById(req.params.id),
-            getQuestComments(req.params.id),
-            getQuestImages(req.params.id),
-            Like.count({
-                where: {
-                    questId: req.params.id
-                }
-            })
-        ]).then(([quest, comments, images, likesCount]) => {
-            if (quest) {
-                res.render('../views/quest/get-quest.hbs', Object.assign({
-                        questComments: comments.map(comment => comment.get())
-                    },
-                    {
-                        avatar: images.length === 0 ? null : images[0].path,
-                        imgSrc: images.map(image => image.path),
-                        images,
-                        registered: req.isAuthenticated()
-                    },
-                    quest.get(),
-                    {likesCount}
-                ));
-            } else {
-                pages.error404(req, res);
-            }
-        });
+
+        return;
     }
+    Promise.all([
+        Quest.findById(req.params.id),
+        getQuestComments(req.params.id),
+        getQuestImages(req.params.id),
+        Like.count({
+            where: {questId: req.params.id}
+        }),
+        getQuestFinishedCount(req.params.id)
+    ]).then(([quest, comments, images, likesCount, finishedCount]) => {
+        if (!quest) {
+            pages.error404(req, res);
+
+            return;
+        }
+        res.render('../views/quest/get-quest.hbs', Object.assign({
+                questComments: comments.map(comment => comment.get())
+            },
+            {
+                avatar: images.length === 0 ? null : images[0].path,
+                imgSrc: images.map(image => image.path),
+                images,
+                registered: req.isAuthenticated()
+            },
+            quest.get(),
+            {likesCount},
+            {finishedCount}
+        ));
+    });
 };
 
 /**
@@ -126,6 +129,13 @@ function getQuestComments(questId) {
 function getQuestImages(questId) {
     return Image.findAll({
         where: {questId}
+    });
+}
+
+function getQuestFinishedCount(questId) {
+    return Result.count({
+        where: {questId},
+        group: ['userId']
     });
 }
 
