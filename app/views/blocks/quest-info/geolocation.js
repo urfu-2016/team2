@@ -1,6 +1,10 @@
 'use strict';
+/* eslint no-warning-comments: 0 */
+/* eslint prefer-arrow-callback: 0 */
+/* eslint no-var: 0 */
+/* eslint radix: 0 */
 
-[].slice.call(document.getElementsByClassName('photo-wrapper')).forEach(function(imageWrapper, id) {
+[].slice.call(document.getElementsByClassName('photo-wrapper')).forEach(function (imageWrapper, id) {
     var geolocation = document.createElement('img');
     geolocation.id = (id + 1) + '-geolocation';
     geolocation.alt = 'geolocation';

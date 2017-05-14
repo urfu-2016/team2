@@ -5,6 +5,8 @@
     "linebreak-style": "off"
   },
   "globals": {
-    "document": true
+    "document": true,
+    "XMLHttpRequest": true,
+    "navigator": true
   }
 }
