@@ -118,7 +118,7 @@ exports.get = (req, res) => {
                         questComments: comments.map(comment => comment.get())
                     },
                     {
-                        avatar: images.length !== 0 ? images[0].path : null,
+                        avatar: images.length === 0 ? null : images[0].path,
                         imgSrc: images.map(image => image.path),
                         images
                     },
