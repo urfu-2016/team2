@@ -14,10 +14,13 @@
         <div class="description">{{description}}</div>
     </div>
     <p class="places">Места</p>
-    <div class="all-photos">
+    <div id="all-photos" class="all-photos">
         {{#images}}
-            <img class="photo" src="{{path}}">
+            <div class="photo-wrapper">
+                <img class="photo" src="{{path}}">
+            </div>
         {{/images}}
+        <script type="text/javascript" src="//awesomequests.surge.sh/getQuest.bundle.js"></script>
     </div>
     <img class="pop-up" src="">
     <h3>Комментарии к квесту</h3>
