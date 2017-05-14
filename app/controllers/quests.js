@@ -19,7 +19,11 @@ exports.createQuest = (req, res) => {
     if (req.isAuthenticated()) {
         res.render('../views/quests/create/create.hbs');
     } else {
-        res.render('../views/quests/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут создавать квесты',
+            signInFor: 'создать квест'
+        });
     }
 };
 
@@ -149,7 +153,11 @@ exports.usersQuests = (req, res) => {
     if (req.isAuthenticated()) {
         getQuestsWhere(req, res, {authorId: req.user.id});
     } else {
-        res.render('../views/account/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут просматривать список своих квестов',
+            signInFor: 'увидеть список своих квестов'
+        });
     }
 };
 
@@ -187,11 +195,18 @@ exports.getEdit = (req, res) => {
             if (req.user.id === quest.authorId) {
                 res.render('../views/quests/update.hbs', {quest});
             } else {
-                res.render('../views/pages/forbidden/forbidden.hbs');
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Этот квест был создан другим пользователем'
+                });
             }
         });
     } else {
-        res.render('../views/quests/notAuthorized.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут редактировать свои квесты',
+            signInFor: 'отредактировать квест'
+        });
     }
 };
 
@@ -211,14 +226,24 @@ exports.delete = (req, res) => {
                 }
             }).then(deletedCount => {
                 if (deletedCount !== 1) {
-                    res.render('../views/pages/forbidden/forbidden.hbs');
+                    res.render('../views/error/error.hbs', {
+                        title: 'Ошибка',
+                        errorMessage: 'Ошибка удаления квеста'
+                    });
                 }
             });
         } else {
-            res.render('../views/pages/forbidden/forbidden.hbs');
+            res.render('../views/error/error.hbs', {
+                title: 'Недостаточно прав',
+                errorMessage: 'Этот квест был создан другим пользователем'
+            });
         }
     } else {
-        res.render('../views/pages/forbidden/forbidden.hbs');
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут удалять свои квесты',
+            signInFor: 'удалить квест'
+        });
     }
 };
 
@@ -246,7 +271,7 @@ exports.like = (req, res) => {
                     res.send(500);
                 });
             } else {
-                res.send('Вы уже лайкали этот квест');
+                res.send(400, 'Вы уже лайкали этот квест');
             }
         }).catch(err => {
             console.error((err));
@@ -288,7 +313,7 @@ exports.unlike = (req, res) => {
                     res.send(500);
                 });
             } else {
-                res.send('Вы ещё не лайкали этот квест');
+                res.send(400, 'Вы ещё не лайкали этот квест');
             }
         }).catch(err => {
             console.error((err));

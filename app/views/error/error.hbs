@@ -1,0 +1,14 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="//awesomequests.surge.sh/error.bundle.css">
+    {{/content}}
+    {{#content "body"}}
+        <div class="error">
+            <h2 class="error__message">{{errorMessage}}</h2>
+            {{#if signInFor}}
+                <p class="error__description"><a href="/login">Войдите</a>, чтобы {{signInFor}}</p>
+            {{/if}}
+        </div>
+    {{/content}}
+{{/extend}}

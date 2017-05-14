@@ -6,7 +6,10 @@
  * @param res
  */
 exports.error404 = (req, res) => {
-    res.render('../views/pages/notExists/notExists.hbs');
+    res.render('../views/error/error.hbs', {
+        title: 'Не существует',
+        errorMessage: 'Страница не существует'
+    });
 };
 
 /**
@@ -16,5 +19,14 @@ exports.error404 = (req, res) => {
  */
 exports.main = (req, res) => {
     res.render('../views/pages/main/main.hbs');
+};
+
+/**
+ * Страница с описанием проекта
+ * @param req
+ * @param res
+ */
+exports.about = (req, res) => {
+    res.render('../views/about/about.hbs');
 };
 

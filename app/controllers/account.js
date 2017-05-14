@@ -82,8 +82,19 @@ exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
  * @param req
  * @param res
  */
-exports.management = (req, res) => { // eslint-disable-line no-unused-vars
-    res.render('../views/account/management.hbs');
+exports.management = (req, res) => {
+    if (req.isAuthenticated()) {
+        res.render('../views/account/management.hbs', {
+            username: req.user.username,
+            email: req.user.email
+        });
+    } else {
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут редактировать свой аккаунт',
+            signInFor: 'изменить личные данные'
+        });
+    }
 };
 
 /**
@@ -91,8 +102,31 @@ exports.management = (req, res) => { // eslint-disable-line no-unused-vars
  * @param req
  * @param res
  */
-exports.user = (req, res) => { // eslint-disable-line no-unused-vars
-    /* eslint no-unused-vars: 0 */
+exports.user = (req, res) => {
+    if (req.isAuthenticated()) {
+        try {
+            const salt = bcrypt.genSaltSync();
+            req.user.set('username', req.body.username);
+            req.user.set('password', bcrypt.hashSync(req.body.password, salt));
+            req.user.set('salt', salt);
+            req.user.set('email', req.body.email);
+            req.user.save();
+            res.redirect('/');
+        } catch (err) {
+            console.error(err);
+            req.session.registerError = err;
+            res.render('../views/error/error.hbs', {
+                title: 'Ошибка',
+                errorMessage: 'Ошибка при изменении личных данных'
+            });
+        }
+    } else {
+        res.render('../views/error/error.hbs', {
+            title: 'Не авторизован',
+            errorMessage: 'Только авторизованные пользователи могут редактировать свой аккаунт',
+            signInFor: 'изменить личные данные'
+        });
+    }
 };
 
 exports.forgotPassword = (req, res) => {
