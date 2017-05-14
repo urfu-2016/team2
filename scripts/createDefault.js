@@ -17,8 +17,8 @@ function createComment() {
                 title: 'Замечательный квест',
                 text: 'Какой замечательный квест!',
                 questId: 1,
-                userId: 0
-            }).then(createLike).catch(err => {
+                userId: 1
+            }).catch(err => {
                 console.log(err);
             });
         }).catch(err => {
@@ -32,9 +32,9 @@ function createLike() {
         .then(() => {
             console.log('Create Like');
             Like.create({
-                questId: 0,
-                userId: 0
-            }).then(createReview).catch(err => {
+                questId: 1,
+                userId: 1
+            }).then(createComment).catch(err => {
                 console.log(err);
             });
         }).catch(err => {
@@ -52,7 +52,7 @@ function createReview() {
                 ipAddress: '::1',
                 userAgent: 'initial user-agent',
                 isVisit: true
-            }).then(createUser).catch(err => {
+            }).then(createImage).catch(err => {
                 console.log(err);
             });
         }).catch(err => {
@@ -88,7 +88,7 @@ function createQuest() {
                 name: 'Вечерняя прогулка',
                 authorId: 1,
                 description: 'Квест о вечерней прогулке в центре города'
-            }).then(createResult).catch(err => {
+            }).then(createReview).catch(err => {
                     console.log(err);
                 }
             );
@@ -103,14 +103,14 @@ function createResult() {
         .then(() => {
             console.log('Create Results');
             Result.create({
-                userId: 0,
-                questId: 0,
-                imageId: 0,
+                userId: 1,
+                questId: 1,
+                imageId: 1,
                 userAnswer: {
                     latitude: 123123.12,
                     longitude: 1212.12
                 }
-            }).then(createImage).catch(err => {
+            }).then(createLike).catch(err => {
                 console.log(err);
             });
         })
@@ -132,7 +132,7 @@ function createImage() {
                 },
                 questId: 1,
                 order: 1
-            }).catch(err => {
+            }).then(createResult).catch(err => {
                 console.log(err);
             });
         })
@@ -142,4 +142,4 @@ function createImage() {
         });
 }
 
-createComment();
+createUser();

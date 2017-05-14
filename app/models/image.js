@@ -26,5 +26,6 @@ const Image = db.sequelize.define('Image', {
 });
 
 Quest.hasMany(Image, {foreignKey: 'questId'});
+Image.belongsTo(Quest, {foreignKey: 'questId'});
 
 module.exports = Image;

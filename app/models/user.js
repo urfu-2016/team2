@@ -3,7 +3,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-module.exports = db.sequelize.define('User', {
+const User = db.sequelize.define('User', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -33,3 +33,5 @@ module.exports = db.sequelize.define('User', {
         allowNull: true
     }
 });
+
+module.exports = User;

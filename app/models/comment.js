@@ -3,7 +3,10 @@
 const Sequelize = require('sequelize');
 const db = require('../config/db');
 
-module.exports = db.sequelize.define('Comment', {
+const Quest = require('./quest.js');
+const User = require('./user.js');
+
+const Comment = db.sequelize.define('Comment', {
     id: {
         type: Sequelize.INTEGER.UNSIGNED,
         allowNull: false,
@@ -17,13 +20,13 @@ module.exports = db.sequelize.define('Comment', {
     text: {
         type: Sequelize.TEXT,
         allowNull: false
-    },
-    questId: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        allowNull: false
-    },
-    userId: {
-        type: Sequelize.INTEGER.UNSIGNED,
-        allowNull: false
     }
 });
+
+User.hasMany(Comment, {foreignKey: 'userId'});
+Comment.belongsTo(User, {foreignKey: 'userId'});
+
+Quest.hasMany(Comment, {foreignKey: 'questId'});
+Comment.belongsTo(Quest, {foreignKey: 'questId'});
+
+module.exports = Comment;
