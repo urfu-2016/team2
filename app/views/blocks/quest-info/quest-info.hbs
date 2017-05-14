@@ -2,9 +2,9 @@
     <div class="name">{{name}}</div>
     <div class="info-block">
         {{#if avatar}}
-            <img class="avatar" src="{{avatar}}">
+            <img class="avatar" alt="Нет фото" src="{{avatar}}">
         {{else}}
-            <p>Нет фото</p>
+            <img  class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
         {{/if}}
         <div class="stats">
             {{>likes}}

@@ -1,32 +1,44 @@
 <div class="likes">
     <img id="like-image" class="likes__image" src="//awesomequests-nikitc.surge.sh/like.png">
-    <img id="unlike-image" class="likes__image" src="//awesomequests.surge.sh/unlike.png">
+    {{#if registered}}
+        <img id="unlike-image" class="likes__image" src="//awesomequests.surge.sh/unlike.png">
+    {{/if}}
     <span id="likes-count" class="likes__count">{{likesCount}}</span>
 </div>
-<script type="text/javascript">
-    var likesCount = document.getElementById('likes-count');
-    var likeImage = document.getElementById('like-image');
-    var unlikeImage = document.getElementById('unlike-image');
+{{#if registered}}
+{{else}}
+    <style>
+        .likes__image
+        {
+            cursor: default;
+        }
+    </style>
+    <script type="text/javascript">
+        var likesCount = document.getElementById('likes-count');
+        var likeImage = document.getElementById('like-image');
+        var unlikeImage = document.getElementById('unlike-image');
 
-    likeImage.addEventListener('click', function () {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/quests/{{id}}/like');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                likesCount.innerText = parseInt(likesCount.innerText) + 1;
-            }
-        };
-        xhr.send();
-    });
+        likeImage.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/quests/{{id}}/like');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    likesCount.innerText = parseInt(likesCount.innerText) + 1;
+                }
+            };
+            xhr.send();
+        });
 
-    unlikeImage.addEventListener('click', function () {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/quests/{{id}}/unlike');
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                likesCount.innerText = parseInt(likesCount.innerText) - 1;
-            }
-        };
-        xhr.send();
-    });
-</script>
+        unlikeImage.addEventListener('click', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/quests/{{id}}/unlike');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    likesCount.innerText = parseInt(likesCount.innerText) - 1;
+                }
+            };
+            xhr.send();
+        });
+    </script>
+{{/if}}
+

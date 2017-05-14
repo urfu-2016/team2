@@ -120,7 +120,8 @@ exports.get = (req, res) => {
                     {
                         avatar: images.length === 0 ? null : images[0].path,
                         imgSrc: images.map(image => image.path),
-                        images
+                        images,
+                        registered: req.isAuthenticated()
                     },
                     quest.get(),
                     {likesCount}
