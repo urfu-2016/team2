@@ -54,23 +54,26 @@ exports.create = (req, res) => {
  * @param req
  * @param res
  */
-exports.list = (req, res) => {
-    Quest.all({include: [Image]}).then(getRenderOfQuestsList(res));
+exports.list = async (req, res) => {
+    const quests = await Quest.all({include: [Image]});
+    getRenderOfQuestsList(res)(quests);
 };
 
 function getRenderOfQuestsList(res) {
-    return quests => {
-        quests.map(quest => {
-            const images = quest.Images;
-            if (images.length === 0) {
-                return quest;
+    return async quests => {
+        quests = await Promise.all(quests.map(async quest => {
+            if (quest.Images.length !== 0) {
+                const i = Math.floor(Math.random() * quest.Images.length);
+                quest.imgSrc = quest.Images[i].path;
             }
 
-            /* Для каждого квеста картинка выбирается случайным образом из квестовых */
-            const i = Math.floor(Math.random() * images.length);
-            return Object.assign(quest, {imgSrc: images[i].path});
-        });
-        res.render('../views/quests/quests-list/list.hbs', {quests});
+            quest.likesCount = await Like.count({where: {questId: quest.id}});
+            quest.finishedCount = (await getQuestFinishedCount(quest.id)).length;
+
+            return quest;
+        }));
+
+       res.render('../views/quests/quests-list/list.hbs', {quests});
     };
 }
 
@@ -139,11 +142,12 @@ function getQuestFinishedCount(questId) {
     });
 }
 
-function getQuestsWhere(req, res, condition) {
-    Quest.findAll({
+async function getQuestsWhere(req, res, condition) {
+    const quests = await Quest.findAll({
         where: condition,
         include: [Image]
-    }).then(getRenderOfQuestsList(res));
+    });
+    getRenderOfQuestsList(res)(quests);
 }
 
 /**
