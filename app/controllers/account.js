@@ -53,21 +53,26 @@ exports.authorize = function (req, res, next) {
  */
 exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     const salt = bcrypt.genSaltSync();
-    User.create({
-        username: req.body.username,
-        password: bcrypt.hashSync(req.body.password, salt),
-        salt,
-        email: req.body.email
-    })
-    .then(user => req.logIn(user, err => {
-            console.error(err);
-            res.redirect('/');
+    const defaultImage = 'http://awesomequests.surge.sh/profile.png';
+    const avatarImage = (req.body.dataImage) ? req.body.dataImage : defaultImage;
+    upload(avatarImage, (err, ans) => {
+        User.create({
+            username: req.body.username,
+            password: bcrypt.hashSync(req.body.password, salt),
+            salt,
+            email: req.body.email,
+            avatar: (!err && ans) ? ans : defaultImage
         })
-    )
-    .catch(err => {
-        console.error(err);
-        req.session.registerError = 'Ошибка регистрации';
-        res.redirect('/registration');
+            .then(user => req.logIn(user, err => {
+                    console.error(err);
+                    res.redirect('/');
+                })
+            )
+            .catch(err => {
+                console.error(err);
+                req.session.registerError = 'Ошибка регистрации';
+                res.redirect('/registration');
+            });
     });
 };
 
@@ -162,7 +167,7 @@ exports.user = (req, res) => {
 };
 
 exports.forgotPassword = (req, res) => {
-    res.render('../views/account/forgotPassword.hbs');
+    res.render('../views/account/forgotPassword/forgotPassword.hbs');
 };
 
 exports.requestToken = (req, res) => {
