@@ -4,12 +4,14 @@ const Image = require('../models/image');
 const Quest = require('../models/quest');
 const Comment = require('../models/comment');
 const Like = require('../models/like');
+const User = require('../models/user');
 const Result = require('../models/result');
 const pages = require('./pages.js');
 
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
 const upload = require('../../scripts/fileUploader.js');
+const formatDate = require('../../scripts/dateFormatter');
 
 /**
  * Страница добавления квеста
@@ -102,19 +104,24 @@ exports.get = (req, res) => {
 
             return;
         }
-        res.render('../views/quest/get-quest.hbs', Object.assign({
-                questComments: comments.map(comment => comment.get())
-            },
-            {
-                avatar: images.length === 0 ? null : images[0].path,
-                imgSrc: images.map(image => image.path),
-                images,
-                registered: req.isAuthenticated()
-            },
-            quest.get(),
-            {likesCount},
-            {finished: finishedCount.length}
+        Promise.all(comments.map(comment => User.findById(comment.userId))).then(authors => {
+            res.render('../views/quest/get-quest.hbs', Object.assign({
+                    questComments: comments.map((comment, idx) => Object.assign({
+                        author: authors[idx].username,
+                        date: formatDate(comment.updatedAt)
+                    }, comment.get()))
+                },
+                {
+                    avatar: images.length === 0 ? null : images[0].path,
+                    imgSrc: images.map(image => image.path),
+                    images,
+                    registered: req.isAuthenticated(),
+                    likesCount,
+                    finishedCount: finishedCount.length
+                },
+                quest.get()
             ));
+        });
     });
 };
 
