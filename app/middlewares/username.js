@@ -7,6 +7,13 @@
  * @param next
  */
 module.exports = (req, res, next) => {
-    res.locals.username = req.isAuthenticated() ? req.user.username : '';
+    if (req.isAuthenticated()) {
+        res.locals.username = req.user.username;
+        res.locals.userAvatar = req.user.avatar;
+    } else {
+        res.locals.username = '';
+        res.locals.userAvatar = '';
+    }
+
     next();
 };

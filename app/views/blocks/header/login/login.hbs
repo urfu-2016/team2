@@ -1,5 +1,8 @@
 <div class="login">
     {{#if username}}
+        {{#if userAvatar}}
+            <img class="login__avatar" alt="Avatar" title="Avatar" src="{{userAvatar}}">
+        {{/if}}
         <p class="login__greeting">Привет, <a class="login__greeting__username" href="/manage">{{username}}</a>!</p>
         <a class="login__logout" href="/logout">Выйти</a>
     {{else}}
