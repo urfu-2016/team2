@@ -25,30 +25,17 @@
                 <img class="photo" src="{{path}}">
             </div>
         {{/images}}
-        <script type="text/javascript" src="//awesomequests.surge.sh/getQuest.bundle.js"></script>
     </div>
-    <img class="pop-up" src="">
+    <div id="pop-up-wrapper" class="pop-up-wrapper">
+        <img id="pop-up" class="pop-up" src="">
+    </div>
     <h3 class="comments-label">Комментарии к квесту</h3>
     <div class="quest-comments">
+        {{#if username}}
+            <div class="add-quest"></div>
+        {{/if}}
         {{#questComments}}
             {{> comment}}
         {{/questComments}}
     </div>
 </div>
-
-<script type="text/javascript">
-    var photos = document.getElementsByClassName('photo');
-    var popUp = document.getElementsByClassName('pop-up')[0];
-    var source;
-
-    for (var i = 0; i < photos.length; i++) {
-        photos[i].onclick = function () {
-            source = this.getAttribute('src');
-            popUp.setAttribute('src', source);
-            popUp.style.cssText = "visibility: visible";
-        }
-    }
-    popUp.onclick = function () {
-        popUp.style.cssText = "visibility: hidden"
-    }
-</script>

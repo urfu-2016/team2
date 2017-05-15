@@ -30,7 +30,8 @@ module.exports = {
             './blocks/likes/likes.pack',
             './blocks/finished/finished.pack',
             './comments/comment/comment.pack',
-            './blocks/quest-info/geolocation'
+            './blocks/quest-info/geolocation',
+            './blocks/quest-info/popup'
         ],
         main: [
             './pages/main/main.pack',
