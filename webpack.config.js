@@ -30,14 +30,12 @@ module.exports = {
         ],
         about: './about/about.pack',
         error: './error/error.pack',
-        signIn: [
-            './account/signIn/signIn.pack.js',
-            './account/registration/registration.pack.js'
-        ],
+        signIn: './account/signIn/signIn.pack.js',
         statistics: './statistics/statistics.pack',
         management: './account/management/management.pack.js',
         create: './quests/create/create.pack',
         registration: './account/registration/registration.pack.js',
+        forgotPassword: './account/forgotPassword/forgotPassword.pack.js',
         getQuest: [
             './quest/get-quest.pack.js',
             './blocks/quest-info/quest-info.pack.js',

@@ -1,7 +1,8 @@
 {{#extend "layout"}}
     {{#content "head"}}
         <title>Регистрация</title>
-        <link rel="stylesheet" href="//awesomequests-sasha.surge.sh/registration.bundle.css">
+        <link rel="stylesheet" href="//awesomequests-nikitc.surge.sh/registration.bundle.css">
+        <script type="text/javascript" src="//awesomequests-nikitc.surge.sh/registration.bundle.js"></script>
     {{/content}}
     <span>{{errorMessage}}</span>
     {{#content "body"}}
@@ -9,12 +10,33 @@
             <h1 class="header-name">Регистрация</h1>
             <form class="form" action="/registration" method="POST">
                 <span class="form__error-message">{{errorMessage}}</span>
-                <input class="form__input" type="text" name="username" placeholder="Логин" required>
-                <input class="form__input" type="email" name="email" placeholder="Email" required>
-                <input class="form__input" type="password" name="password" placeholder="Пароль" required>
-                <input class="form__change-file" type="file" name="image" multiple accept="image/*">
-                <input class="form__submit-button" type="submit" value="Регистрация">
+                <article class="user-info">
+                    <div>
+                        <h3 class="input-name">Логин:</h3>
+                        <input class="input-info" type="text" name="username" placeholder="Логин" required>
+                        <h3 class="input-name">E-mail:</h3>
+                        <input class="input-info" type="email" name="email" placeholder="Email" required>
+                        <h3 class="input-name">Пароль:</h3>
+                        <input class="input-info" type="password" name="password" placeholder="Пароль" required>
+                    </div>
+                    <div class="dialog-avatar">
+                        <h3 class="input-name">Аватар:</h3>
+                        <div class="dialog-avatar__load-avatar" id="avatar">
+                            <span id="add" class="add-symb">+</span>
+                        </div>
+                        <label class="dialog-avatar__load-button" for="avatar-image">
+                            Загрузить
+                        </label>
+                        <input id="avatar-image" class="input-hidden" type="file"
+                               name="image" value="Загрузить" multiple accept="image/*">
+                        <input type="text" name="dataImage" id="dataImage" class="input-hidden">
+                    </div>
+                </article>
+                <input class="registration-button" type="submit" value="Регистрация">
             </form>
         </section>
+        <script>
+            document.getElementById('avatar-image').addEventListener('change', registration.addAvatar.handleFileSelect);
+        </script>
     {{/content}}
 {{/extend}}
