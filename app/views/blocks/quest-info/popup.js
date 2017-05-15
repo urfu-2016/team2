@@ -3,6 +3,7 @@
 /* eslint prefer-arrow-callback: 0 */
 /* eslint no-var: 0 */
 /* eslint radix: 0 */
+/* eslint no-undef: 0 */
 
 window.addEventListener('load', function () {
     var photos = document.getElementsByClassName('photo');
@@ -14,7 +15,7 @@ window.addEventListener('load', function () {
             var source = this.getAttribute('src');
             popUp.setAttribute('src', source);
             wrapper.style.visibility = 'visible';
-        }
+        };
     }
 
     popUp.onclick = function () {
