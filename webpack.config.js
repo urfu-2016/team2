@@ -20,21 +20,9 @@ const postcssLoader = {
 module.exports = {
     context: path.join(__dirname, '/app/views'),
     entry: {
-        siteInfrastructure: [
-            './blocks/header/header.pack',
-            './blocks/header/menu/menu.pack',
-            './blocks/header/login/login.pack',
-            './blocks/header/logo/logo.pack',
-            './blocks/footer/footer.pack',
-            './_layout.pack'
-        ],
         about: './about/about.pack',
-        error: './error/error.pack',
-        signIn: './account/signIn/signIn.pack.js',
-        statistics: './statistics/statistics.pack',
-        management: './account/management/management.pack.js',
         create: './quests/create/create.pack',
-        registration: './account/registration/registration.pack.js',
+        error: './error/error.pack',
         forgotPassword: './account/forgotPassword/forgotPassword.pack.js',
         getQuest: [
             './quest/get-quest.pack.js',
@@ -51,6 +39,7 @@ module.exports = {
             './blocks/advantages/advantages.pack',
             './blocks/steps/steps.pack'
         ],
+        management: './account/management/management.pack.js',
         questsList: [
             './quests/quests-list/quests-list.pack',
             './blocks/sortAndSearch/sortAndSearch.pack',
@@ -70,7 +59,18 @@ module.exports = {
             './blocks/quests-set/quest/__stats/quest__stats.pack',
             './blocks/places/places.pack.js'
         ],
+        registration: './account/registration/registration.pack.js',
+        siteInfrastructure: [
+            './blocks/header/header.pack',
+            './blocks/header/menu/menu.pack',
+            './blocks/header/login/login.pack',
+            './blocks/header/logo/logo.pack',
+            './blocks/footer/footer.pack',
+            './_layout.pack'
+        ],
+        signIn: './account/signIn/signIn.pack.js',
         sortJS: './blocks/sort/sort',
+        statistics: './statistics/statistics.pack',
         update: './quests/update/update.pack'
     },
     output: {
