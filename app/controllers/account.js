@@ -143,8 +143,8 @@ exports.user = (req, res) => {
                     const salt = bcrypt.genSaltSync();
                     if (req.body.password) {
                         req.user.set('password', bcrypt.hashSync(req.body.password, salt));
+                        req.user.set('salt', salt);
                     }
-                    req.user.set('salt', salt);
                     req.user.set('avatar', !err && ans ? ans : defaultImage);
                     req.user.save();
                     res.redirect('/');
