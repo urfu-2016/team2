@@ -3,8 +3,10 @@
         {{#if userAvatar}}
             <img class="login__avatar" alt="Avatar" title="Avatar" src="{{userAvatar}}">
         {{/if}}
-        <p class="login__greeting">Привет, <a class="login__greeting__username" href="/manage">{{username}}</a>!</p>
-        <a class="login__logout" href="/logout">Выйти</a>
+        <div class="login-controls">
+            <p class="login-controls__greeting">Привет, <a class="login__greeting__username" href="/manage">{{username}}</a>!</p>
+            <a class="login-controls__logout" href="/logout">Выйти</a>
+        </div>
     {{else}}
         <img class="login__pic" alt="user picture" title="user picture" src="//awesomequests.surge.sh/profile.png">
         <div class="login__register">
