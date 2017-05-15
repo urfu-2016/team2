@@ -116,7 +116,7 @@ exports.get = (req, res) => {
                     imgSrc: images.map(image => image.path),
                     images,
                     likesCount,
-                    finishedCount: finishedCount.length
+                    finished: finishedCount.length
                 },
                 quest.get()
             ));
