@@ -54,14 +54,14 @@ exports.authorize = function (req, res, next) {
 exports.register = (req, res) => { // eslint-disable-line no-unused-vars
     const salt = bcrypt.genSaltSync();
     const defaultImage = 'http://awesomequests.surge.sh/profile.png';
-    const avatarImage = (req.body.dataImage) ? req.body.dataImage : defaultImage;
+    const avatarImage = req.body.dataImage ? req.body.dataImage : defaultImage;
     upload(avatarImage, (err, ans) => {
         User.create({
             username: req.body.username,
             password: bcrypt.hashSync(req.body.password, salt),
             salt,
             email: req.body.email,
-            avatar: (!err && ans) ? ans : defaultImage
+            avatar: !err && ans ? ans : defaultImage
         })
             .then(user => req.logIn(user, err => {
                     console.error(err);
@@ -145,7 +145,7 @@ exports.user = (req, res) => {
                         req.user.set('password', bcrypt.hashSync(req.body.password, salt));
                     }
                     req.user.set('salt', salt);
-                    req.user.set('avatar', (!err && ans) ? ans : defaultImage);
+                    req.user.set('avatar', !err && ans ? ans : defaultImage);
                     req.user.save();
                     res.redirect('/');
                 } catch (err) {
