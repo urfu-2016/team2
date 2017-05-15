@@ -143,15 +143,6 @@
 .block-hidden
     display none
 
-.dialog
-    display flex
-    position absolute
-    top 10%
-    width 80%
-    z-index 5
-    background-color #454545
-    align-self center
-
 .block-shadow
     width 100%
     height 100%
@@ -163,13 +154,22 @@
     width 60%
     height 400px
 
-.photo-dialog__options
-    width 40%
+.dialog
     display flex
-    flex-direction column
-    justify-content space-around
-    align-items center
+    position absolute
+    top 10%
+    width 80%
+    z-index 5
     background-color #454545
+    align-self center
+
+    &__options
+        width 40%
+        display flex
+        flex-direction column
+        justify-content space-around
+        align-items center
+        background-color #454545
 
 #show-photo
     width 100px
@@ -189,7 +189,8 @@
     cursor pointer
     position absolute
     right 0
-    top 0
+    bottom 89%
+
 
 .close-img
     width 40px
@@ -229,8 +230,8 @@
         height 300px
 
     .close-img
-        width 20px
-        height 20px
+        width 25px
+        height 25px
 
     .load
         font-size 8px
@@ -241,5 +242,23 @@
         height 50px
 
 @media screen and (max-width: 550px)
+    #close-dialog
+        cursor pointer
+        position absolute
+        right 0
+        bottom 60px
+
+    #map
+        width 100%
+
     #photo
-        width 204px
+        width 102px
+
+    .dialog
+        flex-direction column
+
+        &__options
+            width 100%
+            flex-direction row
+            margin-top 20px
+            margin-bottom 20px
