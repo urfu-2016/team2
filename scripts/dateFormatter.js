@@ -32,7 +32,7 @@ function formatDate(date) {
     today.setMilliseconds(0);
     const yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
-    if (dateFromString  > currentMoment) {
+    if (dateFromString > currentMoment) {
         throw new Error('Дата ещё не нступила');
     } else if (dateFromString >= today) {
         return getHoursAndMinutes(dateFromString);
