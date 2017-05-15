@@ -9,6 +9,7 @@
     "FileReader": true,
     "ymaps": true,
     "XMLHttpRequest": true,
-    "navigator": true
+    "navigator": true,
+    "window": true
   }
 }
