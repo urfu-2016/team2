@@ -244,32 +244,52 @@ exports.update = (req, res) => {
  */
 exports.checkCoords = (req, res) => {
     if (req.isAuthenticated()) {
-        Result.create({
-            userAnswer: req.body.coords,
-            userId: req.user.id,
-            imageId: req.body.imageId,
-            questId: req.params.id
-        }).then(() => {
-            Image.findAll({
+        Image.findAll({
+            where: {
+                questId: req.params.id,
+                order: req.body.order
+            }
+        }).then(images => {
+            if (images.length !== 1) {
+                res.send(500, 'У разработчика кривые руки:(');
+                return;
+            }
+
+            const isAnswerCorrect = checkRadius(images[0].answer, req.body.coords);
+            const newResult = {
+                userAnswer: req.body.coords,
+                userId: req.user.id,
+                imageId: req.body.imageId,
+                questId: req.params.id,
+                isAnswerCorrect
+            };
+
+            Result.findOrCreate({
                 where: {
-                    questId: req.params.id,
-                    order: req.body.order
-                }
-            }).then(images => {
-                if (images.length !== 1) {
-                    res.send(500, 'У разработчика кривые руки:(');
-                    return;
+                    userId: req.user.id,
+                    imageId: req.body.imageId
+                },
+                defaults: newResult
+            }).spread((result, isCreated) => {
+                let err = null;
+                const isAnswerWasIncorrect = !result.get('isAnswerCorrect');
+                if (!isCreated && isAnswerWasIncorrect) {
+                    result.update({
+                        userAnswer: newResult.userAnswer,
+                        isAnswerCorrect: newResult.isAnswerCorrect
+                    }).catch(error => {
+                        err = error;
+                    });
                 }
 
-                if (checkRadius(images[0].answer, req.body.coords)) {
+                if (err) {
+                    res.send(500, err);
+                } else if (isAnswerCorrect) {
                     res.send(200, 'Правильное местоположение!');
-                    return;
+                } else {
+                    res.send(400, 'Неправильное местоположение:(');
                 }
-
-                res.send(400, 'Неправильное местоположение:(');
             });
-        }).catch(err => {
-            res.send(500, err);
         });
     } else {
         res.send(401, 'Сначала авторизуйтесь!');
