@@ -29,6 +29,7 @@ window.addEventListener('load', function () {
         var self = this;
         var xhr = new XMLHttpRequest();
         var questId = document.getElementsByClassName('name')[0].dataset.questId;
+        var imageId = document.getElementsByClassName('photo')[parseInt(self.id) - 1].dataset.imageId;
         var route = '/quests/' + questId + '/complete';
         xhr.open('POST', route);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
@@ -53,7 +54,8 @@ window.addEventListener('load', function () {
             };
             xhr.send(JSON.stringify({
                 order: parseInt(self.id),
-                coords
+                coords,
+                imageId
             }));
         }, function () {
             resolveGeo.style.visibility = 'visible';
