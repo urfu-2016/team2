@@ -7,7 +7,6 @@ const Like = require('../models/like');
 const User = require('../models/user');
 const Result = require('../models/result');
 const pages = require('./pages.js');
-const Result = require('../models/result');
 
 const notNumberPattern = /\D+/g;
 const forbiddenSearch = /[^\w\dА-Яа-яЁё-]+/g;
@@ -248,7 +247,7 @@ exports.checkCoords = (req, res) => {
         Image.findAll({
             where: {
                 questId: req.param.id,
-                order: req.param.order
+                order: req.body.order
             }
         }).then(images => {
             if (images.length !== 1) {
@@ -260,7 +259,6 @@ exports.checkCoords = (req, res) => {
                 return;
             }
 
-            /* coord - то что нам передали */
             if (checkRadius(images[0].answer, req.body.coords)) {
                 res.send(200, 'Правильное местоположение!');
                 return;
