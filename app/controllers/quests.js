@@ -90,6 +90,9 @@ exports.get = (req, res) => {
 
         return;
     }
+
+    const isAuthenticated = req.isAuthenticated();
+
     Promise.all([
         Quest.findById(req.params.id),
         getQuestComments(req.params.id),
