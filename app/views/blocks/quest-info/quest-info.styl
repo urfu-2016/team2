@@ -1,55 +1,58 @@
 .quest-info
-    min-width 800px
     color white
-    font-family sans-serif
+    font-family OpenSans
 
 .name
+    display flex
+    width 100%
+    justify-content center
     margin 2% auto
-    width 80%
-    font-size 400%
-    text-align center
+    font-size 1.8vw
 
 .info-block
-    width 86%
+    display flex
+    width 90%
     margin 2% auto
+    box-shadow 0 10px 20px rgba(0,0,0,.19), 0 6px 6px rgba(0,0,0,.23);
+    background-color #252525
 
 .avatar
-    display inline-block
-    height 300px
+    width 55%
+    height 100%
+    object-fit cover
 
 .stats
-    display inline-block
-    width 11%
-    margin 15px
-    vertical-align top
+    display flex
+    justify-content space-around
+    width 100%
     font-size 250%
 
 .description
     display inline-block
     margin-left 2%
-    vertical-align top
-    font-size 120%
+    width 100%
+    font-size 1.3vw
 
 .places
-    margin: 2% auto
-    width: 80%
-    font-size: 200%
-    text-align: center
+    margin 2% auto
+    width 80%
+    font-size 200%
+    text-align center
 
 .all-photos
     display flex
-    width: 80%
-    margin: auto
+    width 80%
+    margin auto
 
 .photo-wrapper
-    display: inline-block
+    display inline-block
     position relative
 
 .photo
-    box-sizing: border-box
-    height: 200px
-    margin: 0 10px
-    border-radius: 20px
+    box-sizing border-box
+    height 200px
+    margin 0 10px
+    border-radius 20px
     cursor pointer
 
 .pop-up-wrapper
@@ -73,7 +76,7 @@
 
 .geo
 .geo-error
-    width 40%
+    width 25%
     cursor pointer
     position absolute
     bottom 15px
@@ -158,3 +161,63 @@
         background-color #1a1717
         color #909090
         border-color #1b1932
+.info
+    width 43%
+    margin-left 10px
+    margin-right 10px
+    margin-bottom 20px
+    display flex
+    flex-direction column
+
+.author-avatar
+    width 50px
+    height 50px
+
+.name-avatar
+    display flex
+    font-size 1.8vw
+    margin-left 10px
+    justify-content center
+
+.author-info
+    display flex
+    width 30%
+    align-items center
+    justify-content center
+
+@media screen and (max-width: 768px)
+    .info-block
+        flex-direction column
+        width 80%
+
+    .info
+        width 100%
+
+    .avatar
+        width 100%
+
+    .description
+        font-size 14px
+        width 95%
+
+    .name
+        font-size 18px
+
+    .all-photos
+        flex-direction column
+
+    .photo-wrapper
+        display flex
+        align-items  center
+        margin-top 3%
+        margin-bottom 3%
+        width 90%
+
+    .photo
+        width 100%
+        object-fit cover
+
+    .excelent
+    .geo
+        width 20%
+
