@@ -4,19 +4,43 @@
     </p>
 </div>
 <div class="quest-info">
-    <div class="name">{{name}}</div>
     <div class="info-block">
         {{#if avatar}}
-            <img class="avatar" alt="Нет фото" src="{{avatar}}">
+            <img class="avatar" alt="Аватар квеста" src="{{avatar}}">
         {{else}}
-            <img  class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
+            <img class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
         {{/if}}
-        <div class="stats">
-            {{>likes}}
-            <br>
-            {{>finished}}
+        <div class="info">
+            <h1 class="name">{{name}}</h1>
+            <p class="description">{{description}}</p>
+            <div class="stats">
+                {{>likes}}
+                {{>finished}}
+                <div class="author-info">
+                    <img class="author-avatar" alt="Аватар" src="{{questAuthor.avatar}}">
+                    <span class="name-avatar">{{questAuthor.username}}</span>
+                </div>
+            </div>
+        <div class="info">
+            <h1 class="name">{{name}}</h1>
+            <p class="description">{{description}}</p>
+            <div class="stats">
+                {{>likes}}
+                {{>finished}}
+                <div class="author-info">
+                    <img class="author-avatar" alt="Аватар" src="{{questAuthor.avatar}}">
+                    <span class="name-avatar">{{questAuthor.username}}</span>
+                </div>
+            </div>
+            {{#equal username questAuthor.username}}
+                <div class="quest-options">
+                    <a href="/quests/{{questId}}/edit" class="edit-option">Редактировать</a>
+                    <form class="delete-form" action="/quests/{{questId}}/delete" method="POST">
+                        <input class="button-option" value="Удалить" type="submit">
+                    </form>
+                </div>
+            {{/equal}}
         </div>
-        <div class="description">{{description}}</div>
     </div>
     <p class="places">Места</p>
     <div id="all-photos" class="all-photos">

@@ -100,8 +100,10 @@ exports.get = (req, res) => {
         Like.findAll({
             where: {questId: req.params.id}
         }),
-        getQuestFinishedCount(req.params.id)
-    ]).then(([quest, comments, images, likes, finishedCount]) => {
+        getQuestFinishedCount(req.params.id),
+        Quest.findById(req.params.id)
+            .then(res => User.findById(res.authorId))
+    ]).then(([quest, comments, images, likes, finishedCount, questAuthor]) => {
         if (!quest) {
             pages.error404(req, res);
 
@@ -118,6 +120,8 @@ exports.get = (req, res) => {
                     avatar: images.length === 0 ? null : images[0].path,
                     imgSrc: images.map(image => image.path),
                     images,
+                    questAuthor,
+                    questId: req.params.id,
                     likesCount: likes.length,
                     finished: finishedCount.length,
                     isLiked: isAuthenticated && likes.filter(l => l.userId === req.user.id).length > 0
@@ -280,26 +284,29 @@ exports.getEdit = (req, res) => {
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
         const questId = req.params.id;
-        const quest = Quest.find(questId);
-        if (req.user.id === quest.authorId) {
-            Quest.destroy({
-                where: {
-                    id: questId
-                }
-            }).then(deletedCount => {
-                if (deletedCount !== 1) {
-                    res.render('../views/error/error.hbs', {
-                        title: 'Ошибка',
-                        errorMessage: 'Ошибка удаления квеста'
-                    });
-                }
-            });
-        } else {
-            res.render('../views/error/error.hbs', {
-                title: 'Недостаточно прав',
-                errorMessage: 'Этот квест был создан другим пользователем'
-            });
-        }
+        Quest.findById(questId).then(quest => {
+            if (req.user.id === quest.authorId) {
+                Quest.destroy({
+                    where: {
+                        id: questId
+                    }
+                }).then(deletedCount => {
+                    if (deletedCount !== 1) {
+                        res.render('../views/error/error.hbs', {
+                            title: 'Ошибка',
+                            errorMessage: 'Ошибка удаления квеста'
+                        });
+                    } else {
+                        res.redirect('/quests');
+                    }
+                });
+            } else {
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Этот квест был создан другим пользователем'
+                });
+            }
+        });
     } else {
         res.render('../views/error/error.hbs', {
             title: 'Не авторизован',
