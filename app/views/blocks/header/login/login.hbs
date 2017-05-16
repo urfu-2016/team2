@@ -1,14 +1,14 @@
 <div class="login">
     {{#if username}}
         {{#if userAvatar}}
-            <img class="login__avatar" alt="Avatar" title="Avatar" src="{{userAvatar}}">
+            <img class="login__avatar" alt="Avatar" title="Avatar" src="{{userAvatar}}" width="70" height="70">
         {{/if}}
         <div class="login-controls">
             <p class="login-controls__greeting">Привет, <a class="login__greeting__username" href="/manage">{{username}}</a>!</p>
             <a class="login-controls__logout" href="/logout">Выйти</a>
         </div>
     {{else}}
-        <img class="login__pic" alt="user picture" title="user picture" src="//awesomequests.surge.sh/profile.png">
+        <img class="login__pic" alt="user picture" title="user picture" src="//awesomequests.surge.sh/profile.png" width="70" height="70">
         <div class="login__register">
             <a href="/login">Войти</a>/<a href="/registration">Регистрация</a>
         </div>
