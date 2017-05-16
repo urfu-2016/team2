@@ -29,7 +29,8 @@ window.addEventListener('load', function () {
         var self = this;
         var xhr = new XMLHttpRequest();
         var questId = document.getElementsByClassName('name')[0].dataset.questId;
-        xhr.open('POST', '/quests/' + questId + '/complete');
+        var route = '/quests/' + questId + '/complete';
+        xhr.open('POST', route);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.onreadystatechange = function () {
@@ -46,9 +47,13 @@ window.addEventListener('load', function () {
         };
         navigator.geolocation.getCurrentPosition(function (position) {
             resolveGeo.style.visibility = 'hidden';
+            var coords = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            };
             xhr.send(JSON.stringify({
                 order: parseInt(self.id),
-                coords: position.coords
+                coords
             }));
         }, function () {
             resolveGeo.style.visibility = 'visible';

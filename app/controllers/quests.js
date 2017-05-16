@@ -256,16 +256,12 @@ exports.checkCoords = (req, res) => {
     if (req.isAuthenticated()) {
         Image.findAll({
             where: {
-                questId: req.param.id,
+                questId: req.params.id,
                 order: req.body.order
             }
         }).then(images => {
             if (images.length !== 1) {
-                res.send(500);
-                res.render('../views/error/error.hbs', {
-                    title: 'Internal Error',
-                    errorMessage: 'Упс, кажется один из разработчиков криворукий'
-                });
+                res.send(500, 'У разработчика кривые руки:(');
                 return;
             }
 
@@ -277,12 +273,7 @@ exports.checkCoords = (req, res) => {
             res.send(400, 'Неправильное местоположение:(');
         });
     } else {
-        res.send(401);
-        res.render('../views/error/error.hbs', {
-            title: 'Не авторизован',
-            errorMessage: 'Только авторизованные пользователи могут проходить квесты',
-            signInFor: 'пройти квест'
-        });
+        res.send(401, 'Сначала авторизуйтесь!');
     }
 };
 
