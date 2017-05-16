@@ -9,7 +9,7 @@ const User = require('../models/user');
  * @param res
  */
 exports.error404 = (req, res) => {
-    res.render(404, '../views/error/error.hbs', {
+    res.status(404).render('../views/error/error.hbs', {
         title: 'Не существует',
         errorMessage: 'Страница не существует'
     });
