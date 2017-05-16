@@ -1,12 +1,25 @@
 .finished
-    display inline-flex
+    display flex
     justify-content space-between
     align-items center
+    align-self flex-start
     font-size 100%
+    width 15%
+
     &__count
         font-size 70%
         margin-left 1%
+
     &__image
-        width 20%
-        height 20%
+        width 40%
+        height 40%
+
+@media screen and (max-width: 768px)
+    finished__count
+        font-size 50%
+        margin-left 1%
+
+    finished__image
+        width 30%
+        height 30%
 

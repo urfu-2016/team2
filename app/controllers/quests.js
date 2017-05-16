@@ -90,18 +90,17 @@ exports.get = (req, res) => {
 
         return;
     }
-
-    const isAuthenticated = req.isAuthenticated();
-
     Promise.all([
         Quest.findById(req.params.id),
         getQuestComments(req.params.id),
         getQuestImages(req.params.id),
-        Like.findAll({
+        Like.count({
             where: {questId: req.params.id}
         }),
-        getQuestFinishedCount(req.params.id)
-    ]).then(([quest, comments, images, likes, finishedCount]) => {
+        getQuestFinishedCount(req.params.id),
+        Quest.findById(req.params.id)
+            .then(res => User.findById(res.authorId))
+    ]).then(([quest, comments, images, likesCount, finishedCount, questAuthor]) => {
         if (!quest) {
             pages.error404(req, res);
 
@@ -118,9 +117,9 @@ exports.get = (req, res) => {
                     avatar: images.length === 0 ? null : images[0].path,
                     imgSrc: images.map(image => image.path),
                     images,
-                    likesCount: likes.length,
-                    finished: finishedCount.length,
-                    isLiked: isAuthenticated && likes.filter(l => l.userId === req.user.id).length > 0
+                    likesCount,
+                    questAuthor,
+                    finished: finishedCount.length
                 },
                 quest.get()
             ));
