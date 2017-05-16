@@ -256,18 +256,20 @@ exports.checkCoords = (req, res) => {
             }
 
             const isAnswerCorrect = checkRadius(images[0].answer, req.body.coords);
+            const imageId = parseInt(req.body.imageId, 10);
+            const questId = parseInt(req.params.id, 10);
             const newResult = {
                 userAnswer: req.body.coords,
                 userId: req.user.id,
-                imageId: req.body.imageId,
-                questId: req.params.id,
+                imageId,
+                questId,
                 isAnswerCorrect
             };
 
             Result.findOrCreate({
                 where: {
                     userId: req.user.id,
-                    imageId: req.body.imageId
+                    imageId
                 },
                 defaults: newResult
             }).spread((result, isCreated) => {
@@ -277,7 +279,10 @@ exports.checkCoords = (req, res) => {
                     result.update({
                         userAnswer: newResult.userAnswer,
                         isAnswerCorrect: newResult.isAnswerCorrect
-                    }).catch(error => {
+                    }, [
+                        'userAnswer',
+                        'isAnswerCorrect'
+                    ]).catch(error => {
                         err = error;
                     });
                 }
