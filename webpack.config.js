@@ -32,7 +32,8 @@ module.exports = {
             './comments/comment/comment.pack',
             './blocks/quest-info/geolocation',
             './blocks/quest-info/popup',
-            './blocks/quest-info/comments'
+            './blocks/quest-info/comments',
+            './comments/comment/deleteComment'
         ],
         main: [
             './pages/main/main.pack',
