@@ -11,6 +11,10 @@ const Result = db.sequelize.define('Result', {
     userAnswer: {
         type: Sequelize.JSON,
         allowNull: false
+    },
+    isAnswerCorrect: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
     }
 });
 
