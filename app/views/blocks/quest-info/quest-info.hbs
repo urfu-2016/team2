@@ -21,6 +21,25 @@
                     <span class="name-avatar">{{questAuthor.username}}</span>
                 </div>
             </div>
+        <div class="info">
+            <h1 class="name">{{name}}</h1>
+            <p class="description">{{description}}</p>
+            <div class="stats">
+                {{>likes}}
+                {{>finished}}
+                <div class="author-info">
+                    <img class="author-avatar" alt="Аватар" src="{{questAuthor.avatar}}">
+                    <span class="name-avatar">{{questAuthor.username}}</span>
+                </div>
+            </div>
+            {{#equal username questAuthor.username}}
+                <div class="quest-options">
+                    <a href="/quests/{{questId}}/edit" class="edit-option">Редактировать</a>
+                    <form class="delete-form" action="/quests/{{questId}}/delete" method="POST">
+                        <input class="button-option" value="Удалить" type="submit">
+                    </form>
+                </div>
+            {{/equal}}
         </div>
     </div>
     <p class="places">Места</p>
@@ -35,12 +54,25 @@
         <img id="pop-up" class="pop-up" src="">
     </div>
     <h3 class="comments-label">Комментарии к квесту</h3>
-    <div class="quest-comments">
+    {{#if username}}
+        <div class="comment-controls">
+            <button id="add-comment" type="button" class="add-comment">Добавить комментарий</button>
+        </div>
+    {{/if}}
+    <div id="quest-comments" class="quest-comments">
         {{#if username}}
-            <div class="add-quest"></div>
+            <form id="comment-form" class="comment-form quest-comment" method="post" action="/quests/{{id}}/comment" data-quest-id="{{id}}">
+                <p class="quest-comment__user"><input class="comment-form__input" name="title" type="text" placeholder="Название" required></p>
+                <p class="quest-comment__text"><textarea class="comment-form__input" name="text" placeholder="Текст" required></textarea></p>
+                <input class="create-comment" id="create-comment" type="button" value="Создать">
+            </form>
         {{/if}}
-        {{#questComments}}
-            {{> comment}}
-        {{/questComments}}
+        {{#if questComments.length}}
+            {{#questComments}}
+                {{> comment}}
+            {{/questComments}}
+        {{else}}
+            <h3 id="not-found" class="comments-label">Не найдено</h3>
+        {{/if}}
     </div>
 </div>

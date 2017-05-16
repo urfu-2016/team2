@@ -121,6 +121,7 @@ exports.get = (req, res) => {
                     imgSrc: images.map(image => image.path),
                     images,
                     questAuthor,
+                    questId: req.params.id,
                     likesCount: likes.length,
                     finished: finishedCount.length,
                     isLiked: isAuthenticated && likes.filter(l => l.userId === req.user.id).length > 0
@@ -283,26 +284,29 @@ exports.getEdit = (req, res) => {
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
         const questId = req.params.id;
-        const quest = Quest.find(questId);
-        if (req.user.id === quest.authorId) {
-            Quest.destroy({
-                where: {
-                    id: questId
-                }
-            }).then(deletedCount => {
-                if (deletedCount !== 1) {
-                    res.render('../views/error/error.hbs', {
-                        title: 'Ошибка',
-                        errorMessage: 'Ошибка удаления квеста'
-                    });
-                }
-            });
-        } else {
-            res.render('../views/error/error.hbs', {
-                title: 'Недостаточно прав',
-                errorMessage: 'Этот квест был создан другим пользователем'
-            });
-        }
+        Quest.findById(questId).then(quest => {
+            if (req.user.id === quest.authorId) {
+                Quest.destroy({
+                    where: {
+                        id: questId
+                    }
+                }).then(deletedCount => {
+                    if (deletedCount !== 1) {
+                        res.render('../views/error/error.hbs', {
+                            title: 'Ошибка',
+                            errorMessage: 'Ошибка удаления квеста'
+                        });
+                    } else {
+                        res.redirect('/quests');
+                    }
+                });
+            } else {
+                res.render('../views/error/error.hbs', {
+                    title: 'Недостаточно прав',
+                    errorMessage: 'Этот квест был создан другим пользователем'
+                });
+            }
+        });
     } else {
         res.render('../views/error/error.hbs', {
             title: 'Не авторизован',

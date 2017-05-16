@@ -10,6 +10,7 @@
     "ymaps": true,
     "XMLHttpRequest": true,
     "navigator": true,
-    "window": true
+    "window": true,
+    "FormData": true
   }
 }

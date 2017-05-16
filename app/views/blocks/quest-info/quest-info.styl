@@ -82,7 +82,7 @@
     width 25%
     cursor pointer
     position absolute
-    bottom 15px
+    bottom 10px
     right 0
 
 .geo-error
@@ -123,6 +123,47 @@
 .comments-label
     text-align center
 
+.comment-form
+    display none
+    position relative
+
+.create-comment
+    position absolute
+    outline none
+    right 30px
+    bottom 30px
+    border-radius 10px
+    width 100px
+
+.quest-comment__user input
+    width 100%
+    paffing 5px
+
+.quest-comment__text textarea
+    width 100%
+    height 100px
+
+.comment-controls
+    width 100%
+    display flex
+    justify-content flex-end
+
+.add-comment
+    margin 10px 20px
+    font 20px OpenSans, sans-serif
+    border-radius 20px
+    padding 10px
+    background-color #1b1932
+    color #fff
+    cursor pointer
+    border 2px solid #fff
+    outline none
+    transition color .3s, background-color .3s, border-color .3s
+
+    &:hover
+        background-color #1a1717
+        color #909090
+        border-color #1b1932
 .info
     width 43%
     margin-left 10px
@@ -146,6 +187,37 @@
     width 30%
     align-items center
     justify-content center
+
+.quest-options
+    display flex
+    margin-top 5%
+    justify-content space-around
+
+.delete-form
+.edit-option
+    padding-bottom 1%
+    padding-top 1%
+    text-align center
+    align-self flex-end
+    cursor pointer
+    color #ffffff
+    padding-left 30px
+    padding-right 30px
+    border-radius 4px
+    background-color #371440
+    font-size 1.4vw
+    border 0 none
+    text-decoration none
+
+.button-option
+    text-align center
+    align-self flex-end
+    cursor pointer
+    color #ffffff
+    border-radius 4px
+    background-color #371440
+    font-size 1.4vw
+    border 0 none
 
 @media screen and (max-width: 768px)
     .info-block
@@ -182,3 +254,7 @@
     .excelent
     .geo
         width 20%
+
+    .edit-option
+    .button-option
+        font-size 14px
