@@ -1,4 +1,10 @@
 'use strict';
+/* eslint no-extend-native: 0 */
+/* eslint no-var: 0 */
+/* eslint padded-blocks: 0 */
+/* eslint prefer-arrow-callback: 0 */
+/* eslint no-extend-native: 0 */
+/* eslint default-case: 0 */
 
 Array.prototype.each = Array.prototype.each || function (func) {
     for (var idx = 0; idx < this.length; idx++) {
@@ -36,7 +42,9 @@ window.addEventListener('load', function () {
             xhr.onreadystatechange = function () {
                 if (this.readyState === 4 && this.status === 200) {
                     commentForm.style.display = 'none';
-                    formInputs.forEach(input => input.value = '');
+                    formInputs.forEach(function (input) {
+                        input.value = '';
+                    });
                     if (notFound) {
                         notFound.style.display = 'none';
                     }
