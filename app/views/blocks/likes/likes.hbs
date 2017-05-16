@@ -4,6 +4,15 @@
         <img id="unlike-image" class="likes__image" src="//awesomequests.surge.sh/unlike.png">
     {{/if}}
     <span id="likes-count" class="likes__count">{{likesCount}}</span>
+
+<-- example block. delete it -->
+            {{#if isLiked}}
+                <span>you liked this!</span>
+            {{else}}
+                <span>you not liked it yet</span>
+            {{/if}}
+<-- end of example block. delete it -->
+
 </div>
 {{#if username}}
     <script type="text/javascript">
