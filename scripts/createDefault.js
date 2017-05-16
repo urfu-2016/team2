@@ -110,7 +110,8 @@ function createResult() {
                 userAnswer: {
                     latitude: 123123.12,
                     longitude: 1212.12
-                }
+                },
+                isAnswerCorrect: false
             }).then(createLike).catch(err => {
                 console.log(err);
             });
