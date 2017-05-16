@@ -297,7 +297,7 @@ exports.delete = (req, res) => {
                             errorMessage: 'Ошибка удаления квеста'
                         });
                     } else {
-                        res.render('../views/quests/quests-list/list.hbs');
+                        res.redirect('/quests');
                     }
                 });
             } else {
