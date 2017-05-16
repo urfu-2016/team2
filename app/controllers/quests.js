@@ -284,7 +284,7 @@ exports.getEdit = (req, res) => {
 exports.delete = (req, res) => {
     if (req.isAuthenticated()) {
         const questId = req.params.id;
-        const quest = Quest.findById(questId).then(quest => {
+        Quest.findById(questId).then(quest => {
             if (req.user.id === quest.authorId) {
                 Quest.destroy({
                     where: {
@@ -297,7 +297,7 @@ exports.delete = (req, res) => {
                             errorMessage: 'Ошибка удаления квеста'
                         });
                     } else {
-                        res.render('../views/quests/');
+                        res.render('../views/quests/quests-list/list.hbs');
                     }
                 });
             } else {
