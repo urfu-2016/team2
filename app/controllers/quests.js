@@ -114,7 +114,8 @@ exports.get = (req, res) => {
                     questComments: comments.map((comment, idx) => Object.assign({
                         author: authors[idx].username,
                         date: formatDate(comment.updatedAt),
-                        viewTools: isAuthenticated && authors[idx].username === req.user.username
+                        viewTools: isAuthenticated && authors[idx].username === req.user.username,
+                        currentQuestId: req.params.id
                     }, comment.get()))
                 },
                 {
