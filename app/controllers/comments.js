@@ -1,6 +1,7 @@
 'use strict';
 
 const Comment = require('../models/comment');
+const formatDate = require('../../scripts/dateFormatter');
 
 /**
  * Страница формы создания комментария
@@ -28,20 +29,27 @@ exports.createPage = (req, res) => {
  */
 exports.create = (req, res) => {
     if (req.isAuthenticated()) {
-        Comment.create({
-            questId: req.params.id,
-            title: req.body.title,
-            text: req.body.text,
-            userId: req.user.id
-        }).then(() => {
-            res.redirect('/quests/' + req.params.id);
-        }).catch(err => {
-            console.error(err);
-            res.render('../views/error/error.hbs', {
-                title: 'Ошибка',
-                errorMessage: 'Ошибка добавления комментария'
+        if (req.body.title.length === 0 || req.body.text.length === 0) {
+            res.send(400, 'Пустые поля недопустимы');
+        } else {
+            Comment.create({
+                questId: req.params.id,
+                title: req.body.title,
+                text: req.body.text,
+                userId: req.user.id
+            }).then(comment => res.status(200).json({
+                title: req.body.title,
+                text: req.body.text,
+                author: req.user.username,
+                date: formatDate(comment.updatedAt)
+            })).catch(err => {
+                console.error(err);
+                res.render('../views/error/error.hbs', {
+                    title: 'Ошибка',
+                    errorMessage: 'Ошибка добавления комментария'
+                });
             });
-        });
+        }
     } else {
         res.render('../views/error/error.hbs', {
             title: 'Не авторизован',
