@@ -28,7 +28,8 @@ window.addEventListener('load', function () {
         var resolveGeo = document.getElementById('resolve-geo');
         var self = this;
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/complete');
+        var questId = document.getElementsByClassName('name')[0].dataset.questId;
+        xhr.open('POST', '/quests/' + questId + '/complete');
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.onreadystatechange = function () {

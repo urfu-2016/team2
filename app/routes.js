@@ -34,6 +34,10 @@ module.exports = function (app) {
         .get(quests.get)
         .delete(quests.delete);
 
+    app
+        .route('/quests/:id(\\d+)/complete')
+        .post(quests.checkCoords);
+
     app.route('/quests/:id(\\d+)/edit')
         .get(quests.getEdit)
         .post(quests.update);
