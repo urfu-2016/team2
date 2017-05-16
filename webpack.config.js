@@ -35,6 +35,7 @@ module.exports = {
             './blocks/quest-info/comments',
             './comments/comment/deleteComment'
         ],
+        updateComment: './comments/update/update.pack',
         main: [
             './pages/main/main.pack',
             './blocks/mainContent/mainContent.pack',

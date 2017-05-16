@@ -68,7 +68,7 @@ exports.updatePage = (req, res) => {
     if (req.isAuthenticated()) {
         Comment.findById(req.params.id).then(comment => {
             if (comment.userId === req.user.id) {
-                res.render('../views/comments/update.hbs', {
+                res.render('../views/comments/update/update.hbs', {
                     questId: req.params.questId,
                     commentId: req.params.id
                 });

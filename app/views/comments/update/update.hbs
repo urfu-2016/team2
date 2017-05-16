@@ -1,0 +1,18 @@
+{{#extend "layout"}}
+    {{#content "head"}}
+        <title>Редактировать комментарий</title>
+        <link rel="stylesheet" href="//awesomequests.surge.sh/updateComment.bundle.css">
+    {{/content}}
+    {{#content "body"}}
+        <h1 class="comment-update-header">Редактирование комментария</h1>
+        <form class="comment-form quest-comment" method="post" action="/quests/{{questId}}/comments/{{commentId}}">
+            <p class="quest-comment__user">
+                <input class="comment-form__input" name="title" type="text" placeholder="Название" required>
+            </p>
+            <p class="quest-comment__text">
+                <textarea class="comment-form__input" name="text" placeholder="Текст" required></textarea>
+            </p>
+            <input class="create-comment" id="create-comment" type="submit" value="Создать">
+        </form>
+    {{/content}}
+{{/extend}}
