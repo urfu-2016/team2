@@ -254,23 +254,32 @@ exports.update = (req, res) => {
  */
 exports.checkCoords = (req, res) => {
     if (req.isAuthenticated()) {
-        Image.findAll({
-            where: {
-                questId: req.params.id,
-                order: req.body.order
-            }
-        }).then(images => {
-            if (images.length !== 1) {
-                res.send(500, 'У разработчика кривые руки:(');
-                return;
-            }
+        Result.create({
+            userAnswer: req.body.coords,
+            userId: req.user.id,
+            imageId: req.body.imageId,
+            questId: req.params.id
+        }).then(() => {
+            Image.findAll({
+                where: {
+                    questId: req.params.id,
+                    order: req.body.order
+                }
+            }).then(images => {
+                if (images.length !== 1) {
+                    res.send(500, 'У разработчика кривые руки:(');
+                    return;
+                }
 
-            if (checkRadius(images[0].answer, req.body.coords)) {
-                res.send(200, 'Правильное местоположение!');
-                return;
-            }
+                if (checkRadius(images[0].answer, req.body.coords)) {
+                    res.send(200, 'Правильное местоположение!');
+                    return;
+                }
 
-            res.send(400, 'Неправильное местоположение:(');
+                res.send(400, 'Неправильное местоположение:(');
+            });
+        }).catch(err => {
+            res.send(500, err);
         });
     } else {
         res.send(401, 'Сначала авторизуйтесь!');
