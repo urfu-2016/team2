@@ -4,7 +4,7 @@
     </p>
 </div>
 <div class="quest-info">
-    <div class="name">{{name}}</div>
+    <div class="name" data-quest-id="{{id}}">{{name}}</div>
     <div class="info-block">
         {{#if avatar}}
             <img class="avatar" alt="Нет фото" src="{{avatar}}">
@@ -22,7 +22,7 @@
     <div id="all-photos" class="all-photos">
         {{#images}}
             <div class="photo-wrapper">
-                <img class="photo" src="{{path}}">
+                <img class="photo" src="{{path}}" data-image-id="{{id}}">
             </div>
         {{/images}}
     </div>
