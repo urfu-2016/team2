@@ -8,8 +8,8 @@ function handleFileSelect(event) {
     reader.readAsDataURL(image);
     reader.addEventListener('load', () => {
         const avatar = document.createElement('img');
-        avatar.style.width = '150px';
-        avatar.style.height = '150px';
+        avatar.width = '150';
+        avatar.height = '150';
         avatar.src = reader.result;
         document.getElementById('avatar').innerHTML = '';
         document.getElementById('avatar').appendChild(avatar);
@@ -24,8 +24,8 @@ function initAvatar(url) {
     document.getElementById('avatar').innerHTML = '';
     const avatarImage = document.createElement('img');
     document.getElementById('dataImage').value = url;
-    avatarImage.style.width = '150px';
-    avatarImage.style.height = '150px';
+    avatarImage.width = '150';
+    avatarImage.height = '150';
     avatarImage.src = url;
     document.getElementById('avatar').appendChild(avatarImage);
 }
