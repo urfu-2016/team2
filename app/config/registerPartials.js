@@ -4,7 +4,7 @@ const fs = require('fs');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
-handlebars.registerHelper('equal', function(leftValue, rightValue, options) {
+handlebars.registerHelper('equal', (leftValue, rightValue, options) => {
     if (arguments.length < 3) {
         throw new Error('Handlebars Helper equal needs 2 parameters');
     }

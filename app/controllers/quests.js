@@ -291,13 +291,13 @@ exports.delete = (req, res) => {
                         id: questId
                     }
                 }).then(deletedCount => {
-                    if (deletedCount !== 1) {
+                    if (deletedCount === 1) {
+                        res.redirect('/quests');
+                    } else {
                         res.render('../views/error/error.hbs', {
                             title: 'Ошибка',
                             errorMessage: 'Ошибка удаления квеста'
                         });
-                    } else {
-                        res.redirect('/quests');
                     }
                 });
             } else {
