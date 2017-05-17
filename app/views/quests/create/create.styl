@@ -154,6 +154,7 @@
     width 60%
     height 400px
 
+
 .dialog
     display flex
     position absolute
@@ -170,6 +171,7 @@
         justify-content space-around
         align-items center
         background-color #454545
+        position relative
 
 #show-photo
     width 100px
@@ -191,7 +193,6 @@
     right 0
     bottom 89%
 
-
 .close-img
     width 40px
     height 40px
@@ -199,7 +200,21 @@
 #warning
     position absolute
     bottom 0
-    color #ff0000
+    font-size 1.6vw
+    color crimson
+    width 100%
+    background #000000
+    opacity .9
+    height 13%
+    text-align center
+
+#close-error
+    max-width 25px
+    width 4%
+    cursor pointer
+    position absolute
+    right 0
+    top 0
 
 .photo-content
     display flex
@@ -209,6 +224,12 @@
     height auto
 
 @media screen and (max-width: 768px)
+    #warning
+        font-size 12px
+
+    #close-error
+        width 15px
+
     .delete-img
         width 30px
 
@@ -246,7 +267,10 @@
         cursor pointer
         position absolute
         right 0
-        bottom 60px
+        bottom 40px
+
+    #warning
+        height 20px
 
     #map
         width 100%
