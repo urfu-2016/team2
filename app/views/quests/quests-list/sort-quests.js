@@ -8,7 +8,7 @@ const collator = new Intl.Collator(['ru', 'en-GB'], {
 let fromEl;
 let questsSet;
 let allQuests;
-const regExpStarted = /(\d+) f/;
+const regExpStarted = /у (\d+)/;
 
 function cmpAlph(quest1, quest2) {
     const nameBlock1 = quest1.getElementsByClassName('name')[0];
