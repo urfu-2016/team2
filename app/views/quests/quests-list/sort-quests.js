@@ -8,7 +8,8 @@ const collator = new Intl.Collator(['ru', 'en-GB'], {
 let fromEl;
 let questsSet;
 let allQuests;
-const regExpStarted = /у (\d+)/;
+const regExpLikes = /лайки (\d+)/;
+const regExpStarted = /участники (\d+)/;
 
 function cmpAlph(quest1, quest2) {
     const nameBlock1 = quest1.getElementsByClassName('name')[0];
@@ -21,8 +22,8 @@ function cmpAlph(quest1, quest2) {
 function cmpLikes(quest1, quest2) {
     const statsBlock1 = quest1.getElementsByClassName('stats')[0];
     const statsBlock2 = quest2.getElementsByClassName('stats')[0];
-    const likes1 = parseInt(statsBlock1.innerHTML, 10);
-    const likes2 = parseInt(statsBlock2.innerHTML, 10);
+    const likes1 = parseInt(statsBlock1.innerHTML.match(regExpLikes)[1], 10);
+    const likes2 = parseInt(statsBlock2.innerHTML.match(regExpLikes)[1], 10);
     return likes1 < likes2;
 }
 
