@@ -5,7 +5,7 @@
 ## Использован следующий набор технологий
 1. Node.js
 2. Express.js
-3. PostgreSQL
+3. PostgreSQL.
 4. Heroku
 5. TravisCI
 6. Webpack
