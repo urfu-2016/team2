@@ -3,6 +3,19 @@
 const db = require('../config/db');
 const pages = require('./pages.js');
 
+exports.checkUserRights = (req, res, next) => {
+    if (req.isAuthenticated()) {
+        if (req.user.id === 1) {
+            next();
+            return;
+        }
+    }
+    res.render('../views/error/error.hbs', {
+        title: 'Доступ запрещён',
+        errorMessage: 'А не хацкер ли ты часом?'
+    });
+};
+
 exports.getList = (req, res) => {
     const databases = Object.keys(db.sequelize.models).map(key => {
         return {name: key};

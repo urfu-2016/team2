@@ -123,6 +123,8 @@ module.exports = function (app) {
         .route('/statistics')
         .get(statistics.getStatistics);
 
+    app.use('/databases*', databases.checkUserRights);
+
     app
         .route('/databases')
         .get(databases.getList);
