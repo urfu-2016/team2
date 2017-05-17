@@ -6,11 +6,13 @@
 <div class="quest-info">
     <div class="name" data-quest-id="{{id}}">{{name}}</div>
     <div class="info-block">
-        {{#if avatar}}
-            <img class="avatar" alt="Аватар квеста" src="{{avatar}}">
-        {{else}}
-            <img class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
-        {{/if}}
+        <div class="wrap-avatar">
+                {{#if avatar}}
+                    <img class="avatar" alt="Аватар квеста" src="{{avatar}}">
+                {{else}}
+                    <img class="avatar" alt="Нет фото" src="//awesomequests-nikitc.surge.sh/noPhoto.png">
+                {{/if}}
+        </div>
         <div class="info">
             <h1 class="name">{{name}}</h1>
             <p class="description">{{description}}</p>
@@ -18,14 +20,14 @@
                 {{>likes}}
                 {{>finished}}
                 <div class="author-info">
-                    <img width="50px" height="50px" alt="Аватар" src="{{questAuthor.avatar}}">
+                    <img width="50px" height="50px" class="avatar-image" alt="Аватар" src="{{questAuthor.avatar}}">
                     <span class="name-avatar">{{questAuthor.username}}</span>
                 </div>
             </div>
             {{#equal username questAuthor.username}}
                 <div class="quest-options">
-                    <a href="/quests/{{questId}}/edit" class="edit-option">Редактировать</a>
-                    <form class="delete-form" action="/quests/{{questId}}/delete" method="POST">
+                    <a href="/quests/{{../questId}}/edit" class="edit-option">Редактировать</a>
+                    <form class="delete-form" action="/quests/{{../questId}}/delete" method="POST">
                         <input class="button-option" value="Удалить" type="submit">
                     </form>
                 </div>
