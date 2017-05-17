@@ -1,12 +1,15 @@
 <div class="likes">
     {{#if username}}
         {{#if isLiked}}
-            <img id="unlike-image" class="likes__image" src="//awesomequests.surge.sh/unlike.png">
+            <img width="30px" height="30px" id="unlike-image" class="likes__image"
+                 src="//awesomequests.surge.sh/unlike.png">
         {{else}}
-            <img id="like-image" class="likes__image" src="//awesomequests-nikitc.surge.sh/like.png">
+            <img width="30px" height="30px" id="like-image" class="likes__image"
+                 src="//awesomequests-nikitc.surge.sh/like.png">
         {{/if}}
     {{else}}
-        <img id="like-image" class="likes__image" src="//awesomequests-nikitc.surge.sh/like.png">
+        <img width="30px" height="30px" id="like-image" class="likes__image"
+             src="//awesomequests-nikitc.surge.sh/like.png">
     {{/if}}
     <span id="likes-count" class="likes__count">{{likesCount}}</span>
 </div>
