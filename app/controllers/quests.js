@@ -265,46 +265,35 @@ exports.checkCoords = (req, res) => {
                 return;
             }
 
-            const isAnswerCorrect = checkRadius(images[0].answer, req.body.coords);
-            const imageId = parseInt(req.body.imageId, 10);
-            const questId = parseInt(req.params.id, 10);
+            const image = images[0];
+            const isAnswerCorrect = checkRadius(image.answer, req.body.coords);
             const newResult = {
                 userAnswer: req.body.coords,
-                userId: req.user.id,
-                imageId,
-                questId,
-                isAnswerCorrect
+                questId: parseInt(req.params.id, 10),
+                isAnswerCorrect,
+                imageId: parseInt(req.body.imageId, 10),
+                userId: req.user.id
             };
 
-            Result.findOrCreate({
-                where: {
-                    userId: req.user.id,
-                    imageId
-                },
-                defaults: newResult
-            }).spread((result, isCreated) => {
-                let err = null;
-                const isAnswerWasIncorrect = !result.get('isAnswerCorrect');
-                if (!isCreated && isAnswerWasIncorrect) {
-                    result.update({
-                        userAnswer: newResult.userAnswer,
-                        isAnswerCorrect: newResult.isAnswerCorrect
-                    }, [
-                        'userAnswer',
-                        'isAnswerCorrect'
-                    ]).catch(error => {
-                        err = error;
+            Result.findOrCreate({where: {
+                userId: newResult.userId,
+                imageId: newResult.imageId
+            },
+            defaults: newResult}).spread((result, isCreated) => {
+                if (!isCreated && result.isAnswerCorrect) {
+                    result.update(newResult).catch(err => {
+                        console.error(err);
                     });
                 }
-
-                if (err) {
-                    res.send(500, err);
-                } else if (isAnswerCorrect) {
-                    res.send(200, 'Правильное местоположение!');
-                } else {
-                    res.send(400, 'Неправильное местоположение:(');
-                }
+            }).catch(err => {
+                console.error(err);
             });
+
+            if (isAnswerCorrect) {
+                res.send(200, 'Правильное местоположение!');
+            } else {
+                res.send(400, 'Неправильное местоположение:(');
+            }
         });
     } else {
         res.send(401, 'Сначала авторизуйтесь!');
