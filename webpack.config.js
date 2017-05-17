@@ -74,6 +74,7 @@ module.exports = {
         ],
         signIn: './account/signIn/signIn.pack.js',
         sortJS: './blocks/sort/sort',
+        sortByJS: './quests/quests-list/sort-quests',
         statistics: './statistics/statistics.pack',
         update: './quests/update/update.pack'
     },
