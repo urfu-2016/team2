@@ -1,4 +1,12 @@
-<div class="quest-comment">
+<div id="comment-{{id}}" class="quest-comment">
     <p class="quest-comment__user"><strong>&laquo;{{title}}&raquo;</strong> - {{author}}, {{date}}</p>
     <p class="quest-comment__text">{{text}}</p>
+    {{#if viewTools}}
+        <div class="view-tools">
+            <a href="/quests/{{currentQuestId}}/comments/{{id}}" class="quest-comment__update">
+                <img width="50px" alt="Edit comment" title="" src="//awesomequests.surge.sh/pencil.png">
+            </a>
+            <img alt="Delete comment" width="50px" title="Delete comment" id="{{id}}-delete-comment" class="quest-comment__delete" data-quest-id="{{currentQuestId}}" src="//awesomequests.surge.sh/trash.png">
+        </div>
+    {{/if}}
 </div>
