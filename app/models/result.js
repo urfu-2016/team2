@@ -8,21 +8,27 @@ const Image = require('./image');
 const Quest = require('./quest');
 
 const Result = db.sequelize.define('Result', {
+    id: {
+        type: Sequelize.INTEGER.UNSIGNED,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true
+    },
     userAnswer: {
         type: Sequelize.JSON,
+        allowNull: false
+    },
+    isAnswerCorrect: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
     }
 });
 
-User.belongsToMany(Image, {
-    through: Result,
-    foreignKey: 'imageId'
-});
+User.hasMany(Result, {foreignKey: 'userId', unique: 'user_image'});
+Result.belongsTo(User, {foreignKey: 'userId', unique: 'user_image'});
 
-Image.belongsToMany(User, {
-    through: Result,
-    foreignKey: 'userId'
-});
+Image.hasMany(Result, {foreignKey: 'imageId', unique: 'user_image'});
+Result.belongsTo(Image, {foreignKey: 'imageId', unique: 'user_image'});
 
 Quest.hasMany(Result, {foreignKey: 'questId'});
 Result.belongsTo(Quest, {foreignKey: 'questId'});

@@ -28,7 +28,10 @@ window.addEventListener('load', function () {
         var resolveGeo = document.getElementById('resolve-geo');
         var self = this;
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/complete');
+        var questId = document.getElementsByClassName('name')[0].dataset.questId;
+        var imageId = document.getElementsByClassName('photo')[parseInt(self.id) - 1].dataset.imageId;
+        var route = '/quests/' + questId + '/complete';
+        xhr.open('POST', route);
         xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
         xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
         xhr.onreadystatechange = function () {
@@ -45,9 +48,14 @@ window.addEventListener('load', function () {
         };
         navigator.geolocation.getCurrentPosition(function (position) {
             resolveGeo.style.visibility = 'hidden';
+            var coords = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+            };
             xhr.send(JSON.stringify({
                 order: parseInt(self.id),
-                coords: position.coords
+                coords,
+                imageId
             }));
         }, function () {
             resolveGeo.style.visibility = 'visible';
