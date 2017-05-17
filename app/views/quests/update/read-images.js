@@ -73,6 +73,9 @@ function openLoadEditDialog(image) {
  * Открываем диалог загрузки фото
  */
 function openLoadDialog() {
+    document.getElementById('close-error').onclick = (() => {
+        document.getElementById('warning').className = 'block-hidden';
+    });
     initDialog();
     document.getElementById('save-photo').onclick = savePhoto;
 }

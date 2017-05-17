@@ -63,6 +63,9 @@ function drop(event) {
 function openLoadDialog() {
     const dialog = document.getElementById('photo-dialog');
     const shadow = document.getElementById('shadow');
+    document.getElementById('close-error').onclick = (() => {
+        document.getElementById('warning').className = 'block-hidden';
+    });
     dialog.className = 'dialog';
     shadow.className = 'block-hidden';
 }
