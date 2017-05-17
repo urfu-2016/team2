@@ -102,14 +102,26 @@ exports.get = (req, res) => {
         }),
         getQuestFinishedCount(req.params.id),
         Quest.findById(req.params.id)
-            .then(res => User.findById(res.authorId))
+            .then(res => User.findById(res.authorId)),
+        Quest.
     ]).then(([quest, comments, images, likes, finishedCount, questAuthor]) => {
         if (!quest) {
             pages.error404(req, res);
 
             return;
         }
-        Promise.all(comments.map(comment => User.findById(comment.userId))).then(authors => {
+        Promise.all(
+            comments.map(comment => User.findById(comment.userId)),
+            Result.findAll({
+                where: {userId: isAuthenticated ? req.user.id : 0}
+            })
+            ).then(([authors, results]) => {
+            for (result of results) {
+                const image = images.filter(img => img.id === result.imageId);
+                if (image.length === 1)
+                    
+            }
+
             res.render('../views/quest/get-quest.hbs', Object.assign({
                     questComments: comments.map((comment, idx) => Object.assign({
                         author: authors[idx].username,
