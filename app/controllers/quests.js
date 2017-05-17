@@ -110,46 +110,47 @@ exports.get = (req, res) => {
             return;
         }
         Promise.all(
-            comments.map(comment => User.findById(comment.userId)),
+            comments.map(comment => User.findById(comment.userId))
+        ).then(authors => {
             Result.findAll({
                 where: {userId: isAuthenticated ? req.user.id : 0}
-            })
-            ).then(([authors, results]) => {
-            let counter = 0;
+            }).then(results => {
+                let counter = 0;
 
-            for (const image of images) {
-                const result = results.filter(result => {
-                    return result.imageId === image.id;
-                });
-                if (result.length === 1 && checkRadius(image.answer, result[0].userAnswer)) {
-                    image.completed = true;
-                    counter += 1;
+                for (const image of images) {
+                    const result = results.filter(result => {
+                        return result.imageId === image.id;
+                    });
+                    if (result.length === 1 && checkRadius(image.answer, result[0].userAnswer)) {
+                        image.completed = true;
+                        counter += 1;
+                    }
                 }
-            }
 
-            const totalCompleted = counter === images.length;
+                const totalCompleted = counter === images.length;
 
-            res.render('../views/quest/get-quest.hbs', Object.assign({
-                    questComments: comments.map((comment, idx) => Object.assign({
-                        author: authors[idx].username,
-                        date: formatDate(comment.updatedAt),
-                        viewTools: isAuthenticated && authors[idx].username === req.user.username,
-                        currentQuestId: req.params.id
-                    }, comment.get()))
-                },
-                {
-                    avatar: images.length === 0 ? null : images[0].path,
-                    imgSrc: images.map(image => image.path),
-                    images,
-                    questAuthor,
-                    questId: req.params.id,
-                    likesCount: likes.length,
-                    finished: finishedCount.length,
-                    isLiked: isAuthenticated && likes.filter(l => l.userId === req.user.id).length > 0,
-                    totalCompleted
-                },
-                quest.get()
-            ));
+                res.render('../views/quest/get-quest.hbs', Object.assign({
+                        questComments: comments.map((comment, idx) => Object.assign({
+                            author: authors[idx].username,
+                            date: formatDate(comment.updatedAt),
+                            viewTools: isAuthenticated && authors[idx].username === req.user.username,
+                            currentQuestId: req.params.id
+                        }, comment.get()))
+                    },
+                    {
+                        avatar: images.length === 0 ? null : images[0].path,
+                        imgSrc: images.map(image => image.path),
+                        images,
+                        questAuthor,
+                        questId: req.params.id,
+                        likesCount: likes.length,
+                        finished: finishedCount.length,
+                        isLiked: isAuthenticated && likes.filter(l => l.userId === req.user.id).length > 0,
+                        totalCompleted
+                    },
+                    quest.get()
+                ));
+            });
         });
     });
 };
