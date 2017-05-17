@@ -1,18 +1,17 @@
 <div class="likes">
-    <img id="like-image" class="likes__image" src="//awesomequests-nikitc.surge.sh/like.png">
-    {{#if registered}}
-        <img id="unlike-image" class="likes__image" src="//awesomequests.surge.sh/unlike.png">
+    {{#if username}}
+        {{#if isLiked}}
+            <img width="30px" height="30px" id="unlike-image" class="likes__image"
+                 src="//awesomequests.surge.sh/unlike.png">
+        {{else}}
+            <img width="30px" height="30px" id="like-image" class="likes__image"
+                 src="//awesomequests-nikitc.surge.sh/like.png">
+        {{/if}}
+    {{else}}
+        <img width="30px" height="30px" id="like-image" class="likes__image"
+             src="//awesomequests-nikitc.surge.sh/like.png">
     {{/if}}
     <span id="likes-count" class="likes__count">{{likesCount}}</span>
-
-<-- example block. delete it -->
-            {{#if isLiked}}
-                <span>you liked this!</span>
-            {{else}}
-                <span>you not liked it yet</span>
-            {{/if}}
-<-- end of example block. delete it -->
-
 </div>
 {{#if username}}
     <script type="text/javascript">
@@ -20,27 +19,31 @@
         var likeImage = document.getElementById('like-image');
         var unlikeImage = document.getElementById('unlike-image');
 
-        likeImage.addEventListener('click', function () {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/quests/{{id}}/like');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    likesCount.innerText = parseInt(likesCount.innerText) + 1;
-                }
-            };
-            xhr.send();
-        });
+        if (likeImage) {
+            likeImage.addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/quests/{{id}}/like');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        likesCount.innerText = parseInt(likesCount.innerText) + 1;
+                    }
+                };
+                xhr.send();
+            });
+        }
 
-        unlikeImage.addEventListener('click', function () {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', '/quests/{{id}}/unlike');
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    likesCount.innerText = parseInt(likesCount.innerText) - 1;
-                }
-            };
-            xhr.send();
-        });
+        if (unlikeImage) {
+            unlikeImage.addEventListener('click', function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '/quests/{{id}}/unlike');
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        likesCount.innerText = parseInt(likesCount.innerText) - 1;
+                    }
+                };
+                xhr.send();
+            });
+        }
     </script>
 {{else}}
     <style>

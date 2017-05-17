@@ -64,7 +64,7 @@ module.exports = function (app) {
 
     app
         .route('/quests/:id(\\d+)/delete')
-        .get(quests.delete);
+        .post(quests.delete);
 
     app
         .route('/quests/:questId(\\d+)/images/:id(\\d+)')

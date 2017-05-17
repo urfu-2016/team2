@@ -4,6 +4,16 @@ const fs = require('fs');
 const layouts = require('handlebars-layouts');
 const handlebars = require('hbs').handlebars;
 
+handlebars.registerHelper('equal', (leftValue, rightValue, options) => {
+    if (arguments.length < 3) {
+        throw new Error('Handlebars Helper equal needs 2 parameters');
+    }
+    if (leftValue !== rightValue) {
+        return options.inverse(this);
+    }
+
+    return options.fn(this);
+});
 handlebars.registerHelper(layouts(handlebars));
 handlebars.registerPartial('advantages', fs.readFileSync('app/views/blocks/advantages/advantages.hbs', 'utf-8'));
 handlebars.registerPartial('comment', fs.readFileSync('app/views/comments/comment/comment.hbs', 'utf-8'));

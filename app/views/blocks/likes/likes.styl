@@ -1,11 +1,19 @@
 .likes
-    display inline-flex
+    display flex
     justify-content space-between
+    align-self flex-start
     align-items center
     font-size 100%
+    width 15%
+
     &__count
         font-size 70%
+        margin-left 2%
+
     &__image
-        width 20%
-        height 20%
         cursor pointer
+
+@media screen and (max-width: 768px)
+    likes__count
+        font-size 50%
+        margin-left 1%
