@@ -12,18 +12,18 @@
 
 .info-block
     display flex
-    width 90%
+    justify-content center
+    max-width 90%
     margin 2% auto
-    box-shadow 0 10px 20px rgba(0,0,0,.19), 0 6px 6px rgba(0,0,0,.23);
-    background-color #252525
 
 .wrap-avatar
-    width 55%
+    max-width 55%
     height 100%
     display flex
     justify-content center
     border-left 1px solid #cccccc
     border-right 1px solid #cccccc
+    box-shadow 0 10px 20px rgba(0,0,0,.19), 0 6px 6px rgba(0,0,0,.23);
 
 .avatar
     align-self flex-start
@@ -181,10 +181,12 @@
         border-color #1b1932
 .info
     width 43%
-    margin-left 10px
-    margin-right 10px
-    margin-bottom 20px
+    padding-left 10px
+    padding-right 10px
+    padding-bottom 20px
+    background-color #252525
     display block
+    box-shadow 0 10px 20px rgba(0,0,0,.19), 0 6px 6px rgba(0,0,0,.23);
 
 .name-avatar
     display flex
@@ -234,18 +236,24 @@
     .info-block
         display block
         width 80%
+        background-color #252525
+
 
     .info
         width 100%
+        padding 0
 
     .stats
         padding-bottom 5%
 
     .wrap-avatar
-        width 100%
+        max-width 100%
         border 0
+        margin auto
+        box-shadow none
 
     .avatar
+        width 100%
         object-fit cover
         max-height 200px
 
