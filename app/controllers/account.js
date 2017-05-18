@@ -111,7 +111,7 @@ exports.management = (req, res) => {
                         authorId: req.user.id
                     }
                 })
-            ]).then(([myQuests, startQuests]) => {
+            ]).then(([startQuests, myQuests]) => {
                 res.render('../views/account/management/management.hbs', {
                     username: req.user.username,
                     email: req.user.email,
