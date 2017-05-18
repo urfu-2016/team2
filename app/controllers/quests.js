@@ -303,7 +303,7 @@ exports.checkCoords = (req, res) => {
                 imageId: newResult.imageId
             },
             defaults: newResult}).spread((result, isCreated) => {
-                if (!isCreated && result.isAnswerCorrect) {
+                if (!isCreated && !result.isAnswerCorrect) {
                     result.update(newResult).catch(err => {
                         console.error(err);
                     });
