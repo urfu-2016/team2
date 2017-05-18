@@ -5,6 +5,7 @@
 /* eslint prefer-arrow-callback: 0 */
 /* eslint no-extend-native: 0 */
 /* eslint default-case: 0 */
+/* eslint block-scoped-var: 0 */
 
 Array.prototype.each = Array.prototype.each || function (func) {
     for (var idx = 0; idx < this.length; idx++) {
