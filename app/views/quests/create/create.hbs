@@ -9,7 +9,7 @@
         <section class="container">
             <div id="shadow" class="block-hidden"></div>
             <h1 class="header-name">Создать новый квест</h1>
-            <form class="form-create" action="/quests/createQuest" method="POST">
+            <form class="form-create" action="/quests/createQuest" method="POST" onsubmit="return document.getElementById('photo').childElementCount !== 0;">
                 <article id="info-block" class="main-blocks">
                     <div class="main-info">
                         <h3 class="input-name">Название:</h3>
