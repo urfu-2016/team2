@@ -92,33 +92,33 @@ exports.registration = (req, res) => { // eslint-disable-line no-unused-vars
  */
 exports.management = (req, res) => {
     if (req.isAuthenticated()) {
-        Promise.all([
-            Quest.findAll({
-                where: {
-                    authorId: req.user.id
-                }
-            }),
-            Result.findAll({
-                where: {
-                    userId: req.user.id
-                }
-            }).then(res => {
-                const questIds = res.map(result => result.questId);
+        Result.findAll({
+            where: {
+                userId: req.user.id
+            }
+        }).then(result => {
+            const questIds = result.map(result => result.questId);
+            Promise.all([
                 Quest.findAll({
                     where: {
                         id: {
                             $in: questIds
                         }
                     }
+                }),
+                Quest.findAll({
+                    where: {
+                        authorId: req.user.id
+                    }
+                })
+            ]).then(([myQuests, startQuests]) => {
+                res.render('../views/account/management/management.hbs', {
+                    username: req.user.username,
+                    email: req.user.email,
+                    avatar: req.user.avatar,
+                    myQuests,
+                    startQuests
                 });
-            })
-        ]).then(([myQuests, startQuests]) => {
-            res.render('../views/account/management/management.hbs', {
-                username: req.user.username,
-                email: req.user.email,
-                avatar: req.user.avatar,
-                myQuests,
-                startQuests
             });
         });
     } else {
