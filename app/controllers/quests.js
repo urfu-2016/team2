@@ -104,6 +104,7 @@ exports.get = (req, res) => {
         Quest.findById(req.params.id)
             .then(res => User.findById(res.authorId))
     ]).then(([quest, comments, images, likes, finishedCount, questAuthor]) => {
+        console.log(quest);
         if (!quest) {
             pages.error404(req, res);
 
@@ -154,6 +155,9 @@ exports.get = (req, res) => {
                 ));
             });
         });
+    }).catch(err => {
+        console.log(err);
+        pages.error404(req, res);
     });
 };
 
