@@ -36,17 +36,16 @@
     </div>
 
     {{#if totalCompleted}}
-        <span>u totally owned this quest, gz</span>
+        <div class="completed-wrapper">
+            <div class="completed">Квест пройден!</div>
+        </div>
     {{/if}}
 
     <p class="places">Места</p>
     <div id="all-photos" class="all-photos">
         {{#images}}
-            <div class="photo-wrapper">
+            <div class="photo-wrapper" data-completed="{{completed}}">
                 <img class="photo" src="{{path}}" data-image-id="{{id}}">
-                {{#if completed}}
-                    <span> image done </span>
-                {{/if}}
             </div>
         {{/images}}
     </div>

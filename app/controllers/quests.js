@@ -124,6 +124,8 @@ exports.get = (req, res) => {
                     if (result.length === 1 && checkRadius(image.answer, result[0].userAnswer)) {
                         image.completed = true;
                         counter += 1;
+                    } else {
+                        image.completed = false;
                     }
                 }
 
