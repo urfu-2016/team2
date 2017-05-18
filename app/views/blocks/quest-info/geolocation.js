@@ -20,7 +20,10 @@ window.addEventListener('load', function () {
         excelent.title = 'Competed';
         excelent.className = 'excelent';
         excelent.src = '//awesomequests.surge.sh/green-tick.png';
-        excelent.style.visibiliy = 'hidden';// TODO: задать visibility visible для пройденных квестов
+        excelent.style.visibiliy = 'hidden';
+        if (imageWrapper.dataset.completed === 'true') {
+            excelent.style.visibiliy = 'visible';
+        }
         imageWrapper.appendChild(excelent);
     });
 
