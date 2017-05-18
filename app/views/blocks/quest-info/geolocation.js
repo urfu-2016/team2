@@ -21,10 +21,10 @@ window.addEventListener('load', function () {
         excelent.className = 'excelent';
         excelent.src = '//awesomequests.surge.sh/green-tick.png';
         excelent.style.visibiliy = 'hidden';
-        if (imageWrapper.dataset.completed === 'true') {
-            excelent.style.visibiliy = 'visible';
-        }
         imageWrapper.appendChild(excelent);
+        if (imageWrapper.dataset.completed === 'true') {
+            document.getElementById(excelent.id).style.visibility = 'visible';
+        }
     });
 
     function sendGeolocation() {
